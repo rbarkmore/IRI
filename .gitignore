@@ -1,0 +1,4 @@
+# With CMake, one usually makes a build directory,
+# but don't save it into the git repository
+# if you use a different build directory name, add it here.
+build
