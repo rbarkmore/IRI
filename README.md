@@ -10,6 +10,8 @@ The intention of this repository is:
 
 - Keep the software as written in Fortran 77, making as few changes as possible.
 
+- Use CMake to generate projects for compiling the software
+
 - Compile the software using the Mingw version of gfortran in Windows 10
 
 - Include all four versions of the software
