@@ -1,27 +1,27 @@
 c irisub.for, version number can be found at the end of this comment.
-c-----------------------------------------------------------------------        
-C 
-C Includes subroutines IRI_SUB and IRI_WEB to compute IRI parameters 
-C for specified location, date, time, and altitude range and subroutine 
-C IRI_WEB to computes IRI parameters for specified location, date, time 
-C and variable range; variable can be altitude, latitude, longitude, 
-C year, month, day of month, day of year, or hour (UT or LT). 
-C IRI_WEB requires IRI_SUB. Both subroutines require linking with the 
-c following library files IRIFUN.FOR, IRITEC.FOR, IRIDREG.FOR, 
+c-----------------------------------------------------------------------
+C
+C Includes subroutines IRI_SUB and IRI_WEB to compute IRI parameters
+C for specified location, date, time, and altitude range and subroutine
+C IRI_WEB to computes IRI parameters for specified location, date, time
+C and variable range; variable can be altitude, latitude, longitude,
+C year, month, day of month, day of year, or hour (UT or LT).
+C IRI_WEB requires IRI_SUB. Both subroutines require linking with the
+c following library files IRIFUN.FOR, IRITEC.FOR, IRIDREG.FOR,
 c CIRA.FOR, IGRF.FOR
-c 
+c
 c !!!!! Subroutine INITIALIZE has to be called once before calling
 c !!!!! iri_sub. This is already included in subroutine IRI_WEB which
-c !!!!! calls iri_sub. 
+c !!!!! calls iri_sub.
 C
 c i/o units:  6   messages (during execution) to monitor
 c            10   CCIR and URSI coefficients
 c            11   alternate unit for message file (if jf(12)=.false.)
-c            12   solar/ionospheric indices: ig_rz.dat       
+c            12   solar/ionospheric indices: ig_rz.dat
 c            13   magnetic indices: ap.dat
 c            14   igrf coefficients
 c
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 c
 C CHANGES FROM  IRIS11.FOR  TO   IRIS12.FOR:
 C    - CIRA-1986 INSTEAD OF CIRA-1972 FOR NEUTRAL TEMPERATURE
@@ -66,7 +66,7 @@ C    -  5/29/99 the limit for IG comp. from Rz12-input is 174 not 274
 C    - 11/08/99 jf(18)=t simple UT to LT conversion, otherwise UT_LT
 C    - 11/09/99 added COMMON/const1/humr,dumr also for CIRA86
 C CHANGES FROM  IRIS13.FOR  TO   IRISUB.FOR:
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C-Version-MM/DD/YY-Description (person reporting correction)
 C 2000.01 05/09/00 B0_98 replaces B0_TAB and B1: 1.9/day to 2.6/night
 C 2000.02 06/11/00 including new F1 and indermediate region
@@ -75,7 +75,7 @@ C 2000.04 10/29/00 include special option for D region models
 C 2000.05 12/07/00 change name IRIS13 to IRISUB
 C 2000.06 12/14/00 jf(30),outf(20,100),oarr(50)
 C 2000.07 03/17/01 include Truhlik-Triskova Te model and IGRF
-C 2000.08 05/07/01 include Fuller-Rowell-Condrescu storm model 
+C 2000.08 05/07/01 include Fuller-Rowell-Condrescu storm model
 C 2000.09 07/09/01 LATI instead of LAT1 in F00 call (M. Torkar)
 C 2000.10 07/09/01 sdte instead of dte in ELTEIK call (P. Wilkinson)
 C 2000.11 09/18/01 correct computation of foF2 for Rz12 user input
@@ -106,7 +106,7 @@ C         JMAG          =0 geographic   = 1 geomagnetic coordinates
 C         ALATI,ALONG   LATITUDE NORTH AND LONGITUDE EAST IN DEGREES
 C         IYYYY         Year as YYYY, e.g. 1985
 C         MMDD (-DDD)   DATE (OR DAY OF YEAR AS A NEGATIVE NUMBER)
-C         DHOUR         LOCAL TIME (OR UNIVERSAL TIME + 25) IN DECIMAL 
+C         DHOUR         LOCAL TIME (OR UNIVERSAL TIME + 25) IN DECIMAL
 C                          HOURS
 C         HEIBEG,       HEIGHT RANGE IN KM; maximal 100 heights, i.e.
 C          HEIEND,HEISTP        int((heiend-heibeg)/heistp)+1.le.100
@@ -121,7 +121,7 @@ C    3    Ni computed            Ni not computed                     t
 C    4    B0 - Table option      B0 - Gulyaeva (1987)                t
 C    5    foF2 - CCIR            foF2 - URSI                     false
 C    6    Ni - Standard          Ni - Danilov-95                 false
-C    7    Ne - Tops: f10.7<188   f10.7 unlimited                     t            
+C    7    Ne - Tops: f10.7<188   f10.7 unlimited                     t
 C    8    foF2 from model        foF2 or NmF2 - user input           t
 C    9    hmF2 from model        hmF2 or M3000F2 - user input        t
 C   10    Te - Standard          Te - Using Te/Ne correlation        t
@@ -146,7 +146,7 @@ C   27    IG12 from file         IG12 - user input
 C   28-30 unused
 C   ------------------------------------------------------------------
 C
-C  Depending on the jf() settings additional INPUT parameters may 
+C  Depending on the jf() settings additional INPUT parameters may
 c  be required:
 C
 C       Setting              INPUT parameter
@@ -154,11 +154,11 @@ C    -----------------------------------------------------------------
 C    jf(8)  =.false.     OARR(1)=user input for foF2/MHz or NmF2/m-3
 C    jf(9)  =.false.     OARR(2)=user input for hmF2/km or M(3000)F2
 C    jf(10 )=.false.     OARR(15),OARR(16)=user input for Ne(300km),
-C       Ne(400km)/m-3. Use OARR()=-1 if one of these values is not 
+C       Ne(400km)/m-3. Use OARR()=-1 if one of these values is not
 C       available. If jf(23)=.false. then Ne(300km), Ne(550km)/m-3.
-C    jf(13) =.false.     OARR(3)=user input for foF1/MHz or NmF1/m-3 
+C    jf(13) =.false.     OARR(3)=user input for foF1/MHz or NmF1/m-3
 C    jf(14) =.false.     OARR(4)=user input for hmF1/km
-C    jf(15) =.false.     OARR(5)=user input for foE/MHz or NmE/m-3 
+C    jf(15) =.false.     OARR(5)=user input for foE/MHz or NmE/m-3
 C    jf(16) =.false.     OARR(6)=user input for hmE/km
 C    jf(17) =.flase.     OARR(33)=user input for Rz12
 C    jf(21) =.false.     OARR(41)=user input for daily F10.7 index
@@ -166,7 +166,7 @@ C    jf(23) =.false.     OARR(41)=user input for daily F10.7 index
 C    jf(24) =.false.     OARR(41)=user input for daily F10.7 index
 C          optional for jf(21:24); default is F10.7D=COV
 C    jf(25) =.false.     OARR(41)=user input for daily F10.7 index
-C          if oarr(41).le.0 then 12-month running mean is 
+C          if oarr(41).le.0 then 12-month running mean is
 C          taken from internal file]
 C    jf(27) =.flase.     OARR(39)=user input for IG12
 C
@@ -176,7 +176,7 @@ C               OUTF(1,*)  ELECTRON DENSITY/M-3
 C               OUTF(2,*)  NEUTRAL TEMPERATURE/K
 C               OUTF(3,*)  ION TEMPERATURE/K
 C               OUTF(4,*)  ELECTRON TEMPERATURE/K
-C               OUTF(5,*)  O+ ION DENSITY/% or /M-3 if jf(22)=f 
+C               OUTF(5,*)  O+ ION DENSITY/% or /M-3 if jf(22)=f
 C               OUTF(6,*)  H+ ION DENSITY/% or /M-3 if jf(22)=f
 C               OUTF(7,*)  HE+ ION DENSITY/% or /M-3 if jf(22)=f
 C               OUTF(8,*)  O2+ ION DENSITY/% or /M-3 if jf(22)=f
@@ -184,14 +184,14 @@ C               OUTF(9,*)  NO+ ION DENSITY/% or /M-3 if jf(22)=f
 C                 AND, IF JF(6)=.FALSE.:
 C               OUTF(10,*)  CLUSTER IONS DEN/% or /M-3 if jf(22)=f
 C               OUTF(11,*)  N+ ION DENSITY/% or /M-3 if jf(22)=f
-C               OUTF(12,*)  
+C               OUTF(12,*)
 C               OUTF(13,*)  D/E-region densities (Friedrich)
 C               OUTF(14,*)  1:7 Danilov for 60,65..90km; 8:14 for a
-C                  major Stratospheric Warming (SW=1) event; 15:21 
+C                  major Stratospheric Warming (SW=1) event; 15:21
 C                  for strong Winter Anomaly (WA=1) conditions
 C               OUTF(15-20,*)  free
 c
-C            OARR(1:50)   ADDITIONAL OUTPUT PARAMETERS         
+C            OARR(1:50)   ADDITIONAL OUTPUT PARAMETERS
 C
 C      #OARR(1) = NMF2/M-3           #OARR(2) = HMF2/KM
 C      #OARR(3) = NMF1/M-3           #OARR(4) = HMF1/KM
@@ -217,11 +217,11 @@ C      #OARR(41) = F10.7 daily        oarr(42) = c1 (F1 shape)
 C       OARR(43) = daynr
 C       OARR(44) = equatorial vertical ion drift in m/s
 C       OARR(45) = foF2_storm/foF2_quiet
-C       OARR(46) = F1 probability without L condition 
+C       OARR(46) = F1 probability without L condition
 C       OARR(47) = F1 probability with L condition incl.
 C                # INPUT as well as OUTPUT parameter
 C                $ special for IRIWeb (only place-holders)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C*****************************************************************
 C*** THE ALTITUDE LIMITS ARE:  LOWER (DAY/NIGHT)  UPPER        ***
 C***     ELECTRON DENSITY         60/80 KM       1000 KM       ***
@@ -239,7 +239,7 @@ C*****************************************************************
 C*****************************************************************
 C*****************************************************************
       INTEGER    DAYNR,DDO,DO2,SEASON,SEADAY
-      REAL       LATI,LONGI,MO2,MO,MODIP,NMF2,MAGBR,INVDIP,   
+      REAL       LATI,LONGI,MO2,MO,MODIP,NMF2,MAGBR,INVDIP,
      &               NMF1,NME,NMD,MM,MLAT,MLONG,NOBO2
       CHARACTER  FILNAM*12
 c-web-for webversion
@@ -260,13 +260,13 @@ c      CHARACTER FILNAM*53
      &  igin,igino
 
       COMMON /CONST/UMR  /const1/humr,dumr   /ARGEXP/ARGMAX
-     &   /BLOCK1/HMF2,NMF2,HMF1,F1REG  /BLOCK2/B0,B1,C1  
-     &   /BLOCK3/HZ,T,HST              /BLOCK4/HME,NME,HEF 
+     &   /BLOCK1/HMF2,NMF2,HMF1,F1REG  /BLOCK2/B0,B1,C1
+     &   /BLOCK3/HZ,T,HST              /BLOCK4/HME,NME,HEF
      &   /BLOCK5/NIGHT,E               /BLOCK6/HMD,NMD,HDX
      &   /BLOCK7/D1,XKK,FP30,FP3U,FP1,FP2
-     &   /BLOCK8/HS,TNHS,XSM,MM,DTI,MXSM         
+     &   /BLOCK8/HS,TNHS,XSM,MM,DTI,MXSM
      &   /BLOTN/XSM1,TEXOS,TLBDH,SIGMA /BLOTE/AHH,ATE1,STTE,DTE
-     &   /BLO10/BETA,ETA,DELTA,ZETA       
+     &   /BLO10/BETA,ETA,DELTA,ZETA
      &   /iounit/konsol,monito
 
       EXTERNAL          XE1,XE2,XE3_1,XE4_1,XE5,XE6,TEDER
@@ -365,7 +365,7 @@ c
       else
           oarr(33)=-1.
       ENDIF
-      
+
       IGIN=(.not.jf(27))
       IF(IGIN) THEN
           AIGIN=OARR(39)
@@ -446,8 +446,8 @@ C
         IF(TENEOP) THEN
            DO 8154 JXNAR=1,2
               XNAR(JXNAR)=OARR(JXNAR+14)
-              TECON(JXNAR)=.FALSE. 
-8154          IF(XNAR(JXNAR).GT.0.) TECON(JXNAR)=.TRUE. 
+              TECON(JXNAR)=.FALSE.
+8154          IF(XNAR(JXNAR).GT.0.) TECON(JXNAR)=.TRUE.
         else
            oarr(15)=-1.
            oarr(16)=-1.
@@ -481,14 +481,14 @@ c
         if(HMEIN) write(*,*) 'Ne, hmE: provided by user.'
       if(F1_OCPRO) write(*,*) 'Ne, foF1: probability function used.'
       if(F1_L_COND) write(*,*) 'Ne, foF1: L condition cases included.'
-      if(DREG) then 
+      if(DREG) then
             write(*,*) 'Ne, D: Mechtley/Bilitza'
       else
             write(*,*) 'Ne, D: 3 models (M&B,F&T,Da)'
       endif
       if(jf(26)) then
-            if(fof2in) then 
-                       write(*,*) 
+            if(fof2in) then
+                       write(*,*)
      &'Ne, foF2: Storm model turned off if foF2 or NmF2 user input'
                   jf(26)=.false.
             else
@@ -496,12 +496,12 @@ c
             endif
       endif
 2889    continue
-        if((.not.NOION).and.(DY)) 
+        if((.not.NOION).and.(DY))
      &    write(*,*) 'Ion Com.: Using Danilov et al. 1985/95.'
         if(NOTEM) goto 8201
       if(TENEOP)
      &    write(*,*) 'Te: Temperature-density correlation is used.'
-      if(jf(23)) then 
+      if(jf(23)) then
             write(*,*) 'Te: Aeros/ISIS model'
       else
             write(*,*) 'Te: Interkosmos model'
@@ -515,7 +515,7 @@ C   DIP LATITUDE (MAGBR) AND MODIFIED DIP (MODIP). ALL IN DEGREE......
 C
 
         if(along.lt.0.) along = along + 360.
-        
+
         IF(JMAG.GT.0) THEN
            MLAT=ALATI
            MLONG=ALONG
@@ -624,7 +624,7 @@ C
             call tcon(iyear,month,iday,daynr,rzar,arig,ttt,nmonth)
             if(nmonth.lt.0) goto 3330
         if(RZIN) then
-                  rrr = arzin                                 
+                  rrr = arzin
                   rzar(1) = rrr
                   rzar(2) = rrr
                   rzar(3) = rrr
@@ -673,7 +673,7 @@ C
 C CALCULATION OF ELECTRON DENSITY PARAMETERS................
 C lower height boundary (HNEA), upper boundary (HNEE)
 C
-      
+
 1334  continue
       HNEA=65.
       IF(NIGHT) HNEA=80.
@@ -701,7 +701,7 @@ c
 c
 c F2 peak critical frequency foF2, density NmF2, and height hmF2
 c
-C READ CCIR AND URSI COEFFICIENT SET FOR CHOSEN MONTH 
+C READ CCIR AND URSI COEFFICIENT SET FOR CHOSEN MONTH
 C
       IF((FOF2IN).AND.(HMF2IN)) GOTO 501
       IF(URSIF2.NEQV.URSIFO) GOTO 7797
@@ -760,8 +760,8 @@ c-binary-          READ(IUCCIR) F2
         endif
 
 C
-C READ CCIR AND URSI COEFFICIENT SET FOR NMONTH, i.e. previous 
-c month if day is less than 15 and following month otherwise 
+C READ CCIR AND URSI COEFFICIENT SET FOR NMONTH, i.e. previous
+c month if day is less than 15 and following month otherwise
 C
 
 4293    continue
@@ -800,7 +800,7 @@ c-binary-          READ(IUCCIR) F2N
           endif
 
         GOTO 4291
-        
+
 8448    WRITE(MONITO,8449) FILNAM
 8449    FORMAT(1X////,
      &    ' The file ',A30,'is not in your directory.')
@@ -864,7 +864,7 @@ c
 
       stormcorr=-1.
       if(jf(26)) then
-            if(.not.sam_date.or..not.sam_ut)  
+            if(.not.sam_date.or..not.sam_ut)
      &          call apf(iyear,month,iday,ut,indap)
             if(indap(1).gt.-2) then
                 icoord=1
@@ -896,15 +896,15 @@ c previously: IF(OLD79) ETA1=-0.0070305*COS2
         EX1=EX+1
         EPIN=4.*EX/(EX1*EX1)
         ETA1=-0.02*EPIN
-        ETA = 0.058798 + ETA1 - 
-     &     FLU * (0.014065  - 0.0069724 * COS2) + 
+        ETA = 0.058798 + ETA1 -
+     &     FLU * (0.014065  - 0.0069724 * COS2) +
      &     FOF2* (0.0024287 + 0.0042810 * COS2  - 0.0001528 * FOF2)
-     &     
+     &
 
 c        fluu=flu
 corr    if(fluu.gt.flumax) fluu=flumax
 
-        ZETA = 0.078922 - 0.0046702 * COS2 -  
+        ZETA = 0.078922 - 0.0046702 * COS2 -
      &    FLU * (0.019132  - 0.0076545 * COS2) +
      &    FOF2* (0.0032513 + 0.0060290 * COS2  - 0.00020872 * FOF2)
 
@@ -942,9 +942,9 @@ c F1 layer thickness parameter c1
         c1 = f1_c1(modip,hour,suxnon,saxnon)
 c F1 occurrence probability with Scotto et al. 1997
         call f1_prob(xhi,mlat,rssn,f1pbw,f1pbl)
-c F1 occurrence probability Ducharme et al.        
-        f1pbo = 0.0 
-        if(fof1in.or.((.not.night).and.(fof1.gt.0.0))) f1pbo=1. 
+c F1 occurrence probability Ducharme et al.
+        f1pbo = 0.0
+        if(fof1in.or.((.not.night).and.(fof1.gt.0.0))) f1pbo=1.
 
         if(f1_ocpro) then
             f1pb = f1pbw
@@ -956,7 +956,7 @@ c F1 occurrence probability Ducharme et al.
             f1reg=.false.
             if(f1pb.gt.0.0) f1reg=.true.
         endif
-            
+
         NMF1=1.24E10*FOF1*FOF1
 
 c
@@ -1006,8 +1006,8 @@ c
        X=HME-HDX
        XKK=-DXDX*X/(XDX*ALOG(XDX/NME))
 c
-c if exponent xkk is larger than xkkmax, then xkk will be set to 
-c xkkmax and d1 will be determined such that the point hdx/xdx is 
+c if exponent xkk is larger than xkkmax, then xkk will be set to
+c xkkmax and d1 will be determined such that the point hdx/xdx is
 c reached; derivative is no longer continuous.
 c
         xkkmax=5.
@@ -1058,7 +1058,7 @@ c omit F1 feature if nmf1*0.9 is smaller than nme
             hef=hef-1
             if(hef.le.hme) goto 9427
             goto 9245
-            endif      
+            endif
         CALL REGFA1(HEF,HMF2,XE2H,NMF2,0.001,NMF1,XE2,SCHALT,HMF1)
         IF(.not.SCHALT) GOTO 3801
 
@@ -1066,7 +1066,7 @@ c
 c omit F1 feature ....................................................
 c
 
-9427    if(konsol.gt.1) WRITE(KONSOL,11) 
+9427    if(konsol.gt.1) WRITE(KONSOL,11)
 11      FORMAT(1X,'*NE* HMF1 IS NOT EVALUATED BY THE FUNCTION XE2'/
      &        1X,'CORR.: NO F1 REGION, B1=3, C1=0.0')
         HMF1=0.
@@ -1107,7 +1107,7 @@ C
         hf2=hef
         xf2=xe3_1(hf2)
         if(xf2.gt.nme) goto 3885
-            
+
         CALL REGFA1(hf1,HF2,XF1,XF2,0.001,NME,XE3_1,SCHALT,HST)
         if(schalt) goto 3885
 
@@ -1188,7 +1188,7 @@ c Te(120km) = Tn(120km)
             AHH(1)=120.
             ATE(1)=TN120
 
-C Te-MAXIMUM based on JICAMARCA and ARECIBO data 
+C Te-MAXIMUM based on JICAMARCA and ARECIBO data
 
       HMAXD=60.*EXP(-(MLAT/22.41)**2)+210.
       HMAXN=150.
@@ -1197,7 +1197,7 @@ C Te-MAXIMUM based on JICAMARCA and ARECIBO data
       TMAXN=TN(HMAXN,TEXNI,TLBDN,SIGNI)+20
       ATE(2)=HPOL(HOUR,TMAXD,TMAXN,SAX,SUX,1.,1.)
 
-c Te(300km), Te(400km) from AE-C, Te(1400km), Te(3000km) from 
+c Te(300km), Te(400km) from AE-C, Te(1400km), Te(3000km) from
 c ISIS, Brace and Theis
 
               DIPLAT=MAGBR
@@ -1297,7 +1297,7 @@ c Ti(430km) duirng nighttime from AEROS data
 
 c Ti(430km) for specified time using HPOL
 
-      TI1=TIN1  
+      TI1=TIN1
       IF(TID1.GT.TIN1) TI1=HPOL(HOUR,TID1,TIN1,SAX,SUX,1.,1.)
 
 c Tn < Ti < Te enforced
@@ -1333,7 +1333,7 @@ c XTETI is altitude where Te=Ti
         IF(XTTS.GT.0.1) GOTO 2390
         XTETI=X+XTTS*5.
 
-c Ti=Te above XTETI 
+c Ti=Te above XTETI
 
         MXSM=3
         MM(3)=STTE(6)
@@ -1429,7 +1429,7 @@ c
       ELSE
         YMAXX=Y
       ENDIF
-      GOTO 7102 
+      GOTO 7102
 7104  H0O=X-DELX/2.
 7101  if(y.lt.100.0) goto 7103
       rdomax=rdomax-0.01
@@ -1443,7 +1443,7 @@ c calculate parameters for O2+ profile
 c
 
       hfixo2 = pf3o(1)
-      rdo2mx = pf3o(2) 
+      rdo2mx = pf3o(2)
       DO 7105 L=1,2
           I = L * 2
           HO2(L)=PF3O(1+I)+PF3O(2+I)*ZZZ1
@@ -1547,7 +1547,7 @@ c
 c ion densities are given in percent of total electron density;
 c
 
-      if(jf(22)) then 
+      if(jf(22)) then
             xnorm=1
       else
             xnorm=elede/100.
@@ -1575,16 +1575,16 @@ c
         if(kk.le.numhei) goto 300
 
 c
-c D region special: Danilov et al. model in outf(14,*): 
-c outf(14,1:7)=Ne(h,SW=0,WA=0) h=60,65,70,75,80,85,90 km; 
+c D region special: Danilov et al. model in outf(14,*):
+c outf(14,1:7)=Ne(h,SW=0,WA=0) h=60,65,70,75,80,85,90 km;
 C outf(14,8:14)=Ne(h,SW=1,WA=0); outf(14,15:21)=Ne(h,SW=0,WA=1)
 c
 
       if(.not.dreg) then
-            do ii=1,7  
-                  outf(14,ii)=ddens(1,ii)      
-                  outf(14,7+ii)=ddens(2,ii)      
-                  outf(14,14+ii)=ddens(3,ii)      
+            do ii=1,7
+                  outf(14,ii)=ddens(1,ii)
+                  outf(14,7+ii)=ddens(2,ii)
+                  outf(14,14+ii)=ddens(3,ii)
                   enddo
             endif
 
@@ -1657,11 +1657,11 @@ c
 c
         subroutine iri_web(jmag,jf,alati,along,iyyyy,mmdd,iut,dhour,
      &          height,h_tec_max,ivar,vbeg,vend,vstp,a,b)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 c changes:
 c       11/16/99 jf(30) instead of jf(17)
 c
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 c input:   jmag,alati,along,iyyyy,mmdd,dhour  see IRI_SUB
 c          height  height in km
 c          h_tec_max  =0 no TEC otherwise upper boundary for integral
@@ -1676,7 +1676,7 @@ c output:  a       similar to outf in IRI_SUB
 c          b       similar to oarr in IRI_SUB
 c
 c          numstp  number of steps; maximal 100
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
         dimension   outf(20,100),oar(50),oarr(50),a(20,100),b(50,100)
         dimension   xvar(8)
         logical     jf(30)
@@ -1685,15 +1685,15 @@ c-----------------------------------------------------------------------
         if(numstp.gt.100) numstp=100
 
         do 6249 i=1,50
-6249          oar(i)=b(i,1) 
+6249          oar(i)=b(i,1)
 
         if(ivar.eq.1) then
             do 1249 i=1,50
-1249            oarr(i)=oar(i) 
+1249            oarr(i)=oar(i)
             xhour=dhour+iut*25.
             call IRI_SUB(JF,JMAG,ALATI,ALONG,IYYYY,MMDD,XHOUR,
      &                  VBEG,VEND,VSTP,a,OARR)
-            if(h_tec_max.gt.50.) then 
+            if(h_tec_max.gt.50.) then
                 call iri_tec (50.,h_tec_max,2,tec,tect,tecb)
                 oarr(37)=tec
                 oarr(38)=tect
@@ -1726,7 +1726,7 @@ c-----------------------------------------------------------------------
 
         do 1 i=1,numstp
                 do 1349 iii=1,50
-1349                    oarr(iii)=b(iii,i) 
+1349                    oarr(iii)=b(iii,i)
                 call IRI_SUB(JF,JMAG,ALATI,ALONG,IYYYY,MMDD,DHOUR,
      &                  height,height,1.,OUTF,OARR)
                 if(h_tec_max.gt.50.) then

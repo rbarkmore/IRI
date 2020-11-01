@@ -71,7 +71,7 @@ c
      &                        't,t,t,t,t,t,t,t,t,t'
         print *,'Enter 0 to use standard or 1 to enter your own'
         read(5,*) jchoice
-          do i=1,30 
+          do i=1,30
                 jf(i)=.true.
                 enddo
         if(jchoice.eq.0) then
@@ -82,7 +82,7 @@ c
         else
           print *,'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
           read(5,*) jf(1),jf(2),jf(3)
-        if(jf(1)) then 
+        if(jf(1)) then
               print *,'LAY version: t=standard ver., f=LAY version. {t}'
               read(5,*) jf(11)
               print *,'Ne Topside: t=F10.7<188, f=unlimited {t}'
@@ -127,7 +127,7 @@ c
               read(5,*) jf(23)
           endif
         if(jf(3)) then
-              print *,'Ion comp. model: t=standard, f=Danilov-95 {f}' 
+              print *,'Ion comp. model: t=standard, f=Danilov-95 {f}'
               read(5,*) jf(6)
               print *,'Ni: t=ion composition in %, f=ion densities',
      &             'in cm-3 {t}'
@@ -149,7 +149,7 @@ c
             read(5,*) jf(12)
        endif
 
-c option to enter three additional parameters 
+c option to enter three additional parameters
 c
       if(hx.lt.0) then
         print *,'Three additional output parameters (number:1-45)'
@@ -164,14 +164,14 @@ c
              endif
         if(pad3.eq.0) pad3=45     ! fof2_storm/foF2_quiet
       endif
-       
+
 c option to enter measured values for NmF2, hmF2, NmF1, hmF1, NmE, hmE,
-c N(300), N(400), N(600) if available; 
+c N(300), N(400), N(600) if available;
 c
           print *,' '
           print *,' '
           print *,' '
-          numstp=int((vend-vbeg)/vstp)+1            
+          numstp=int((vend-vbeg)/vstp)+1
               if(ivar.eq.1) numstp=1
         if(jf(1)) then
          if(.not.jf(8).or..not.jf(9).or..not.jf(13).or..not.jf(14).or.
@@ -227,14 +227,14 @@ c option to enter Ne for Te-Ne relationship
 c
         if(jf(2).and..not.jf(10)) then
           var=vbeg
-          do 1235 i=1,numstp 
+          do 1235 i=1,numstp
                         print *,'Ne(300km),Ne(400km)/m-3',
      &                     ' for ',itext(ivar),'=',var,' [-1 if not]'
                         read(5,*) oar(15,i),oar(16,i)
 1235            var=var+vstp
           endif
 
-c option to enter F107D 
+c option to enter F107D
 c
             if(.not.jf(25)) then
                         print *,'F107D'
@@ -296,7 +296,7 @@ c
         mmdd=imd
 
 c calling IRI subroutine
-c 
+c
 
         call iri_web(jmag,jf,xlat,xlon,iy,mmdd,iut,hour,
      &          hxx,htec_max,ivar,vbeg,vend,vstp,outf,oar)
@@ -320,7 +320,7 @@ c
                      write(7,402) (oar(j,i),i=1,numi)
                      endif
                   enddo
-                endif 
+                endif
 
         if(jf(2)) write(7,3292) topt
         if(jf(3)) write(7,329) iopt
@@ -355,12 +355,12 @@ c
 
 3914    format(/'TEC [1.E16 m-2] is obtained by numerical integration',
      &     ' in 1km steps'/'  from 50 to ',f6.1,' km.  t is the',
-     &     ' percentage of TEC above the F peak.') 
-3915    format(/'vdrft: equatorial vertical F-region drift.') 
+     &     ' percentage of TEC above the F peak.')
+3915    format(/'vdrft: equatorial vertical F-region drift.')
 4915    format(/'F1_pb: F1-layer occurrence probability')
 4916    format(/'foF2r: foF2_storm/foF2_quiet')
 3916    format(/'M3000F2: Propagation factor related to hmF2'/
-     &     'B0: bottomside thickness parameter.') 
+     &     'B0: bottomside thickness parameter.')
 301     format(A4,' maps are used for the F2 peak density (NmF2)')
 302     format(A9,' provided by user:')
 402     format(7(1PE10.3))
@@ -543,7 +543,7 @@ c
 
 1234    xcor=xcor+vstp
 
-        print *,'Enter 0 to exit or 1 to generate another profile?' 
+        print *,'Enter 0 to exit or 1 to generate another profile?'
         read(5,*) icontinue
         if (icontinue.gt.0) goto 1
 
