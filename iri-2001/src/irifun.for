@@ -80,14 +80,14 @@ C********** INTERNATIONAL REFERENCE IONOSPHERE ****************
 C**************************************************************  
 C****************  FUNCTIONS,SUBROUTINES  *********************
 C**************************************************************
-C** initialize:	INITIALIZE 
+C** initialize:   INITIALIZE 
 C** NE:         XE1,ZERO,DXE1N,XE2,XE3_1,XE4_1,XE5,XE6,XE_1
 C** TE/TI:      ELTEIK,SPHARM_IK,TEBA,SPHARM,ELTE,TEDE,TI,TEDER,
-C**		          TN,DTNDH
+C**                   TN,DTNDH
 C** NI:         RPID,RDHHE,RDNO,KOEFP1,KOEFP2,KOEFP3,SUFE
 C**               IONCO2, APROK,IONCOM_NEW,IONCO1
 C** PEAKS:      FOUT,XMOUT,HMF2ED,FOF1ED,f1_c1,f1_prob,FOEEDI,XMDED,
-C**		          GAMMA1
+C**                   GAMMA1
 C** PROFILE PAR:B0_98,TAL,VALGUL
 C** MAG. FIELD: GGM,FIELDG,CONVER(Geom. Corrected Latitude)
 C** FUNCTIONS:  REGFA1
@@ -95,7 +95,7 @@ C** TIME:       SOCO,HPOL,MODA,UT_LT
 C** EPSTEIN:    RLAY,D1LAY,D2LAY,EPTR,EPST,EPSTEP,EPLA
 C** LAY:        XE2TO5,XEN,VALGUL,ROGUL,LNGLSN,LSKNM,INILAY
 C** INDICES:    TCON,APF
-C** Storm:   	LSTID,storm
+C** Storm:        LSTID,storm
 C** ion drift:  vdrift
 C**************************************************************  
 C  
@@ -138,7 +138,7 @@ c----------------------------------------------------------------
         COMMON  /BLOCK1/HMF2,XNMF2,HMF1,F1REG
      &          /BLO10/BETA,ETA,DELTA,ZETA
      &          /ARGEXP/ARGMAX
-        logical 	f1reg              
+        logical   f1reg              
       
         DXDH = (1000.-HMF2)/700.
         x0 = 300. - delta
@@ -186,7 +186,7 @@ C
 C LOGARITHMIC DERIVATIVE OF FUNCTION XE1 (KM-1).   
         COMMON    /BLOCK1/HMF2,XNMF2,HMF1,F1REG
      &            /BLO10/BETA,ETA,DELTA,ZETA                    
-	    logical f1reg
+          logical f1reg
 
         x0 = 300. - delta
         X=(H-HMF2)/(1000.0-HMF2)*700.0 + x0
@@ -201,7 +201,7 @@ C
 C ELECTRON DENSITY FOR THE BOTTOMSIDE F-REGION (HMF1...HMF2).                   
         COMMON    /BLOCK1/HMF2,XNMF2,HMF1,F1REG
      &          /BLOCK2/B0,B1,C1        /ARGEXP/ARGMAX
-	    logical	f1reg
+          logical f1reg
 
         X=(HMF2-H)/B0
         if(x.le.0.0) x=0.0
@@ -216,11 +216,11 @@ C
 C ELECTRON DENSITY FOR THE F1-LAYER (HZ.....HMF1)
 C USING THE NEW DEFINED F1-LAYER FUNCTION (Reinisch and Huang, Advances 
 C in Space Research, Volume 25, Number 1, 81-88, 2000)
-        COMMON	/BLOCK1/	HMF2,XNMF2,HMF1,F1REG
-     &		/BLOCK2/	B0,B1,D1F1
-	    logical	f1reg
+        COMMON    /BLOCK1/    HMF2,XNMF2,HMF1,F1REG
+     &            /BLOCK2/    B0,B1,D1F1
+          logical f1reg
 C
-	    h1bar=h
+          h1bar=h
         if (f1reg) H1BAR=HMF1*(1.0-((HMF1-H)/HMF1)**(1.0+D1F1))
         XE3_1=XE2(H1BAR)
         RETURN
@@ -230,13 +230,13 @@ C
         REAL FUNCTION XE4_1(H)
 C ELECTRON DENSITY FOR THE INTERMEDIATE REGION (HEF...HZ)
 C USING THE NEW DEFINED FUNCTION
-        COMMON	/BLOCK3/	HZ,T,HST
-     &		/BLOCK4/	HME,XNME,HEF
+        COMMON    /BLOCK3/    HZ,T,HST
+     &            /BLOCK4/    HME,XNME,HEF
 C
-	    if(hst.lt.0.0) then
-		xe4_1=xnme+t*(h-hef)
-		return
-		endif
+          if(hst.lt.0.0) then
+            xe4_1=xnme+t*(h-hef)
+            return
+            endif
         IF(HST.EQ.HEF) THEN
            H1BAR=H
         ELSE
@@ -285,12 +285,12 @@ C SUMMARIZING PROCEDURES  NE1....6;
         COMMON    /BLOCK1/HMF2,XNMF2,XHMF1,F1REG         
      &          /BLOCK3/HZ,T,HST
      &        /BLOCK4/HME,XNME,HEF
-	    logical 	f1reg
-	    if(f1reg) then
-		   hmf1=xhmf1
-	    else
-		   hmf1=hmf2
-	    endif
+          logical       f1reg
+          if(f1reg) then
+               hmf1=xhmf1
+          else
+               hmf1=hmf2
+          endif
         IF(H.LT.HMF2) GOTO 100                       
         XE_1=XE1(H)     
         RETURN          
@@ -334,7 +334,7 @@ C (21.3. = 79; 21.6. = 171; 23.9. 265; 21.12. = 354) Te is
 C linearly interpolated.
 C Inputs: CRD - 0 .. INVDIP
 C               1 .. FL, DIMO, B0, DIPL (used for calculation INVDIP 
-C						inside)
+C                                   inside)
 C         F107Y - 0 .. F107 correction NOT included
 C                 1 .. F107 correction included
 C         SEASY - 0 .. seasonal correction NOT included
@@ -362,7 +362,7 @@ C Versions: 1.00 (IDL) the first version Te=Te(invl,mlt,alt,season)
 C           1.50 (IDL) corrected IK19 Te at 900km for possible 
 C                      Ne > 2E11 m-3
 C           2.00 (IDL) F107 included as a linear perturbation on global 
-C			Te pattern
+C                 Te pattern
 C                      Te=Te(invlat,mlt,alt,season,F107)
 C           3.00 (IDL) invdipl introduced
 C           2000 (IDL,FORTRAN) correction for seasons included
@@ -649,7 +649,7 @@ C     550km equinox
      &        -8.0197E-02,-1.5931E-08,-1.6002E-02,-2.9124E-02,
      &         4.8067E-09, 9.0446E-03, 1.2273E-08,-3.0496E-02,
      &         7.8786E-03/
-	DATA (FB(1,1,J),J=1,49)/
+      DATA (FB(1,1,J),J=1,49)/
      &        -4.1934E+02, 7.5753E-05, 3.0092E+02, 1.1961E-04,
      &         1.6897E+02, 8.2549E-05, 8.4754E+01,-7.4083E-02,
      &        -1.8769E-06,-8.7576E+01, 1.3779E-05, 7.9487E+00,
@@ -678,7 +678,7 @@ C     550km June solstice
      &         7.9895E-02, 1.2443E-01, 2.5079E-03,-3.8743E-02,
      &        -2.1658E-02, 6.8794E-02, 3.6839E-02,-4.1913E-02,
      &        -3.5795E-03/
-	DATA (FB(1,2,J),J=1,49)/
+      DATA (FB(1,2,J),J=1,49)/
      &        -6.2695E+02,-1.7178E+01, 1.1405E+02, 1.7127E+02,
      &         1.3752E+02, 1.3641E+02,-7.0975E+01, 1.4633E+01,
      &         5.2949E+01,-2.8160E+01,-3.0614E+01,-2.7290E+01,
@@ -823,7 +823,7 @@ C     2500km equinox
      &         4.4499E-02, 1.0183E-09, 1.6406E-02, 6.9291E-04,
      &         6.8229E-09,-2.7379E-02, 5.8450E-09,-1.4324E-02,
      &        -1.4532E-02/
-	DATA (FB(4,1,J),J=1,49)/
+      DATA (FB(4,1,J),J=1,49)/
      &        -4.2157E+02,-1.2843E-05, 1.1677E+02,-1.9182E-05,
      &         6.6617E+00,-2.7718E-05,-1.0527E+02,-1.7184E+01,
      &        -3.4177E-07,-7.2191E+01,-1.1358E-07,-1.8024E+01,
@@ -852,7 +852,7 @@ C     2500km June solstice
      &         2.0433E-01, 9.0147E-03, 1.4602E-02, 5.6125E-02,
      &        -5.2173E-03, 2.8963E-02,-1.2959E-02, 3.1247E-02,
      &        -3.5943E-02/
-	DATA (FB(4,2,J),J=1,49)/
+      DATA (FB(4,2,J),J=1,49)/
      &        -1.9899E+02, 8.3014E+01,-1.2364E+02,-4.9417E+01,
      &        -1.7956E+02, 1.8431E+02, 3.0699E+02, 2.7139E+01,
      &         2.1287E+02, 2.3659E+01, 4.2878E+01, 8.0452E+01,
@@ -1043,7 +1043,7 @@ C      invariant latitude (absolute value)
        ALFA=SIN(ABS(RDIPL))**3
        BETA=COS(RINVL)**3
        INVDP=(ALFA*SIGN(1.0,DIPL)*INVL+BETA*DIPL)/(ALFA+BETA)
-      ELSE IF	(CRD .EQ. 0) THEN
+      ELSE IF     (CRD .EQ. 0) THEN
        INVDP=INVDIP
       ELSE
        RETURN
@@ -1204,7 +1204,7 @@ C     2500km level
        END
 c
 c
-	SUBROUTINE SPHARM_IK(C,L,M,COLAT,AZ)
+      SUBROUTINE SPHARM_IK(C,L,M,COLAT,AZ)
 C CALCULATES THE COEFFICIENTS OF THE SPHERICAL HARMONIC
 C FROM IRI 95 MODEL
 C NOTE: COEFFICIENTS CORRESPONDING TO COS, SIN SWAPPED!!!
@@ -2301,8 +2301,8 @@ c       HOWEVER WITH MAGNETIC DIP LATITUDE INSTEAD OF GEOMAGNETIC
 c       DIPOLE LATITUDE, EYFRIG, 1979                    
 C--------------------------------------------- D. BILITZA, 1988.   
         COMMON/CONST/UMR
-	    fof1ed=0.0
-	    if (chi.gt.90.0) return
+          fof1ed=0.0
+          if (chi.gt.90.0) return
 
         DLA =  YLATI
         F0 = 4.35 + DLA * ( 0.0058 - 1.2E-4 * DLA ) 
@@ -2319,27 +2319,27 @@ C--------------------------------------------- D. BILITZA, 1988.
         END             
 C
 C
-	real function f1_c1(xmodip,hour,suxnon,saxnon)
+      real function f1_c1(xmodip,hour,suxnon,saxnon)
 c F1 layer shape parameter C1 after Reinisch and Huang, Advances in
 c Space Research, Volume 25, Number 1, 81-88, 2000.
 
-        common	/const/umr
+        common    /const/umr
         pi = umr * 180.
-	
+      
         ABSMDP=ABS(XMODIP)
-      	DELA=4.32
-      	IF(ABSMDP.GE.18.) DELA=1.0+EXP(-(ABSMDP-30.0)/10.0)
+            DELA=4.32
+            IF(ABSMDP.GE.18.) DELA=1.0+EXP(-(ABSMDP-30.0)/10.0)
 
-      	C1OLD = 0.09 + 0.11/DELA
+            C1OLD = 0.09 + 0.11/DELA
         if(suxnon.eq.saxnon) then
             c1 = 2.5 * c1old
         else
             c1 = 2.5*c1old*cos((HOUR-12.)/(suxnon-saxnon)*pi)
         endif
-      	if(c1.lt.0.0) c1=0.0
-	    f1_c1=c1
-	    return
-	    end
+            if(c1.lt.0.0) c1=0.0
+          f1_c1=c1
+          return
+          end
 c
 c
         subroutine f1_prob (sza,glat,rz12,f1prob,f1probl)
@@ -2351,19 +2351,19 @@ c Output: F1 occurrence probability without L-condition cases (f1prob)
 c and with L-condition cases (f1probl)
         common /const/umr
 
-	    xarg = 0.5 + 0.5 * cos(sza*umr)
-		a = 2.98 + 0.0854 * rz12
-		b = 0.0107 - 0.0022 * rz12
-		c = -0.000256 + 0.0000147 * rz12
-		gamma = a + ( b + c * glat) * glat
-	    f1pr = xarg ** gamma
+          xarg = 0.5 + 0.5 * cos(sza*umr)
+            a = 2.98 + 0.0854 * rz12
+            b = 0.0107 - 0.0022 * rz12
+            c = -0.000256 + 0.0000147 * rz12
+            gamma = a + ( b + c * glat) * glat
+          f1pr = xarg ** gamma
         if(f1pr.lt.1.e-3) f1pr=0.0
         f1prob=f1pr
-	    f1prl = xarg ** 2.36
+          f1prl = xarg ** 2.36
         if(f1prl.lt.1.e-3) f1prl=0.0
         f1probl=f1prl
-	    return
-	    end
+          return
+          end
 C
 C
         REAL FUNCTION FOEEDI(COV,XHI,XHIM,XLATI)
@@ -4006,11 +4006,11 @@ C-------------------------------------------------------------------
      *  -27.09561,-22.76383,-25.41151, -0.10272, -0.02058, -0.16720/
 
         do i=1,594 
-        	coeff(i)=coeff1(i)
-        	enddo
+            coeff(i)=coeff1(i)
+            enddo
         do i=1,30 
-        	coeff(i+594)=coeff2(i)
-        	enddo
+            coeff(i+594)=coeff2(i)
+            enddo
 
         call g(param,funct,xl)
 
@@ -4052,7 +4052,7 @@ c       *************************************************
      *          54.25,55.25,58.00,62.00,65.25,
      *          66.00,66.75,67.75,69.00,72.00/
 
-		order=4       
+            order=4       
         x=x1
         if(i.ge.0) then
           if (x.lt.t_t(i-0)) then
@@ -4063,7 +4063,7 @@ c       *************************************************
            if(x.ge.t_t(j).and.x.lt.t_t(j+1)) then
                b(j,1)=1
            else
-	           b(j,1)=0
+                 b(j,1)=0
            end if
         end do
 
@@ -4230,7 +4230,7 @@ C      OPEN(13,FILE='/usr/local/etc/httpd/cgi-bin/models/IRI/ap.dat',
         ihour=int(hour/3.)+1
         if(ihour.gt.8) ihour=8
 c ap.dat file starts at January 1, 1960
-        if(is*8+ihour.lt.13) goto 21	
+        if(is*8+ihour.lt.13) goto 21      
 
         READ(13,10,REC=IS,ERR=21) JY,JMN,JD,iiap,F
         j1=13-ihour
@@ -4277,7 +4277,7 @@ C       geographic latitude   -90. to +90.
 C       geographic longitude  0. to 360. positive east from Greenwich.
 C
 C     OUTPUT:
-C       corrected geomagnetic latitude	-90. to +90.
+C       corrected geomagnetic latitude    -90. to +90.
 
 
       DIMENSION CORMAG(20,91)      
@@ -4526,17 +4526,17 @@ C     to angle from South Pole.
       rla = rlan + 90
 
       IF (rlo .EQ. 360) THEN
-      	rlo = 0
+            rlo = 0
         END IF
 
 C     PROXIMITY
 
-C     coefficients of the latitudinal points		
+C     coefficients of the latitudinal points          
       LA1 = (INT(rla/2)+1)
       LA2 = LA1 + 1
       if(la2.gt.91) la2=91
 
-C     coefficients of the longitudinal points		
+C     coefficients of the longitudinal points         
       LO1 = (INT(rlo/18)+1)
 corr      LO2 = LO1 + 1
       LO2 = MOD(LO1,20) + 1 
@@ -4547,11 +4547,11 @@ C     Four points of Geomagnetic Coordinates
       gm3 = CORMAG(LO2,LA1)
       gm4 = CORMAG(LO2,LA2)
 
-C     latitudinal points		
+C     latitudinal points            
       X1 = ABS(rla - (INT(rla)))                        
       X2 = 2. - X1
 
-C     longitudinal points		
+C     longitudinal points           
       Y1 = ABS(rlo - (INT(rlo)))                        
       Y2 = 18. - Y1
       

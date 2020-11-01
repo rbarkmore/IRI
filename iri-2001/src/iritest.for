@@ -15,7 +15,7 @@ c 2000.07 01/11/06 added comma in "F5.1,'{user"
 c
       INTEGER           pad1,pad2,pad3
       DIMENSION         outf(20,100),oar(50,100),jfi(6)
-      LOGICAL		    jf(30)
+      LOGICAL               jf(30)
       CHARACTER         ARGV*80
       CHARACTER*3       uni(45),sopt
       CHARACTER*4       IMZ(8),MAP,xtex

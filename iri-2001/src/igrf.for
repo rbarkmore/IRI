@@ -594,7 +594,7 @@ c-----------------------------------------------------------------------
         CHARACTER*12    FILMOD, FIL1, FIL2           
 C ### FILMOD, DTEMOD arrays +1
         DIMENSION       GH1(144),GH2(120),GHA(144),FILMOD(13)
-        DIMENSION		DTEMOD(13)
+        DIMENSION       DTEMOD(13)
         DOUBLE PRECISION X,F0,F 
         COMMON/MODEL/   FIL1,NMAX,TIME,GH1
         COMMON/IGRF1/   UMR,ERAD,AQUAD,BQUAD
