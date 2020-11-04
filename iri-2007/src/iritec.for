@@ -1,16 +1,16 @@
 c iritec.for, version number can be found at the end of this comment.
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C
-C contains IRIT13, IONCORR, IRI_TEC subroutines to computed the 
+C contains IRIT13, IONCORR, IRI_TEC subroutines to computed the
 C total ionospheric electron content (TEC)
 C
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C Corrections
 C
 C  3/25/96 jmag in IRIT13 as input
 C  8/31/97 hu=hr(i+1) i=6 out of bounds condition corrected
 C  9/16/98 JF(17) added to input parameters; OUTF(11,50->100)
-C  ?/ ?/99 Ne(h) restricted to values smaller than NmF2 for topside        
+C  ?/ ?/99 Ne(h) restricted to values smaller than NmF2 for topside
 C 11/15/99 JF(20) instead of JF(17)
 C 10/16/00 if hr(i) gt hend then hr(i)=hend
 C 12/14/00 jf(30),outf(20,100),oarr(50)
@@ -21,25 +21,25 @@ c 2000.02 10/28/02 replace TAB/6 blanks, enforce 72/line (D. Simpson)
 c 2000.03 11/08/02 common block1 in iri_tec with F1reg
 c 2007.00 05/18/07 Release of IRI-2007
 c 2007.02 10/31/08 outf(.,100) -> outf(.,500)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C
 C
         subroutine IRIT13(ALATI,ALONG,jmag,jf,iy,md,hour,hbeg,hend,
      &                          tec,tecb,tect)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 c Program for numerical integration of IRI-94 profiles from h=100km
-C to h=alth. 
-C       
+C to h=alth.
+C
 C  INPUT:  ALATI,ALONG  LATITUDE NORTH AND LONGITUDE EAST IN DEGREES
 C          jmag         =0 geographic   =1 geomagnetic coordinates
 C          jf(1:30)     =.true./.false. flags; explained in IRISUB.FOR
 C          iy,md        date as yyyy and mmdd (or -ddd)
 C          hour         decimal hours LT (or UT+25)
 c          hbeg,hend    upper and lower integration limits in km
-C 
+C
 C  OUTPUT: TEC          Total Electron Content in m-2
 C          tecb,tect    percentage of bottomside and topside content
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 
         dimension       outf(20,500),oarr(50)
         logical         jf(30)
@@ -74,19 +74,19 @@ c
 c
 c
         real function ioncorr(tec,f)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 c computes ionospheric correction IONCORR (in m) for given vertical
 c ionospheric electron content TEC (in m-2) and frequency f (in Hz)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
         ioncorr = 40.3 * tec / (f*f)
         return
         end
 c
 c
         subroutine iri_tec (hstart,hend,istep,tectot,tectop,tecbot)
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 C subroutine to compute the total ionospheric content
-C INPUT:      
+C INPUT:
 C   hstart  altitude (in km) where integration should start
 C   hend    altitude (in km) where integration should end
 C   istep   =0 [fast, but higher uncertainty <5%]
@@ -97,22 +97,22 @@ C   tectot  total ionospheric content in tec-units (10^16 m^-2)
 C   tectop  topside content (in %)
 C   tecbot  bottomside content (in %)
 C
-C The different stepsizes for the numerical integration are 
-c defined as follows (h1=100km, h2=hmF2-10km, h3=hmF2+10km, 
+C The different stepsizes for the numerical integration are
+c defined as follows (h1=100km, h2=hmF2-10km, h3=hmF2+10km,
 c h4=hmF2+150km, h5=hmF2+250km):
 C       istep   h1-h2   h2-h3   h3-h4   h4-h5   h5-hend
 C       0       2.0km   1.0km   2.5km   exponential approximation
 C       1       2.0km   1.0km   2.5km   10.0km  30.0km
-C       2       1.0km   0.5km   1.0km   1.0km   1.0km   
+C       2       1.0km   0.5km   1.0km   1.0km   1.0km
 C
-c-----------------------------------------------------------------------        
+c-----------------------------------------------------------------------
 
         logical         expo
         dimension       step(5),hr(6)
         common  /block1/hmf2,xnmf2,hmf1,f1reg
         logical     f1reg
 
-ctest   
+ctest
         save
 
         expo = .false.
@@ -125,10 +125,10 @@ ctest
         hr(4) = hmf2+150.
         hr(5) = hmf2+250.
         hr(6) = hend
-        do 2918 i=2,6 
+        do 2918 i=2,6
 2918            if (hr(i).gt.hend) hr(i)=hend
 
-        if (istep.eq.0) then 
+        if (istep.eq.0) then
                 step(1)=2.0
                 step(2)=1.0
                 step(3)=2.5
@@ -205,7 +205,7 @@ C
         zzz = sumtop + sumbot
         tectop = sumtop / zzz * 100.
         tecbot = sumbot / zzz * 100.
-        tectot = zzz * xnmf2    
+        tectot = zzz * xnmf2
         return
 
 5       num_step = 3
@@ -216,7 +216,7 @@ C
         xntop = xe_1(hei_end)/xnmf2
 
         if(xntop.gt.0.9999) then
-                ss_t = top_end  
+                ss_t = top_end
                 goto 2345
                 endif
 
@@ -229,7 +229,7 @@ C
 C       hss = 360.
         xkk = exp ( - top_end / hss ) - 1.
         x_2 = hei_2
-        x_3 =hei_top-hss*alog(xkk*(hei_3 - hei_top)/top_end + 1.) 
+        x_3 =hei_top-hss*alog(xkk*(hei_3 - hei_top)/top_end + 1.)
         x_4 =hei_top-hss*alog(xkk*(hei_4 - hei_top)/top_end + 1.)
         x_5 = hei_end
 
@@ -256,10 +256,10 @@ C       hss = 360.
          ss_4=( ed_5 - ed_4 ) * ( x_5 - x_4 ) / alog ( ed_5 / ed_4 )
         endif
 
-        ss_t = ss_2 + ss_3 + ss_4 
+        ss_t = ss_2 + ss_3 + ss_4
 
 2345    sumtop = sumtop + ss_t * 1000.
-        
+
         zzz = sumtop + sumbot
         tectop = sumtop / zzz * 100.
         tecbot = sumbot / zzz * 100.

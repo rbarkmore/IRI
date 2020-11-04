@@ -15,7 +15,7 @@ c 2005.01 05/06/06 included spread-F (jf(28)) and topside (jf(29)) options
 C 2007.00 05/18/07 Release of IRI-2007
 c 2007.02 10/31/08 outf(100) -> outf(500), numhei=numstp=500
 c 2007.03 02/12/09 added new D-region option (h=-3)
-c 2007.11 04/19/10 correct TEC for normal output  [Shunrong Zhang] 
+c 2007.11 04/19/10 correct TEC for normal output  [Shunrong Zhang]
 c
       INTEGER           pad1(6),jdprof(77)
       DIMENSION         outf(20,500),oar(50,500),jfi(6)
@@ -55,7 +55,7 @@ c
             rzino=-1
             igino=-1
             ut0=-1
-        
+
         do 6249 i=1,50
 6249    oar(i,1)=-1.0
 
@@ -87,7 +87,7 @@ c
      &                        't,t,f,t,t,t,t,t,f,f'
         print *,'Enter 0 to use standard or 1 to enter your own'
         read(5,*) jchoice
-          do i=1,30 
+          do i=1,30
                 jf(i)=.true.
                 enddo
         if(jchoice.eq.0) then
@@ -103,7 +103,7 @@ c          jf(28)=.true.                        ! spread-F computed
         else
           print *,'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
           read(5,*) jf(1),jf(2),jf(3)
-        if(jf(1)) then 
+        if(jf(1)) then
               print *,'LAY version: t=standard ver., f=LAY version.',
      &              ' {standard:t}'
               read(5,*) jf(11)
@@ -153,7 +153,7 @@ c          jf(28)=.true.                        ! spread-F computed
               read(5,*) jf(23)
           endif
         if(jf(3)) then
-              print *,'Ion comp. model: t=DS78/DY85, f=DS95/TTS05 {f}' 
+              print *,'Ion comp. model: t=DS78/DY85, f=DS95/TTS05 {f}'
               read(5,*) jf(6)
               print *,'Ni: t=ion composition in %, f=ion densities',
      &             'in cm-3 {t}'
@@ -178,7 +178,7 @@ c          jf(28)=.true.                        ! spread-F computed
             read(5,*) jf(12)
        endif
        if(hx.lt.-2) jf(24)=.false.
-c option to enter six additional parameters 
+c option to enter six additional parameters
 c
       if(hx.lt.-1.and.hx.gt.-3) then
         print *,'6 Parameters of your choice (number:1-48)'
@@ -192,8 +192,8 @@ c
         print *,'      equatorial vertical ion drift [44]'
         print *,'      foF2_storm/foF2_quiet [45]'
         print *,'      F1 probability without L-condition [46]'
-        print *,'      solar zenith angle [23]' 
-        print *,'      modified dip latitude [27]' 
+        print *,'      solar zenith angle [23]'
+        print *,'      modified dip latitude [27]'
         read(5,*) (pad1(j),j=1,6)
         if(pad1(1).eq.0) then
             pad1(1)=48     ! spread-F probability
@@ -205,14 +205,14 @@ c
             pad1(6)=27     ! modified dip latitude
             endif
       endif
-       
+
 c option to enter measured values for NmF2, hmF2, NmF1, hmF1, NmE, hmE,
-c N(300), N(400), N(600) if available; 
+c N(300), N(400), N(600) if available;
 c
           print *,' '
           print *,' '
           print *,' '
-          numstp=int((vend-vbeg)/vstp)+1            
+          numstp=int((vend-vbeg)/vstp)+1
               if(ivar.eq.1) numstp=1
         if(jf(1)) then
          if(.not.jf(8).or..not.jf(9).or..not.jf(13).or..not.jf(14).or.
@@ -268,14 +268,14 @@ c option to enter Ne for Te-Ne relationship
 c
         if(jf(2).and..not.jf(10)) then
           var=vbeg
-          do 1235 i=1,numstp 
+          do 1235 i=1,numstp
                         print *,'Ne(300km),Ne(400km)/m-3',
      &                     ' for ',itext(ivar),'=',var,' [-1 if not]'
                         read(5,*) oar(15,i),oar(16,i)
 1235            var=var+vstp
           endif
 
-c option to enter F107D 
+c option to enter F107D
 c
             if(.not.jf(25)) then
                         print *,'User input for F107D:'
@@ -340,7 +340,7 @@ c
         mmdd=imd
 
 c calling IRI subroutine
-c 
+c
 
         call iri_web(jmag,jf,xlat,xlon,iy,mmdd,iut,hour,
      &          hxx,htec_max,ivar,vbeg,vend,vstp,outf,oar)
@@ -353,13 +353,13 @@ c
                   if(jf(29)) then
                   if(jf(30)) then
                   write(7,3314)
-                  else 
+                  else
                   write(7,3315)
                 endif
-            else    
+            else
                   if(jf(30)) then
                   write(7,3316)
-                  else 
+                  else
                   write(7,3317)
                 endif
             endif
@@ -378,7 +378,7 @@ c
                      write(7,402) (oar(j,i),i=1,numi)
                      endif
                   enddo
-                endif 
+                endif
 
         if(jf(2)) write(7,3292) topt
         if(jf(3)) write(7,329) iopt
@@ -414,9 +414,9 @@ c
      &      A2,2X,A4,' Lat/Long=',F5.1,'/',F6.1/)
 3914    format(/'TEC [1.E16 m-2] is obtained by numerical integration',
      &     ' in 1km steps'/'  from 50 to ',f6.1,' km.  t is the',
-     &     ' percentage of TEC above the F peak.') 
+     &     ' percentage of TEC above the F peak.')
 3916    format(/'M3000F2: Propagation factor related to hmF2'/
-     &     'B0: bottomside thickness parameter.') 
+     &     'B0: bottomside thickness parameter.')
 301     format(A4,' maps are used for the F2 peak density (NmF2)')
 302     format(A9,' provided by user:')
 402     format(7(1PE10.3))
@@ -467,7 +467,7 @@ c
                 ENDIF
         IF(HX.LT.-2.0) PIKTAB=4
 
-        IF(PIKTAB.EQ.4) WRITE(7,8199) 
+        IF(PIKTAB.EQ.4) WRITE(7,8199)
         IF(PIKTAB.EQ.3) WRITE(7,8191) ITEXT(IVAR),
      &    (pna(pad1(j)),j=1,6),xtex,(uni(pad1(j)),j=1,6)
         IF(PIKTAB.EQ.2) WRITE(7,8194) ITEXT(IVAR),xtex
@@ -489,7 +489,7 @@ c
      &  'IRI-07',4x,'FIRI  SW/WA=0/0  0.5/0   1/0    0/0.5    0/1')
 
             if(piktab.eq.4) then
-            do 2591 lix=1,77 
+            do 2591 lix=1,77
                   jdprof(lix)=-1
                   dichte=outf(14,lix)
 2591            if(dichte.gt.0.) jdprof(lix)=int(dichte/1.e6+0.5)
@@ -498,11 +498,11 @@ c
                   WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
      &                  jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
      &                  jdprof(lix+55),jdprof(lix+66)
-2592            continue                  
+2592            continue
 3810    FORMAT(I3,7I8)
                   goto 2357
                   endif
-            
+
         xcor=vbeg
 
         do 1234 li=1,numstp
@@ -617,7 +617,7 @@ c
 
 1234    xcor=xcor+vstp
 
-2357    print *,'Enter 0 to exit or 1 to generate another profile?' 
+2357    print *,'Enter 0 to exit or 1 to generate another profile?'
         read(5,*) icontinue
         if (icontinue.gt.0) goto 1
 
