@@ -1,0 +1,9 @@
+target_sources(iri2007_lib
+    PRIVATE
+cira.for
+igrf.for
+iridreg.for
+irifun.for
+irisub.for
+iritec.for
+)
