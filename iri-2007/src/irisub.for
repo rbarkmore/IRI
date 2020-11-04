@@ -156,10 +156,10 @@ C   23    Te_tops (Aeros,ISIS)   Te_topside (Intercosmos)        false
 C   24    D-region: IRI-95       Special: 3 D-region models          t
 C   25    F107D from AP.DAT      F107D user input (oarr(41))         t
 C   26    foF2 storm model       no storm updating                   t
-C   27    IG12 from file         IG12 - user input					 t
-C   28    spread-F probability 	 not computed                    false
+C   27    IG12 from file         IG12 - user input                             t
+C   28    spread-F probability       not computed                    false
 C   29    IRI01-topside          new options as def. by JF(30)   false
-C   30    IRI01-topside corr.    NeQuick topside model   	     false 
+C   30    IRI01-topside corr.    NeQuick topside model           false 
 C     (29,30) = (t,t) IRIold, (f,t) IRIcor, (f,f) NeQuick, (t,f) TTS   
 C   ------------------------------------------------------------------
 C
@@ -283,7 +283,7 @@ c      CHARACTER FILNAM*53
      &  igin,igino,dnight,enight,fnight,TOPO,TOPC
 
       COMMON /CONST/UMR  /const1/humr,dumr   /ARGEXP/ARGMAX
-     &	 /const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
+     &       /const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
      &   /BLOCK1/HMF2,NMF2,HMF1,F1REG  /BLOCK2/B0,B1,C1  
      &   /BLOCK3/HZ,T,HST              /BLOCK4/HME,NME,HEF 
      &   /BLOCK5/ENIGHT,E              /BLOCK6/HMD,NMD,HDX
@@ -433,8 +433,8 @@ c
       FOF2IN=(.not.jf(8))
        IF(FOF2IN) THEN
           OARR1=OARR(1)
-       	  AFOF2=OARR1
-       	  ANMF2=OARR1
+              AFOF2=OARR1
+              ANMF2=OARR1
           IF(OARR1.LT.100.) ANMF2=1.24E10*AFOF2*AFOF2
           IF(OARR1.GE.100.) AFOF2=SQRT(ANMF2/1.24E10)
         else
@@ -456,8 +456,8 @@ c
       FOF1IN=(.not.jf(13))
        IF(FOF1IN) THEN
           OARR3=OARR(3)
-       	  AFOF1=OARR3
-       	  ANMF1=OARR3
+              AFOF1=OARR3
+              ANMF1=OARR3
           IF(OARR3.LT.100.) ANMF1=1.24E10*AFOF1*AFOF1
           IF(OARR3.GE.100.) AFOF1=SQRT(ANMF1/1.24E10)
         else
@@ -481,8 +481,8 @@ c
       FOEIN=(.not.jf(15))
        IF(FOEIN) THEN
           OARR5=OARR(5)
-       	  AFOE=OARR5
-       	  ANME=OARR5
+              AFOE=OARR5
+              ANME=OARR5
           IF(OARR5.LT.100.) ANME=1.24E10*AFOE*AFOE
           IF(OARR5.GE.100.) AFOE=SQRT(ANME/1.24E10)
         else
@@ -651,8 +651,8 @@ C        CALL GGM(JMAG,XLONGI1,XLATI1,XMLONG1,XMLAT1)
         call igrf_dip(lati,longi,ryear,300.0,dip,magbr,modip)
         if(.not.jf(18)) then
         CALL FIELDG(LATI,LONGI,300.0,XMA,YMA,ZMA,BET,DIP,DEC,MODIP)
-        	MAGBR=ATAN(0.5*TAN(DIP*UMR))/UMR
-        	endif
+            MAGBR=ATAN(0.5*TAN(DIP*UMR))/UMR
+            endif
 
         ABSLAT=ABS(LATI)
         ABSMLT=ABS(MLAT)
@@ -663,13 +663,13 @@ c
 C CALCULATION OF UT/LT  ...............
 c
         IF(DHOUR.le.24.0) then
-        	HOUR=DHOUR					! dhour =< 24 is LT
+            HOUR=DHOUR                          ! dhour =< 24 is LT
             hourut=hour-longi/15.
             if(hourut.lt.0) hourut=hourut+24.
-		else
-        	hourut=DHOUR-25.				 ! dhour>24 is UT+25
-        	hour=hourut+longi/15.	 		 ! hour becomes LT
-        	if(hour.gt.24.) hour=hour-24.
+            else
+            hourut=DHOUR-25.                     ! dhour>24 is UT+25
+            hour=hourut+longi/15.                ! hour becomes LT
+            if(hour.gt.24.) hour=hour-24.
         endif
 
 c
@@ -679,21 +679,21 @@ c for southern hemisphere is made. some models require the
 c seasonal month or the seasonal day-of year
 c 
 c zmonth is decimal month (Jan 1 = 1.0 and Dec 31 = 12.97)
-c		zmonth = month + (iday*1.-1.)/nrdaym
+c           zmonth = month + (iday*1.-1.)/nrdaym
 c is not used currently
       
       SEASON=INT((DAYNR+45.0)/92.0)
       IF(SEASON.LT.1) SEASON=4
-      NSEASN=SEASON				! Northern hemisphere season
+      NSEASN=SEASON                       ! Northern hemisphere season
       seaday=daynr
       iseamon=month
       IF(LATI.GE.0.0) GOTO 5592
-        	SEASON=SEASON-2			
-        	IF(SEASON.LT.1) SEASON=SEASON+4
-        	iseamon=month+6
-        	if(iseamon.gt.12) iseamon=iseamon-12
-        	seaday=daynr+idayy/2.
-        	if(seaday.gt.idayy) seaday=seaday-idayy
+            SEASON=SEASON-2               
+            IF(SEASON.LT.1) SEASON=SEASON+4
+            iseamon=month+6
+            if(iseamon.gt.12) iseamon=iseamon-12
+            seaday=daynr+idayy/2.
+            if(seaday.gt.idayy) seaday=seaday-idayy
 
 C
 C 12-month running mean sunspot number (rssn) and Ionospheric Global 
@@ -711,25 +711,25 @@ C
      &                   and..not.igin.and..not.igino) goto 2910
      
         call tcon(iyear,month,iday,daynr,rzar,arig,ttt,nmonth)
-        if(nmonth.lt.0) goto 3330		! jump to end of program
+        if(nmonth.lt.0) goto 3330         ! jump to end of program
 
         if(RZIN) then
-        	rrr = arzin
-        	rzar(1) = rrr
-        	rzar(2) = rrr
-        	rzar(3) = rrr
-c       	zi=-12.349154+(1.4683266-2.67690893e-03*rrr)*rrr
-c       	if(zi.gt.174.0) zi=174.0
-c       	arig(1) = zi
-c       	arig(2) = zi
-c       	arig(3) = zi
-        	endif
+            rrr = arzin
+            rzar(1) = rrr
+            rzar(2) = rrr
+            rzar(3) = rrr
+c           zi=-12.349154+(1.4683266-2.67690893e-03*rrr)*rrr
+c           if(zi.gt.174.0) zi=174.0
+c           arig(1) = zi
+c           arig(2) = zi
+c           arig(3) = zi
+            endif
         if(IGIN) then
-        	zi = aigin
-        	arig(1) = zi
-        	arig(2) = zi
-        	arig(3) = zi
-        	endif
+            zi = aigin
+            arig(1) = zi
+            arig(2) = zi
+            arig(3) = zi
+            endif
         rssn=rzar(3)
         gind=arig(3)
         COV=63.75+RSSN*(0.728+RSSN*0.00089)
@@ -739,14 +739,14 @@ c        COVSAT=63.75+rlimit*(0.728+rlimit*0.00089)
         if(covsat.gt.188.) covsat=188
         
         if(jf(25)) then
-        	f107d=cov
-        	f107m=cov
-        	call APF_ONLY(iyear,month,iday,F107DX,F107MX)
+            f107d=cov
+            f107m=cov
+            call APF_ONLY(iyear,month,iday,F107DX,F107MX)
             if(f107dx.gt.-100.0) then
-            	f107d=f107dx
-            	f107m=f107mx
-				endif
-			endif
+                  f107d=f107dx
+                  f107m=f107mx
+                        endif
+                  endif
 
 C
 C CALCULATION OF SOLAR ZENITH ANGLE (XHI/DEG), SUN DECLINATION ANGLE 
@@ -986,11 +986,11 @@ C
 
         IF(HMF2IN) THEN
           IF(AHMF2.LT.50.0) THEN
-          	XM3000=AHMF2
-          	HMF2=HMF2ED(MAGBR,RSSN,FOF2/FOE,XM3000)
+            XM3000=AHMF2
+            HMF2=HMF2ED(MAGBR,RSSN,FOF2/FOE,XM3000)
           ELSE
-          	HMF2=AHMF2
-c          	XM3000=XM3000HM(MAGBR,RSSN,FOF2/FOE,HMF2)
+            HMF2=AHMF2
+c           XM3000=XM3000HM(MAGBR,RSSN,FOF2/FOE,HMF2)
           ENDIF
         ELSE
           HMF2=HMF2ED(MAGBR,RSSN,FOF2/FOE,XM3000)
@@ -1073,7 +1073,7 @@ c
           x1 = HPOL(HOUR,x1d,x1n,SAX300,SUX300,1.,1.)
           hcor1 = hmF2 + x1
           x12 = 1500. - x1
-	      tc3 = r2 / x12
+            tc3 = r2 / x12
           endif
 c
 c NeQuick topside parameters (use CCIR-M3000F2 even if user-hmF2)
@@ -1083,7 +1083,7 @@ c
          dNdHmx=exp(dNdHmx)*0.01
          B2bot=0.04774*FOF2*FOF2/dNdHmx
          b2k = 3.22-0.0538*foF2-0.00664*hmF2+0.113*hmF2/B2bot
-     &   	+0.00257*rssn
+     &      +0.00257*rssn
          ee=exp(2.0*(b2k-1.0))
          b2k=(b2k*ee+1.0)/(ee+1.0)
          B2TOP=b2k*B2bot
@@ -1092,7 +1092,7 @@ c
 c F layer - bottomside thickness parameter B0 and shape parameters B1
 c
                            
-	    B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
+          B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
         if(GULB0) then
                 call ROGUL(SEADAY,XHI,SEAX,GRAT)
                 if(FNIGHT) GRAT=0.91-HMF2/4000.
@@ -1699,10 +1699,10 @@ c
      &                xl1,icode,dipl1,babs1)
               if(xl1.gt.10.) xl1=10.
 c              icd=1    ! compute INVDIP
-        	  dimo=0.311653
-      	      call CALNE(1,INVDIP,xl1,DIMO,babs1,
+              dimo=0.311653
+                  call CALNE(1,INVDIP,xl1,DIMO,babs1,
      &                  DIPL,hour,height,daynr,F107D,ELEDE)
-           	  endif
+              endif
 
 c
 c electron density in m-3 in outf(1,*)
@@ -1824,16 +1824,16 @@ c
       if(.not.jf(28)) goto 1937
       if(hour.gt.7.25.and.hour.lt.17.75) goto 1937
       if(abs(lati).gt.25.0) goto 1937
-			spfhour=hour
-			daynr1=daynr
-			if(hour.lt.12.0) then
-				spfhour=hour+24.0
-				daynr1=daynr-1
-				if(daynr1.lt.1) daynr1=idayy
-            	endif
+                  spfhour=hour
+                  daynr1=daynr
+                  if(hour.lt.12.0) then
+                        spfhour=hour+24.0
+                        daynr1=daynr-1
+                        if(daynr1.lt.1) daynr1=idayy
+                  endif
             call spreadf_brazil(daynr,idayy,f107d,lati,osfbr)
-			ispf=int((spfhour-17.75)/0.5)+1
- 			if(ispf.gt.0.and.ispf.lt.26) spreadf=osfbr(ispf)
+                  ispf=int((spfhour-17.75)/0.5)+1
+                  if(ispf.gt.0.and.ispf.lt.26) spreadf=osfbr(ispf)
 1937   continue
 C
 C ADDITIONAL PARAMETER FIELD OARR

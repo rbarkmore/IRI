@@ -19,7 +19,7 @@ c 2007.11 04/19/10 correct TEC for normal output  [Shunrong Zhang]
 c
       INTEGER           pad1(6),jdprof(77)
       DIMENSION         outf(20,500),oar(50,500),jfi(6)
-      LOGICAL		    jf(30)
+      LOGICAL               jf(30)
       CHARACTER*2       timev(2)
       CHARACTER*3       uni(48),sopt
       CHARACTER*4       IMZ(8),MAP,xtex,coorv(2)
@@ -46,15 +46,15 @@ c
 
         data jfi/8,9,13,14,15,16/
 
-	  COMMON/const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
+        COMMON/const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
 
-		icalls=0
-		nmono=-1
-		iyearo=-1
-		idaynro=-1
-		rzino=-1
-		igino=-1
-		ut0=-1
+            icalls=0
+            nmono=-1
+            iyearo=-1
+            idaynro=-1
+            rzino=-1
+            igino=-1
+            ut0=-1
         
         do 6249 i=1,50
 6249    oar(i,1)=-1.0
@@ -91,13 +91,13 @@ c
                 jf(i)=.true.
                 enddo
         if(jchoice.eq.0) then
-c          jf(2)=.false.				  ! no temperatures
-c          jf(3)=.false.				  ! no ion composition
+c          jf(2)=.false.                          ! no temperatures
+c          jf(3)=.false.                          ! no ion composition
           jf(5)=.false.               ! URSI foF2 model
           jf(6)=.false.               ! Newest ion composition model
-c          jf(21)=.true.			      ! ion drift computed
+c          jf(21)=.true.                        ! ion drift computed
           jf(23)=.false.              ! TTS Te model is standard
-c          jf(28)=.true.			      ! spread-F computed
+c          jf(28)=.true.                        ! spread-F computed
           jf(29)=.false.              ! New Topside options
           jf(30)=.false.              ! NeQuick topside
         else
@@ -196,7 +196,7 @@ c
         print *,'      modified dip latitude [27]' 
         read(5,*) (pad1(j),j=1,6)
         if(pad1(1).eq.0) then
-        	pad1(1)=48     ! spread-F probability
+            pad1(1)=48     ! spread-F probability
             pad1(2)=44     ! equatorial vertical ion drift
              jf(21)=.true.
             pad1(3)=45     ! fof2_storm/foF2_quiet
@@ -350,17 +350,17 @@ c
 
         write(7,3991) iy,mmdd,hour,timev(iut+1),coorv(jmag+1),xlat,xlon
         if(jf(1)) then
-       		if(jf(29)) then
-        		if(jf(30)) then
-                	write(7,3314)
-        		else 
-                	write(7,3315)
+                  if(jf(29)) then
+                  if(jf(30)) then
+                  write(7,3314)
+                  else 
+                  write(7,3315)
                 endif
             else    
-        		if(jf(30)) then
-                	write(7,3316)
-        		else 
-                	write(7,3317)
+                  if(jf(30)) then
+                  write(7,3316)
+                  else 
+                  write(7,3317)
                 endif
             endif
                 if(jf(8)) write(7,301) map
@@ -488,21 +488,21 @@ c
      &  1X,'km',18X,'DRS-95: Stratos Warming/Winter Anomaly'/5X,
      &  'IRI-07',4x,'FIRI  SW/WA=0/0  0.5/0   1/0    0/0.5    0/1')
 
-		if(piktab.eq.4) then
+            if(piktab.eq.4) then
             do 2591 lix=1,77 
-            	jdprof(lix)=-1
-            	dichte=outf(14,lix)
+                  jdprof(lix)=-1
+                  dichte=outf(14,lix)
 2591            if(dichte.gt.0.) jdprof(lix)=int(dichte/1.e6+0.5)
-			do 2592 lix=1,11
-				ihtemp=55+lix*5
-            	WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
-     &  			jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
-     &  			jdprof(lix+55),jdprof(lix+66)
-2592		    continue			
+                  do 2592 lix=1,11
+                        ihtemp=55+lix*5
+                  WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
+     &                  jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
+     &                  jdprof(lix+55),jdprof(lix+66)
+2592            continue                  
 3810    FORMAT(I3,7I8)
-			goto 2357
-		 	endif
-		
+                  goto 2357
+                  endif
+            
         xcor=vbeg
 
         do 1234 li=1,numstp

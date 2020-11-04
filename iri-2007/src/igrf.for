@@ -3,8 +3,8 @@ c-----------------------------------------------------------------------
 C
 C Subroutines to compute IGRF parameters for IRI and all functions and 
 C subroutines required for this computation, including:
-C 	IGRF_SUB, IGRF_DIP, FINDB0, SHELLG, STOER, FELDG, FELDCOF, GETSHC, 
-C 	INTERSHC, EXTRASHC, INITIZE, GEODIP, SPHCAR, GEOMAG, and RECALC  
+C     IGRF_SUB, IGRF_DIP, FINDB0, SHELLG, STOER, FELDG, FELDCOF, GETSHC, 
+C     INTERSHC, EXTRASHC, INITIZE, GEODIP, SPHCAR, GEOMAG, and RECALC  
 C
 C UNIT number for reading the IGRF coefficients (in GETSHC) is 14
 C
@@ -91,9 +91,9 @@ C
 c
 C----------------CALCULATE PROFILES-----------------------------------
 c
-		xlati = xlat
-		xlongi = xlong
-		h = height
+            xlati = xlat
+            xlongi = xlong
+            h = height
         CALL FELDCOF(YEAR,DIMO)
         CALL FELDG(XLATI,XLONGI,H,BNORTH,BEAST,BDOWN,BABS)
         DIP=ASIN(BDOWN/BABS)
@@ -462,7 +462,7 @@ C                 AND DOWNWARD.
 C-----------------------------------------------------------------------
       DIMENSION         V(3),B(3)   
       CHARACTER*13      NAME
-      COMMON/IGRF2/	    XI(3),H(196)
+      COMMON/IGRF2/         XI(3),H(196)
       COMMON/MODEL/     NAME,NMAX,TIME,G(196)  
       COMMON/IGRF1/     UMR,ERA,AQUAD,BQUAD
 
@@ -503,30 +503,30 @@ C*****ENTRY POINT  FELDI  USED FOR L COMPUTATION
       LAST=IHMAX+NMAX+NMAX                                              
       IMAX=NMAX+NMAX-1                                                  
       DO 8 I=IHMAX,LAST                                                 
-8     	H(I)=G(I)                                                         
+8           H(I)=G(I)                                                         
       DO 6 K=1,3,2                                                      
-      	I=IMAX                                                            
-      	IH=IHMAX                                                          
-1     	IL=IH-I                                                           
-      	F=2./FLOAT(I-K+2)                                                 
-      	X=XI(1)*F                                                         
-      	Y=XI(2)*F                                                         
-      	Z=XI(3)*(F+F)                                                     
-      	I=I-2                                                             
-      	IF(I-1) 5,4,2
-      	                                                      
-2     	DO 3 M=3,I,2                                                      
-      		H(IL+M+1)=G(IL+M+1)+Z*H(IH+M+1)+X*(H(IH+M+3)-          
+            I=IMAX                                                            
+            IH=IHMAX                                                          
+1           IL=IH-I                                                           
+            F=2./FLOAT(I-K+2)                                                 
+            X=XI(1)*F                                                         
+            Y=XI(2)*F                                                         
+            Z=XI(3)*(F+F)                                                     
+            I=I-2                                                             
+            IF(I-1) 5,4,2
+                                                                  
+2           DO 3 M=3,I,2                                                      
+                  H(IL+M+1)=G(IL+M+1)+Z*H(IH+M+1)+X*(H(IH+M+3)-          
      A                H(IH+M-1))-Y*(H(IH+M+2)+H(IH+M-2))           
-3     		H(IL+M)=G(IL+M)+Z*H(IH+M)+X*(H(IH+M+2)-                
+3                 H(IL+M)=G(IL+M)+Z*H(IH+M)+X*(H(IH+M+2)-                
      A                H(IH+M-2))+Y*(H(IH+M+3)+H(IH+M-1))
                       
-4     	H(IL+2)=G(IL+2)+Z*H(IH+2)+X*H(IH+4)-Y*(H(IH+3)+H(IH))             
-      	H(IL+1)=G(IL+1)+Z*H(IH+1)+Y*H(IH+4)+X*(H(IH+3)-H(IH))             
-5     	H(IL)=G(IL)+Z*H(IH)+2.*(X*H(IH+1)+Y*H(IH+2))                      
-      	IH=IL                                                             
-      	IF(I.GE.K) GOTO 1                                                   
-6     	CONTINUE
+4           H(IL+2)=G(IL+2)+Z*H(IH+2)+X*H(IH+4)-Y*(H(IH+3)+H(IH))             
+            H(IL+1)=G(IL+1)+Z*H(IH+1)+Y*H(IH+4)+X*(H(IH+3)-H(IH))             
+5           H(IL)=G(IL)+Z*H(IH)+2.*(X*H(IH+1)+Y*H(IH+2))                      
+            IH=IL                                                             
+            IF(I.GE.K) GOTO 1                                                   
+6           CONTINUE
                                                           
       IF(IS.EQ.3) RETURN 
                                                       
@@ -567,7 +567,7 @@ c-----------------------------------------------------------------------
         CHARACTER*13    FILMOD, FIL1, FIL2           
 C ### FILMOD, DTEMOD array-size is number of IGRF maps
         DIMENSION       GH1(196),GH2(196),GHA(196),FILMOD(15)
-        DIMENSION		DTEMOD(15)
+        DIMENSION       DTEMOD(15)
         DOUBLE PRECISION X,F0,F 
         COMMON/MODEL/   FIL1,NMAX,TIME,GH1
         COMMON/IGRF1/   UMR,ERAD,AQUAD,BQUAD
@@ -858,8 +858,8 @@ C  Calculates dipole geomagnetic coordinates from geocentric coordinates
 C  or vice versa.
 
 C                     J=0           J=1
-C		INPUT:     J,SLA,SLO     J,DLA,DLO
-C		OUTPUT:     DLA,DLO       SLA,SLO
+C           INPUT:     J,SLA,SLO     J,DLA,DLO
+C           OUTPUT:     DLA,DLO       SLA,SLO
 
 C  Last revision: November 2005 (Vladimir Papitashvili)
 C  The code is modifed from GEOCOR written by V.Popov and V.Papitashvili
