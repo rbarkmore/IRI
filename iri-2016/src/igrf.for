@@ -3,8 +3,8 @@ c-----------------------------------------------------------------------
 C
 C Subroutines to compute IGRF parameters for IRI and all functions and 
 C subroutines required for this computation, including:
-C 	IGRF_SUB, IGRF_DIP, FINDB0, SHELLG, STOER, FELDG, FELDCOF, GETSHC, 
-C 	INTERSHC, EXTRASHC, GEODIP, fmodip
+C     IGRF_SUB, IGRF_DIP, FINDB0, SHELLG, STOER, FELDG, FELDCOF, GETSHC, 
+C     INTERSHC, EXTRASHC, GEODIP, fmodip
 C
 C CGM coordinates : GEOCGM01, OVL_ANG, CGMGLA, CGMGLO, DFR1DR, 
 C   AZM_ANG, MLTUT, MFC, FTPRNT, GEOLOW, CORGEO, GEOCOR, SHAG, RIGHT, 
@@ -118,9 +118,9 @@ c-----------------------------------------------------------------------
 
       COMMON /CONST/UMR,PI
 
-	  xlati = xlat
-	  xlongi = xlong
-	  h = height
+        xlati = xlat
+        xlongi = xlong
+        h = height
 c      CALL FELDCOF(YEAR,DIMO)
       CALL FELDG(XLATI,XLONGI,H,BNORTH,BEAST,BDOWN,BABS)
           DECARG=BEAST/SQRT(BEAST*BEAST+BNORTH*BNORTH)
@@ -204,7 +204,7 @@ C          B0           MAGNETIC FIELD STRENGTH IN GAUSS
 c-----------------------------------------------------------------------        
       DIMENSION         V(3),U(3,3),P(8,100),SP(3)
       COMMON/IGRF2/     X(3),H(196)
-      COMMON/FIDB0/     SP	/CONST/UMR,PI      
+      COMMON/FIDB0/     SP    /CONST/UMR,PI      
       COMMON/IGRF1/     ERA,AQUAD,BQUAD,DIMO
 C
 C-- RMIN, RMAX ARE BOUNDARIES FOR IDENTIFICATION OF ICODE=2 AND 3
@@ -534,30 +534,30 @@ C*****ENTRY POINT  FELDI  USED FOR L COMPUTATION
       LAST=IHMAX+NMAX+NMAX                                              
       IMAX=NMAX+NMAX-1                                                  
       DO 8 I=IHMAX,LAST                                                 
-8     	H(I)=G(I)                                                         
+8           H(I)=G(I)                                                         
       DO 6 K=1,3,2                                                      
-      	I=IMAX                                                            
-      	IH=IHMAX                                                          
-1     	IL=IH-I                                                           
-      	F=2./FLOAT(I-K+2)                                                 
-      	X=XI(1)*F                                                         
-      	Y=XI(2)*F                                                         
-      	Z=XI(3)*(F+F)                                                     
-      	I=I-2                                                             
-      	IF(I-1) 5,4,2
-      	                                                      
-2     	DO 3 M=3,I,2                                                      
-      		H(IL+M+1)=G(IL+M+1)+Z*H(IH+M+1)+X*(H(IH+M+3)-          
+            I=IMAX                                                            
+            IH=IHMAX                                                          
+1           IL=IH-I                                                           
+            F=2./FLOAT(I-K+2)                                                 
+            X=XI(1)*F                                                         
+            Y=XI(2)*F                                                         
+            Z=XI(3)*(F+F)                                                     
+            I=I-2                                                             
+            IF(I-1) 5,4,2
+                                                                  
+2           DO 3 M=3,I,2                                                      
+                  H(IL+M+1)=G(IL+M+1)+Z*H(IH+M+1)+X*(H(IH+M+3)-          
      A                H(IH+M-1))-Y*(H(IH+M+2)+H(IH+M-2))           
-3     		H(IL+M)=G(IL+M)+Z*H(IH+M)+X*(H(IH+M+2)-                
+3                 H(IL+M)=G(IL+M)+Z*H(IH+M)+X*(H(IH+M+2)-                
      A                H(IH+M-2))+Y*(H(IH+M+3)+H(IH+M-1))
                       
-4     	H(IL+2)=G(IL+2)+Z*H(IH+2)+X*H(IH+4)-Y*(H(IH+3)+H(IH))             
-      	H(IL+1)=G(IL+1)+Z*H(IH+1)+Y*H(IH+4)+X*(H(IH+3)-H(IH))             
-5     	H(IL)=G(IL)+Z*H(IH)+2.*(X*H(IH+1)+Y*H(IH+2))                      
-      	IH=IL                                                             
-      	IF(I.GE.K) GOTO 1                                                   
-6     	CONTINUE
+4           H(IL+2)=G(IL+2)+Z*H(IH+2)+X*H(IH+4)-Y*(H(IH+3)+H(IH))             
+            H(IL+1)=G(IL+1)+Z*H(IH+1)+Y*H(IH+4)+X*(H(IH+3)-H(IH))             
+5           H(IL)=G(IL)+Z*H(IH)+2.*(X*H(IH+1)+Y*H(IH+2))                      
+            IH=IL                                                             
+            IF(I.GE.K) GOTO 1                                                   
+6           CONTINUE
                                                           
       IF(IS.EQ.3) RETURN 
                                                       
@@ -588,9 +588,9 @@ C  DETERMINES COEFFICIENTS AND DIPOL MOMENT FROM IGRF MODELS
 C
 C       INPUT:  YEAR    DECIMAL YEAR FOR WHICH GEOMAGNETIC FIELD IS TO
 C                       BE CALCULATED
-C        				COMMON/IGRF1/ERAD,AQUAD,BQUAD,DIMO /CONST/UMR,PI
+C                             COMMON/IGRF1/ERAD,AQUAD,BQUAD,DIMO /CONST/UMR,PI
 C       OUTPUT:         COMMON/MODEL/NMAX,TIME,GH1,FIL1
-C        				COMMON/DIPOL/GHI1,GHI2,GHI3
+C                             COMMON/DIPOL/GHI1,GHI2,GHI3
 C
 C THE GEOMAGNETIC DIPOL MOMENT (DIMO) IN GAUSS (NORMALIZED TO EARTH'S 
 C RADIUS) AT THE TIME (YEAR) IS COMPUTED BUT NOT USED.
@@ -606,11 +606,11 @@ c-----------------------------------------------------------------------
         CHARACTER*13    FILMOD, FIL1, FIL2           
 C ### FILMOD, DTEMOD array-size is number of IGRF maps
         DIMENSION       GH1(196),GH2(196),GHA(196),FILMOD(17)
-        DIMENSION		DTEMOD(17)
+        DIMENSION       DTEMOD(17)
         DOUBLE PRECISION X,F0,F 
         COMMON/MODEL/   NMAX,TIME,GH1,FIL1
         COMMON/IGRF1/   ERAD,AQUAD,BQUAD,DIMO /CONST/UMR,PI
-        COMMON/DIPOL/	GHI1,GHI2,GHI3
+        COMMON/DIPOL/   GHI1,GHI2,GHI3
 C ### updated coefficient file names and corresponding years
         DATA  FILMOD   / 'dgrf1945.dat','dgrf1950.dat','dgrf1955.dat',           
      1    'dgrf1960.dat','dgrf1965.dat','dgrf1970.dat','dgrf1975.dat',
@@ -710,7 +710,7 @@ C ===============================================================
                                                                                 
         CHARACTER  FSPEC*(*), FOUT*80                                    
         DIMENSION       GH(196)
-        LOGICAL		mess 
+        LOGICAL         mess 
         COMMON/iounit/konsol,mess        
         do 1 j=1,196  
 1          GH(j)=0.0
@@ -875,8 +875,8 @@ C  Calculates geomagnetic dipole latitude/longitude (DLA/DLO) from
 C  geocentric latitude/longitude (SLA/SLO) for J=0 and vice versa  
 C  for J=1.
 C                     J=0           J=1
-C		INPUT:     J,SLA,SLO     J,DLA,DLO
-C		OUTPUT:     DLA,DLO       SLA,SLO
+C           INPUT:     J,SLA,SLO     J,DLA,DLO
+C           OUTPUT:     DLA,DLO       SLA,SLO
 
 C  Last revision: November 2005 (Vladimir Papitashvili)
 C  The code is modifed from GEOCOR written by V.Popov and V.Papitashvili
@@ -920,15 +920,15 @@ C        RH = (RE + HI)/RE
 
 C 
 C 
-		function fmodip(xlat)
-		
-		common/findRLAT/xlong,year
-		
-      	call igrf_dip(xlat,xlong,year,300.,dec,dip,dipl,ymodip)
-      	fmodip=ymodip
+            function fmodip(xlat)
+            
+            common/findRLAT/xlong,year
+            
+            call igrf_dip(xlat,xlong,year,300.,dec,dip,dipl,ymodip)
+            fmodip=ymodip
 
-      	return
-      	end
+            return
+            end
 C
 C
       SUBROUTINE GEOCGM01(ICOR,IYEAR,HI,DAT,PLA,PLO)
@@ -990,18 +990,18 @@ C     DAT(9,i)=azm meridian_angle as the azimuth to the CGM pole:
 C                + east in Northern Hemisphere
 C                + west in Southern Hemisphere
 C     DAT(10,i)=utm magnetic local time (MLT) midnight in UT hours
-C     		 i=1	for the start point
-C     		 i=2	for the conjugate point of the start point (slac, sloc)
-C			 i=3    for the footprint at 1-Re of the start point (slaf,slof)
-C			 i=4    for the conjugate footprint at 1-Re of the start point
-C     PLA(1)	geocentric latitude of the CGM pole in the Northern hemisphere
-C     PLO(1)	geocentric longitude of the CGM pole in the Northern hemisphere
-C     PLA(2)	geocentric latitude of the CGM pole in the Southern hemisphere
-C     PLO(2)	geocentric longitude of the CGM pole in the Southern hemisphere
-C     PLA(3)	geoce lati CGM North pole at the Earth's surface 1-Re or zero alt.
-C     PLO(3)	geoce long CGM North pole at the Earth's surface 1-Re or zero alt.
-C     PLA(4)	geoce lati CGM South pole at the Earth's surface 1-Re or zero alt.
-C     PLO(4)	geoce long CGM South pole at the Earth's surface 1-Re or zero alt.
+C                  i=1  for the start point
+C                  i=2  for the conjugate point of the start point (slac, sloc)
+C                  i=3    for the footprint at 1-Re of the start point (slaf,slof)
+C                  i=4    for the conjugate footprint at 1-Re of the start point
+C     PLA(1)      geocentric latitude of the CGM pole in the Northern hemisphere
+C     PLO(1)      geocentric longitude of the CGM pole in the Northern hemisphere
+C     PLA(2)      geocentric latitude of the CGM pole in the Southern hemisphere
+C     PLO(2)      geocentric longitude of the CGM pole in the Southern hemisphere
+C     PLA(3)      geoce lati CGM North pole at the Earth's surface 1-Re or zero alt.
+C     PLO(3)      geoce long CGM North pole at the Earth's surface 1-Re or zero alt.
+C     PLA(4)      geoce lati CGM South pole at the Earth's surface 1-Re or zero alt.
+C     PLO(4)      geoce long CGM South pole at the Earth's surface 1-Re or zero alt.
 C
 C In program:
 C     dla  = dipole latitude
@@ -1059,7 +1059,7 @@ C  middle latitudes
             DAT(3,1) = CLAR
             DAT(4,1) = CLOR
 
-	                ELSE
+                      ELSE
 
 C  Computation of geocentric coordinates from CGM ones at high- and
 C  middle latitudes
@@ -1071,7 +1071,7 @@ C  middle latitudes
             DAT(1,1) = SLAR
             DAT(2,1) = SLOR
 
-	ENDIF
+      ENDIF
 
 C  PMI is L-shell parameter for the magnetic field line; limit to 16 Re
 
@@ -1288,7 +1288,7 @@ C  are dummy values (e.g., 999.99)
 
 C  Initialize values for the cgmglo and cgmgla functions
 
-	    rh = rr
+          rh = rr
         clat = cla
        cr360 = .false.
          cr0 = .false.
@@ -1337,7 +1337,7 @@ C  *********************************************************************
       logical cr360,cr0
       common/cgmgeo/cclat,cr360,cr0,rh
 
-	    rr = rh
+          rr = rh
        if(clon.gt.360.) clon = clon - 360.
          if(clon.lt.0.) clon = clon + 360.
        call CORGEO(geolat,geolon,rr,dla,dlo,cclat,clon,pmi)
@@ -1368,20 +1368,20 @@ C *********************************************************************
 C  Geographic longitude geolon could be any number (e.g., discontinued)
 C  when geolat is the geographic pole
 
-	 if(abs(geolat).ge.89.99) then
-	       clon = clon - 0.01
-	       goto 1
-	 endif
+       if(abs(geolat).ge.89.99) then
+             clon = clon - 0.01
+             goto 1
+       endif
 
        if(cr360.and.(geolon.le.90.)) then
            cgmglo = geolon + 360.
                                      else
-	   if (cr0.and.(geolon.ge.270.)) then
+         if (cr0.and.(geolon.ge.270.)) then
            cgmglo = geolon - 360.
                                        else
            cgmglo = geolon
          endif
-	 endif
+       endif
 
       return
       end
@@ -1854,16 +1854,16 @@ C  across the 360/0 boundary - April 11, 2001)
             if(rslon.gt.270..and.rnlon.lt.90.) then
                 delon = (rslon - (rnlon + 360.))/rdel
             else
-		    if(rslon.lt.90..and.rnlon.gt.270.) then
+                if(rslon.lt.90..and.rnlon.gt.270.) then
                 delon = (rslon - (rnlon - 360.))/rdel
               else
                 delon = (rslon - rnlon)/rdel
-			endif
+                  endif
             endif
           endif
             do jc = jcn+1,jcs-1
               arlon(jc) = rnlon + delon*(jc-jcn)
-	        if (arlon(jc).lt.0.) arlon(jc) = arlon(jc) + 360.
+              if (arlon(jc).lt.0.) arlon(jc) = arlon(jc) + 360.
             enddo
 
    31   continue
@@ -2016,7 +2016,7 @@ C  End of loop IHEM
 C  Interpolation of CGM latitudes if there is no B-min at this
 C  magnetic field line
 
-	     rdel = jcs - jcn
+           rdel = jcs - jcn
            if(rdel.eq.0.) then
                delat = 0.
                           else
@@ -2035,11 +2035,11 @@ C  magnetic field line
 
 C  Geocentric latitude of the CGM equator
 
-	     rla = (rlan + rlas)/2.
+           rla = (rlan + rlas)/2.
 
 C  Interpolation of the CGM latitudes in the Northern hemisphere
 
-	    rdel = SLAN - rla
+          rdel = SLAN - rla
            if(rdel.eq.0.) then
                 delat = 0.
                           else
@@ -2054,7 +2054,7 @@ C  Interpolation of the CGM latitudes in the Northern hemisphere
 
 C  Interpolation of the CGM latitudes in the Southern hemisphere
 
-	    rdel = SLAS - rla
+          rdel = SLAS - rla
            if(rdel.eq.0.) then
                 delat = 0.
                           else
@@ -2073,7 +2073,7 @@ C  Interpolation of the CGM latitudes in the Southern hemisphere
 C  Defining by interpolation the exact values of the CGM latitude
 C  and longitude between two adjacent values
 
-	         L1 = 90. - SLAR + 1.
+               L1 = 90. - SLAR + 1.
          IF(SLAR.LT.0.) THEN
                L2 = L1-1
                        ELSE
@@ -2101,7 +2101,7 @@ C  *********************************************************************
 
 C  This takes care if CLA is a dummy value (e.g., 999.99)
 
-	    jc = 0
+          jc = 0
       if(abs(cla).lt.0.1) then
           write(7,2)
    2    format(/
@@ -2368,7 +2368,7 @@ C  *********************************************************************
       END
 C
 C
-	SUBROUTINE IGRF(IY,NM,R,T,F,BR,BT,BF)
+      SUBROUTINE IGRF(IY,NM,R,T,F,BR,BT,BF)
 C  *********************************************************************
 C     CALCULATES COMPONENTS OF THE MAIN (INTERNAL) GEOMAGNETIC FIELD IN SPHERICAL
 C     GEOGRAPHICAL COORDINATE SYSTEM, USING IAGA INTERNATIONAL GEOMAGNETIC REFERENCE
@@ -2419,7 +2419,7 @@ C  *********************************************************************
      * H1960(66),H1965(66),H1970(66),H1975(66),H1980(66),H1985(66),
      * H1990(66),H1995(66),H2000(66),H2005(66),H2010(66),H2015(66)
 
-      logical	mess
+      logical     mess
            
       common /iounit/konsol,mess
       
@@ -3065,7 +3065,7 @@ C
       IF (IYR.GT.2020) IYR=2020
       IF (IY.NE.IYR.AND.mess) WRITE (konsol,999)IY,IYR
 
-c	include 'igrf_goto.h'
+c     include 'igrf_goto.h'
       IF (IYR .LT. 1905) GOTO 1900      !INTERPOLATE BETWEEN 1900 - 1905
       IF (IYR .LT. 1910) GOTO 1905      !INTERPOLATE BETWEEN 1905 - 1910
       IF (IYR .LT. 1915) GOTO 1910      !INTERPOLATE BETWEEN 1910 - 1915
@@ -3461,7 +3461,7 @@ C  *********************************************************************
      5       EYMAGX,EYMAGY,GST,SLONG,SRASN,SDEC,BA(8),DECARG
 
         INTEGER IYR,IDAY,IHOUR,MIN,ISEC,K,IY,IDE,IYE,konsol
-        logical	mess
+        logical   mess
 
        COMMON/C1/ ST0,CT0,SL0,CL0,CTCL,STCL,CTSL,STSL,SFI,CFI,SPS,CPS,
      * SHI,CHI,HI,PSI,XMUT,A11,A21,A31,A12,A22,A32,A13,A23,A33,DS3,

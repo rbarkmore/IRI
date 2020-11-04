@@ -158,14 +158,14 @@ C              20 - ALL TN2 VAR           21 - ALL NLB VAR
 C              22 - ALL TN3 VAR           23 - TURBO SCALE HEIGHT VAR
 C        NOTES: The default should be sw(1:25)=1.0; Uses the full Ap history 
 C        if sw(9) = -1.0; sw(9)=-1 uses the full ap history and is supposed 
-C		 to give the best results for geomagentic storms; sw(9) = 0 turns off 
+C            to give the best results for geomagentic storms; sw(9) = 0 turns off 
 C        all ap variations.
 C
 C        To get current values of SW: CALL TRETRV(SW)
 C
 C Simplified version for F77 compilers and IRI (Sep 27,2010, dbilitza):
-C		GTS7, GLOBE7: AP(1), P(1) -> AP(7), P(150)
-C   		PD(150,9) -> PDA1(150),..,PDA9(150) 
+C           GTS7, GLOBE7: AP(1), P(1) -> AP(7), P(150)
+C           PD(150,9) -> PDA1(150),..,PDA9(150) 
 C-----------------------------------------------------------------------
       CHARACTER*4 ISDATE,ISTIME,NAME,ISD,IST,NAM
       DIMENSION D(9),T(2),AP(7),DS(9),TS(2)
@@ -436,7 +436,7 @@ C        D(9) - HOT O NUMBER DENSITY(CM-3)
 C        T(1) - EXOSPHERIC TEMPERATURE
 C        T(2) - TEMPERATURE AT ALT
 C-----------------------------------------------------------------------
-		LOGICAL mess
+            LOGICAL mess
       COMMON/PARMB/GSURF,RE
       COMMON/METSEL/IMR
       COMMON/iounit/konsol,mess
@@ -1626,7 +1626,7 @@ C        Y: OUTPUT VALUE
 C-----------------------------------------------------------------------
       DIMENSION XA(N),YA(N),Y2A(N)
       LOGICAL mess      
-	  COMMON/iounit/konsol,mess
+        COMMON/iounit/konsol,mess
       SAVE
       KLO=1
       KHI=N
@@ -1696,9 +1696,9 @@ C          XMM - full mixed molecular weight
 C          XM  - species molecular weight
 C          DNET - combined density
 C-----------------------------------------------------------------------
-		LOGICAL mess
-		COMMON/iounit/konsol,mess
-		
+            LOGICAL mess
+            COMMON/iounit/konsol,mess
+            
       SAVE
       A=ZHM/(XMM-XM)
       IF(DM.GT.0.AND.DD.GT.0) GOTO 5

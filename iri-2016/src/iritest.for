@@ -48,7 +48,7 @@ C 2020.03 09/16/20 messages if auroral boundary or CGM are off
 C
       INTEGER           pad1(6),jdprof(77),piktab
       DIMENSION         outf(20,1000),oar(100,1000),jfi(6)
-      LOGICAL		    jf(50),rzino,igino
+      LOGICAL               jf(50),rzino,igino
       CHARACTER*2       timev(2)
       CHARACTER*3       uni(86),sopt,seopt
       CHARACTER*4       IMZ(8),MAP,xtex,coorv(2)
@@ -85,19 +85,19 @@ C
 
       data jfi/8,9,13,14,15,16/
 
-c	  COMMON/const2/icalls,montho,nmono,iyearo,idaynro,ursifo,rzino,
-c     &	            igino,ut0
+c       COMMON/const2/icalls,montho,nmono,iyearo,idaynro,ursifo,rzino,
+c     &                 igino,ut0
 c
-c		icalls=0
-c		montho=-1
-c		nmono=-1
-c		iyearo=-1
-c		idaynro=-1
-c		rzino=.true.
-c		igino=.true.
-c		ut0=-1
+c           icalls=0
+c           montho=-1
+c           nmono=-1
+c           iyearo=-1
+c           idaynro=-1
+c           rzino=.true.
+c           igino=.true.
+c           ut0=-1
 
-		call read_ig_rz
+            call read_ig_rz
         call readapf107
         
         nummax=1000
@@ -150,132 +150,132 @@ c          jf(3)=.false.      ! f=no ion composition (t)
           jf(5)=.false.      ! t=CCIR  f=URSI foF2 model (f)
           jf(6)=.false.      ! t=DS95+DY85   f=RBV10+TBT15 (f)
 c          jf(7)=.false.      ! t=tops f10.7<188 f=unlimited (t)
-c          jf(19)=.false. 	 !F1 prob model   only if foF1>0 and not NIGHT (t)
+c          jf(19)=.false.      !F1 prob model   only if foF1>0 and not NIGHT (t)
 c          jf(20)=.false.     !standard F1  standard F1 plus L condition  (t)
 C (19,20) = (t,t) f1-prob, (t,f) f1-prob-L, (f,t) old F1, (f,f) no F1
           jf(21)=.false.     ! t=ion drift computed f=not comp.(f)
 c          jf(22)=.false.     ! ion densities in m-3 (t)
           jf(23)=.false.     ! t=AEROS/ISIS f=TTS Te with PF10.7 (f)
 c          jf(24)=.false.     ! t=D-reg-IRI-1990 f=FT-2001 (t)
-c		   jf(25)=.false.     ! t=F107D from APF107.DAT  f=user (t)
-          jf(26)=.false.	 ! t=STORM model on   f= off (t)
-          jf(28)=.false.	 ! t=spread-F computed f=not comp. (f)
+c              jf(25)=.false.     ! t=F107D from APF107.DAT  f=user (t)
+          jf(26)=.false.       ! t=STORM model on   f= off (t)
+          jf(28)=.false.       ! t=spread-F computed f=not comp. (f)
           jf(29)=.false.     ! t=old  f=New Topside options (f)
           jf(30)=.false.     ! t=corr f=NeQuick topside (f)
 C (29,30) = (t,t) IRIold, (f,t) IRIcor, (f,f) NeQuick, (t,f) COR2
 c          jf(31)=.false.     ! t=B0ABT f=Gulyaeva (t)
-c		   jf(32)=.false.     ! t=F107_81 from APF107.DAT  f=user (t)
-          jf(33)=.false. 	  ! t=auroral boundary   f=off (f)
-c          jf(34)=.false. 	  ! t=messages on f= off (t)
-          jf(35)=.false. 	  ! t=auroral E-storm model on f=off (f)
-c          jf(36)=.false. 	  ! t=hmF2 w/out foF2_storm f=with (t)
-c          jf(37)=.false. 	  ! t=topside w/out foF2_storm f=with (t)
-c          jf(38)=.false. 	  ! t=WRITEs off in IRIFLIP f=on (t)
-          jf(39)=.false. 	  ! t=M3000F2 model f=new hmF2 models (f)
-c          jf(40)=.false. 	  ! t=AMTB-model, f=Shubin-COSMIC model (t) 
-c          jf(41)=.false. 	  ! t:COV=F10.7_386 f:COV=f(IG12) (t) 
-c          jf(42)=.false. 	  ! t/f=Te w/o PF10.7 dependance (t)
-c          jf(43)=.false. 	  ! t= B0 model f= B0 user input (t)
-c          jf(44)=.false. 	  ! t= B1 model f= B1 user input (t)
-c          jf(45)=.false. 	  ! t=HNEA=65/80 f=user input oarr(89)
-c          jf(46)=.false. 	  ! t=HNEE=2000  f=user input oarr(90)
-          jf(47)=.false. 	  ! t=CGM on  f=CGM off
+c              jf(32)=.false.     ! t=F107_81 from APF107.DAT  f=user (t)
+          jf(33)=.false.        ! t=auroral boundary   f=off (f)
+c          jf(34)=.false.       ! t=messages on f= off (t)
+          jf(35)=.false.        ! t=auroral E-storm model on f=off (f)
+c          jf(36)=.false.       ! t=hmF2 w/out foF2_storm f=with (t)
+c          jf(37)=.false.       ! t=topside w/out foF2_storm f=with (t)
+c          jf(38)=.false.       ! t=WRITEs off in IRIFLIP f=on (t)
+          jf(39)=.false.        ! t=M3000F2 model f=new hmF2 models (f)
+c          jf(40)=.false.       ! t=AMTB-model, f=Shubin-COSMIC model (t) 
+c          jf(41)=.false.       ! t:COV=F10.7_386 f:COV=f(IG12) (t) 
+c          jf(42)=.false.       ! t/f=Te w/o PF10.7 dependance (t)
+c          jf(43)=.false.       ! t= B0 model f= B0 user input (t)
+c          jf(44)=.false.       ! t= B1 model f= B1 user input (t)
+c          jf(45)=.false.       ! t=HNEA=65/80 f=user input oarr(89)
+c          jf(46)=.false.       ! t=HNEE=2000  f=user input oarr(90)
+          jf(47)=.false.        ! t=CGM on  f=CGM off
         else
           print *,'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
           read(5,*) jf(1),jf(2),jf(3)
           if(jf(1)) then
               print *,'Ne lower boundary: t=65/80km day/night, ',
      &              'f=user input {t}'
-              	read(5,*) jf(45)
+                  read(5,*) jf(45)
               print *,'Ne upper boundary: t=2000km day/night, ',
      &              'f=user input {t}'
-              	read(5,*) jf(46)
+                  read(5,*) jf(46)
               print *,'LAY version: t=standard ver., f=LAY version.',
      &              ' {standard:t}'
-              	read(5,*) jf(11)
+                  read(5,*) jf(11)
               print *,'Ne Topside: jf(29),jf(30)                  {f,f}'
               print *,'(t,t) IRI-2001, (t,f) COR2, ',
      &              '(f,t)=IRIcor, f,f=NeQuick  '
-              	read(5,*) jf(29),jf(30)
+                  read(5,*) jf(29),jf(30)
               print *,'Ne Topside: t=F10.7<188, f=unlimited {t}'
-              	read(5,*) jf(7)
+                  read(5,*) jf(7)
               print *,'F2 peak density or foF2: t=model, ',
      &              'f=user input {t}'
-              	read(5,*) jf(8)
+                  read(5,*) jf(8)
               if(jf(8)) then
-              	print *,'foF2 model: t=CCIR, f=URSI-88 {f}'
-              		read(5,*) jf(5)
-              	print *,'foF2: t=with storm model, f=without {t}'
-              		read(5,*) jf(26)
-              	print *,'Ne Topside: t=w/o foF2 storm model, f=with {t}'
-              		read(5,*) jf(37)
-              	endif
+                  print *,'foF2 model: t=CCIR, f=URSI-88 {f}'
+                        read(5,*) jf(5)
+                  print *,'foF2: t=with storm model, f=without {t}'
+                        read(5,*) jf(26)
+                  print *,'Ne Topside: t=w/o foF2 storm model, f=with {t}'
+                        read(5,*) jf(37)
+                  endif
               print *,'F2 peak height or M3000F2: t=model, ',
      &              'f=user input {t}'
-              	read(5,*) jf(9)
+                  read(5,*) jf(9)
               if(jf(9)) then
                 print *,'hmF2: t=f(M3000F2), f=new models {f}'
-                	read(5,*) jf(39)              
+                  read(5,*) jf(39)              
                 print *,'hmF2: t=AMTB-model, f=Shubin-COSMIC model {t}'
-                	read(5,*) jf(40)              
+                  read(5,*) jf(40)              
                 if(jf(39)) then
                   print *,'hmF2: t=w/o foF2 storm model, f=with {t}'
-                  	read(5,*) jf(36)
+                        read(5,*) jf(36)
                   endif 
                 endif             
               print *,'B0 bottomside thickness: t=model, ',
      &              'f=user input {t}'
-              	read(5,*) jf(43)
+                  read(5,*) jf(43)
               print *,'B1 bottomside shape: t=model, ',
      &              'f=user input {t}'
-              	read(5,*) jf(44)
+                  read(5,*) jf(44)
               if(jf(43)) then
-              	print *,'Bottomside thickness B0: t=Bil-2000, ',
+                  print *,'Bottomside thickness B0: t=Bil-2000, ',
      &            'f=other options {f}.'
-              		read(5,*) jf(4)
-              	print *,'Bottomside thickness B0: t=ABT-2009, ',
+                        read(5,*) jf(4)
+                  print *,'Bottomside thickness B0: t=ABT-2009, ',
      &            'f= Gul-1987 {t}.'     
-              		read(5,*) jf(31)
-              	endif
+                        read(5,*) jf(31)
+                  endif
               print *,'F1 peak density or foF1: t=model, ',
      &            'f=user input {t}'
-              	read(5,*) jf(13)
+                  read(5,*) jf(13)
               if(.not.jf(11)) then
                 print *,'F1 peak height: t=model, f=user input {t}'
-                	read(5,*) jf(14)
+                  read(5,*) jf(14)
                 endif
               print *,'F1: jf(19),jf(20)                        {t,t}'
               print *,'(t,t) stdard f1 prob, (t,f) f1-prob with L-cond'
               print *,'(f,t) only if foF1>0 and not NIGHT, (f,f) no F1'
-              	read(5,*) jf(19),jf(20)
+                  read(5,*) jf(19),jf(20)
               print *,'E peak density or foE: t=model, f=user input {t}'
-              	read(5,*) jf(15)
+                  read(5,*) jf(15)
               print *,'E peak height: t=model, f=user input {t}'
-              	read(5,*) jf(16)
+                  read(5,*) jf(16)
               print *,'E peak auroral storm model: t=on, f=off {f}'
-              	read(5,*) jf(35)
+                  read(5,*) jf(35)
               print *,'D: t=IRI-1990, f= FT-2001 {t}'
-              	read(5,*) jf(24)
+                  read(5,*) jf(24)
               endif
         if(jf(2)) then
               print *,'Te(Ne) model: t=not used, f=correlation is',
      &          ' used. {t}'
-              	read(5,*) jf(10)
+                  read(5,*) jf(10)
               print *,'Te: t=Bil-1985, f=TBT-2012 {f}'
-              	read(5,*) jf(23)
+                  read(5,*) jf(23)
               print *,'Te: t=TBT-2012 with PF107 dep., f=w/o {t}'
-              	read(5,*) jf(42)
-          	  endif
+                  read(5,*) jf(42)
+              endif
         if(jf(3)) then
               print *,'Ion comp. model: t=DS95/DY85, f=RBV10/TBT15 {f}' 
-              	read(5,*) jf(6)
+                  read(5,*) jf(6)
               if(.not.jf(6)) then
-              	print *,'IRIFLIP: t=messages off, f=on {t}' 
-              		read(5,*) jf(38)
-              	endif              
+                  print *,'IRIFLIP: t=messages off, f=on {t}' 
+                        read(5,*) jf(38)
+                  endif              
               print *,'Ni: t=ion composition in %, f=ion densities',
      &             'in cm-3 {t}'
-              	read(5,*) jf(22)
+                  read(5,*) jf(22)
               endif
         print *,'Equat. Vert. Ion Drift: t=computed, ',
      &            'f=not computed {t}'
@@ -332,12 +332,12 @@ c        print *,'      modified dip latitude [27]'
         print *,'      Ap for current UT [51]' 
         read(5,*) (pad1(j),j=1,6)
 c change defaults for computation of specific parameters
-        	jf(21)=.true.  ! spread-F prob. computed
-        	jf(28)=.true.  ! vertical ion drift computed
-        	jf(33)=.true.  ! auroral boundary computed
-        	jf(35)=.true.  ! foE_storm computed
+            jf(21)=.true.  ! spread-F prob. computed
+            jf(28)=.true.  ! vertical ion drift computed
+            jf(33)=.true.  ! auroral boundary computed
+            jf(35)=.true.  ! foE_storm computed
         if(pad1(1).eq.0) then
-        	pad1(1)=48     ! spread-F probability
+            pad1(1)=48     ! spread-F probability
             pad1(2)=44     ! equatorial vertical ion drift
             pad1(3)=45     ! fof2_storm/foF2_quiet
             pad1(4)=47     ! foE_storm/foE_quiet
@@ -577,9 +577,9 @@ c
         write(7,3991) iy,mmdd,phour,timev(iut+1),
      &        coorv(jmag+1),xlat,xlon,hxx
         if(jf(1)) then
-       		write(7,3314) popt
+                  write(7,3314) popt
             if(jf(8)) then
-            	write(7,301) map
+                  write(7,301) map
                 write(7,3291) sopt
                 endif
             if(jf(9)) write(7,303) hopt
@@ -685,12 +685,12 @@ c
         IF(PIKTAB.EQ.1) WRITE(7,8192) ITEXT(IVAR),xtex
 
         IF(PIKTAB.EQ.0) THEN
-        	if(jf(22)) then
-        		WRITE(7,8193) ITEXT(IVAR),xtex
-        	else
-        		WRITE(7,9193) ITEXT(IVAR),xtex        	
-        	endif
-			ENDIF
+            if(jf(22)) then
+                  WRITE(7,8193) ITEXT(IVAR),xtex
+            else
+                  WRITE(7,9193) ITEXT(IVAR),xtex            
+            endif
+                  ENDIF
 8191  FORMAT(/'-'/2X,A5,6A10/3X,A4,6A10)
 8192  FORMAT(/'-'/2X,A5,6X,'PEAK ALTITUDES IN KM',8X,'PEAK DEN',
      &  'SITIES IN cm-3  TEC top/%'/3X,A4,'    hmF2  hmF1   hmE   ',
@@ -716,21 +716,21 @@ c    IRI-07    FIRI  Danilov:SW/WA=0/0  0.5/0   1/0    0/0.5    0/1
 c                    DRS-95: Stratos Warming/Winter Anomaly
 c
 
-		if(piktab.eq.4) then
+            if(piktab.eq.4) then
             do 2591 lix=1,77 
-            	jdprof(lix)=-1
-            	dichte=outf(14,lix)
+                  jdprof(lix)=-1
+                  dichte=outf(14,lix)
 2591            if(dichte.gt.0.) jdprof(lix)=int(dichte/1.e6+0.5)
-			do 2592 lix=1,11
-				ihtemp=55+lix*5
-            	WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
-     &  			jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
-     &  			jdprof(lix+55),jdprof(lix+66)
-2592		    continue			
+                  do 2592 lix=1,11
+                        ihtemp=55+lix*5
+                  WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
+     &                  jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
+     &                  jdprof(lix+55),jdprof(lix+66)
+2592            continue                  
 3810    FORMAT(I3,7I8)
-			goto 2357
-		 	endif
-		
+                  goto 2357
+                  endif
+            
         xcor=vbeg
 
         do 1234 li=1,numstp
@@ -890,6 +890,6 @@ c     &        jih,jihe,jino,jio2,jicl,tec,itopp
 2357    print *,'Enter 0 to exit or 1 to generate another profile?' 
         read(5,*) icontinue
         if (icontinue.gt.0) goto 1
-c		print *,oar(51,1),oar(52,1),oar(83,1)    
+c           print *,oar(51,1),oar(52,1),oar(83,1)    
             stop
             end

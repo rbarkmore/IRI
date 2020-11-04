@@ -13,7 +13,7 @@ C
 c --------------------------------------------------------------- 
 c 
 
-		SUBROUTINE READIRTAMCOF(ISEL,IDATE,IHHMM,MFF,FF)
+            SUBROUTINE READIRTAMCOF(ISEL,IDATE,IHHMM,MFF,FF)
 C -----------------------------------------------------------
 C Finds and reads IRTAM coefficients for foF2, hmF2, B0, and 
 C B1 for date IDATE (yyyymmdd) and time HOURUT (decimal hours, 
@@ -28,19 +28,19 @@ C D. Bilitza, Jun 17.2016
 C Added B1 input      D. Bilitza, Nov 3, 2017
 C -----------------------------------------------------------
  
-c		CHARACTER	FILNAM*28
-		integer		iuccir
-		CHARACTER*100	FILNAM
-		CHARACTER*120	LINE
-		CHARACTER*12    INAME
-		DIMENSION 	    FF(MFF)
+c           CHARACTER   FILNAM*28
+            integer           iuccir
+            CHARACTER*100     FILNAM
+            CHARACTER*120     LINE
+            CHARACTER*12    INAME
+            DIMENSION       FF(MFF)
         konsol=6
 
         IUCCIR=10
-		iname='foF2_COEFFS_'
-		if(isel.gt.0) iname='hmF2_COEFFS_'
-		if(isel.gt.1) iname='B0in_COEFFS_'
-		if(isel.gt.2) iname='B1in_COEFFS_'
+            iname='foF2_COEFFS_'
+            if(isel.gt.0) iname='hmF2_COEFFS_'
+            if(isel.gt.1) iname='B0in_COEFFS_'
+            if(isel.gt.2) iname='B1in_COEFFS_'
 
 c read foF2 coefficients 
      
@@ -50,29 +50,29 @@ ccc     &     'iri_dev/IRTAM_dir/IRTAM_',A12,I8,'_',I4.4,'.ASC')
 104     FORMAT('IRTAM_',A12,I8,'_',I4.4,'.ASC')
         OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=201,
      &          FORM='FORMATTED')
-     	print*,mff,filnam
+      print*,mff,filnam
 
 C skip header with comments
-c	    do 1,13 READ(iuccir,1289) LINE
-4686	READ(iuccir,1289) LINE
-1289	Format(A120)
-		if(LINE(1:12).NE."# END_HEADER") goto 4686
+c         do 1,13 READ(iuccir,1289) LINE
+4686  READ(iuccir,1289) LINE
+1289  Format(A120)
+            if(LINE(1:12).NE."# END_HEADER") goto 4686
 
-c read coefficients			
+c read coefficients                 
         READ(iuccir,4689) FF
 4699    FORMAT(E16.8)
 4689    FORMAT(4E16.8)
 4690    CLOSE(10)
-	
-		goto 300
-		
+      
+            goto 300
+            
 201     WRITE(6,203) FILNAM
 203     FORMAT(1X////,
      &    ' The file ',A100,' is not in your directory.')
-		
-300		CONTINUE
-		RETURN
-		END
+            
+300         CONTINUE
+            RETURN
+            END
 C
 C
       real function FOUT1(XMODIP,XLATI,XLONGI,UT,TOV,FF0)

@@ -157,14 +157,14 @@ c- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 c IRI functions and subroutines:
 C Ne:       XE1,TOPQ,ZERO,DXE1N,XE2,XE3_1,XE4_1,XE5,XE6,XE_1
 C Te, Ti:   ELTEIK{INTERP,KODERR,KOEFD,KOF107,LOCATE,SPHARM_IK, 
-C		    SPLINE,SPLINT,SWAPEL,TEDIFI,TPCAS,TPCORR},TEBA,SPHARM,
+C               SPLINE,SPLINT,SWAPEL,TEDIFI,TPCAS,TPCORR},TEBA,SPHARM,
 C           ELTE,TEDE,TI,TN
 C Ni:       RPID,RDHHE,RDNO,KOEFP1,KOEFP2,KOEFP3,SUFE,IONDANI,IONCO1, 
 C           IONCO2,APROK,CALION,IONLOW,IONHIGH,INVDPC
 C PEAKS:    FOUT,XMOUT,HMF2ED,XM3000HM,SHAMDHMF2,SCHNEVPDH,model_hmF2,
-C     		SDMF2,hmF2_med_SD,read_data_SD,fun_hmF2_SD,fun_Gk,Legendre, 
-C     		fun_hmF2UT,Koeff_UT,fun_Akp_UT,fun_Fk_UT,fun_Gk_UT
-C     		FOF1ED,f1_c1,f1_prob,FOEEDI,XMDED,GAMMA1
+C                 SDMF2,hmF2_med_SD,read_data_SD,fun_hmF2_SD,fun_Gk,Legendre, 
+C                 fun_hmF2UT,Koeff_UT,fun_Akp_UT,fun_Fk_UT,fun_Gk_UT
+C                 FOF1ED,f1_c1,f1_prob,FOEEDI,XMDED,GAMMA1
 C PROFILE:  TOPH05,CHEBISH,SHAMDB0D,SHAB1D,SCHNEVPD,TBFIT,LEGFUN,  
 C           B0_98,TAL,VALGUL,DREGION
 C MAG. FIELD: FIELDG, CONVER(Geom. Corrected Latitude)
@@ -172,10 +172,10 @@ C TIME:     SOCO,HPOL,MODA,UT_LT,SUN
 C EPSTEIN:  RLAY,D1LAY,D2LAY,EPTR,EPST,EPSTEP,EPLA
 C LAY:      XE2TO5,XEN,ROGUL,LNGLSN,LSKNM,INILAY
 C INDICES:  TCON,APF,APFMSIS,APF_ONLY
-C STORM:   	CONVER, STORM, STORME_AP
+C STORM:    CONVER, STORM, STORME_AP
 C Vi:       vdrift,bspl4_time,bspl4_long,g,stormvd,bspl4_ptime
-C Spread-F:	spreadf_brazil,bspl2f,bspl2l,bspl2s,bspl4t
-C Auroral: 	auroral_boundary, ckp
+C Spread-F: spreadf_brazil,bspl2f,bspl2l,bspl2s,bspl4t
+C Auroral:  auroral_boundary, ckp
 C Misc:     REGFA1
 c-----------------------------------------------------------------------
 C
@@ -198,9 +198,9 @@ C New options include:
 C (1) IRI-corrected: TC3,alg10,hcor1 in COMMON /BLO11. 
 C   TC3     correction term divided by (1500-(hcor1-hmF2))
 C   alg10   = alog(10.)
-C	hcor1	lower height boundary for correction
+C     hcor1 lower height boundary for correction
 C (2) NeQuick:  B2TOP  in COMMON /BLO11.
-C	B2TOP   is the topside scale height that depends on foF2 and 
+C     B2TOP   is the topside scale height that depends on foF2 and 
 C           hmF2. 
 C Switch for choosing the desired option is itopn in COMMON /BLO11
 C   itopn   =0 IRI-2001, =1 IRI-2001-corrected, =2 NeQuick
@@ -213,7 +213,7 @@ c     &          /BLO11/B2TOP,TC3,itopn,alg10,hcor1,tcor2
 c     &          /QTOP/Y05,H05TOP,QF,XNETOP,xm3000,hhalf,tau
      &          /ARGEXP/ARGMAX
 
-        logical 	f1reg              
+        logical   f1reg              
 
         IF(itopn.eq.2) THEN
           XE1=TOPQ(H,XNMF2,HMF2,B2TOP)
@@ -231,7 +231,7 @@ c     &          /QTOP/Y05,H05TOP,QF,XNETOP,xm3000,hhalf,tau
         if(abs(Y).gt.argmax) Y = sign(argmax,Y)
 
 c        IF(itopn.eq.3) then
-c	         IF((QF.EQ.1.).AND.(ABS(H-H05TOP).LT.1.)) QF=Y05/Y
+c              IF((QF.EQ.1.).AND.(ABS(H-H05TOP).LT.1.)) QF=Y05/Y
 c             XE1 = XNMF2 * EXP(-Y*QF)                             
 c             RETURN          
 c             endif
@@ -251,35 +251,35 @@ C
       subroutine tops_cor2(xh,vmod,a01)
 C-------------------------------------------------------------------------
 C Determines solar activity correction factor for topside cor option:
-C		xh	height in km
-C		vmod	modified dip latitude in degree
-C		ap01(1:2,1)		A0 and A1 for daytime
-C		ap01(1:2,2)		A0 and A1 for nighttime
-C	        IRI-new = IRI-old * exp(A0+A1*PF10.7)
+C           xh    height in km
+C           vmod  modified dip latitude in degree
+C           ap01(1:2,1)       A0 and A1 for daytime
+C           ap01(1:2,2)       A0 and A1 for nighttime
+C             IRI-new = IRI-old * exp(A0+A1*PF10.7)
 C-------------------------------------------------------------------------
-      REAL	pa(6,3,2,2),ha(6,3,2,2),sh(5),thh(4)
-      REAL	ah(6),av(6),ap01(3,2,2),a01(2,2)
+      REAL  pa(6,3,2,2),ha(6,3,2,2),sh(5),thh(4)
+      REAL  ah(6),av(6),ap01(3,2,2),a01(2,2)
       REAL  xmod(7),thhb(5),pb(7,2,2),bv(7)
 
       DATA pa/0,0,-2.4,-2.4,0,0,
-     &	0,0,-1.6,-1.6,0,0,0,0,-2.2,-2.2,0,0,
-     &	0,0,0.0185,0.0185,0,0,0,0,0.018,0.018,0,0,
-     &	0,0,0.0175,0.0175,0,0,0,0,-1.1,-1.1,0,0,
-     &	0,0,-0.7,-0.7,0,0,0,0,-1.4,-1.4,0,0,
-     &	0,0,0.007,0.007,0,0,0,0,0.005,0.005,0,0,
-     &	0,0,0.01,0.01,0,0/
+     &      0,0,-1.6,-1.6,0,0,0,0,-2.2,-2.2,0,0,
+     &      0,0,0.0185,0.0185,0,0,0,0,0.018,0.018,0,0,
+     &      0,0,0.0175,0.0175,0,0,0,0,-1.1,-1.1,0,0,
+     &      0,0,-0.7,-0.7,0,0,0,0,-1.4,-1.4,0,0,
+     &      0,0,0.007,0.007,0,0,0,0,0.005,0.005,0,0,
+     &      0,0,0.01,0.01,0,0/
       DATA ha/0,200,600,900,1400,1700,
-     &	0,550,700,1100,1400,1700,
-     &	0,200,600,950,1600,1700,
-     &	0,300,650,750,1300,1700,
-     &	0,450,750,850,1400,1700,
-     &	0,300,650,750,1500,1700,
-     &	0,400,500,900,1200,1700,
-     &	0,400,500,900,1200,1700,
-     &	0,350,550,800,1200,1700,
-     &	0,400,500,750,900,1700,
-     &	0,400,550,750,900,1700,
-     &	0,400,550,750,900,1700/
+     &      0,550,700,1100,1400,1700,
+     &      0,200,600,950,1600,1700,
+     &      0,300,650,750,1300,1700,
+     &      0,450,750,850,1400,1700,
+     &      0,300,650,750,1500,1700,
+     &      0,400,500,900,1200,1700,
+     &      0,400,500,900,1200,1700,
+     &      0,350,550,800,1200,1700,
+     &      0,400,500,750,900,1700,
+     &      0,400,550,750,900,1700,
+     &      0,400,550,750,900,1700/
       DATA xmod/-90.,-60.,-25.,0.,25.,60.,90./
       DATA thh/4*30.0/thhb/5*0.1/
 
@@ -289,7 +289,7 @@ C-------------------------------------------------------------------------
             do 12 i=1,6
               AH(I)=HA(I,J2,K,L3)
 12            AV(I)=PA(I,J2,K,L3)
-11          AP01(J2,K,L3)=BOOKER(XH,6,AH,AV,THH)	
+11          AP01(J2,K,L3)=BOOKER(XH,6,AH,AV,THH)      
 
       do 20 i=1,2
         do 20 k=1,2
@@ -364,7 +364,7 @@ C
 C LOGARITHMIC DERIVATIVE OF FUNCTION XE1 (KM-1).   
         COMMON    /BLOCK1/HMF2,XNMF2,HMF1,F1REG
      &            /BLO10/BETA,ETA,DELTA,ZETA                    
-	    logical f1reg
+          logical f1reg
 
         x0 = 300. - delta
         X=(H-HMF2)/(1000.0-HMF2)*700.0 + x0
@@ -379,7 +379,7 @@ C
 C ELECTRON DENSITY FOR THE BOTTOMSIDE F-REGION (HMF1...HMF2).                   
         COMMON    /BLOCK1/HMF2,XNMF2,HMF1,F1REG
      &          /BLOCK2/B0,B1,C1        /ARGEXP/ARGMAX
-	    logical	f1reg
+          logical f1reg
 
         X=(HMF2-H)/B0
         if(x.le.0.0) x=0.0
@@ -394,11 +394,11 @@ C
 C ELECTRON DENSITY FOR THE F1-LAYER (HZ.....HMF1)
 C USING THE NEW DEFINED F1-LAYER FUNCTION (Reinisch and Huang, Advances 
 C in Space Research, Volume 25, Number 1, 81-88, 2000)
-        COMMON	/BLOCK1/	HMF2,XNMF2,HMF1,F1REG
-     &		/BLOCK2/	B0,B1,C1
-	    logical	f1reg
+        COMMON    /BLOCK1/    HMF2,XNMF2,HMF1,F1REG
+     &            /BLOCK2/    B0,B1,C1
+          logical f1reg
 C
-	    h1bar=h
+          h1bar=h
         if (f1reg) H1BAR=HMF1*(1.0-((HMF1-H)/HMF1)**(1.0+C1))
         XE3_1=XE2(H1BAR)
         RETURN
@@ -408,13 +408,13 @@ C
         REAL FUNCTION XE4_1(H)
 C ELECTRON DENSITY FOR THE INTERMEDIATE REGION (HEF...HZ)
 C USING THE NEW DEFINED FUNCTION
-        COMMON	/BLOCK3/	HZ,T,HST
-     &		/BLOCK4/	HME,XNME,HEF
+        COMMON    /BLOCK3/    HZ,T,HST
+     &            /BLOCK4/    HME,XNME,HEF
 C
-	    if(hst.lt.0.0) then
-		xe4_1=xnme+t*(h-hef)
-		return
-		endif
+          if(hst.lt.0.0) then
+            xe4_1=xnme+t*(h-hef)
+            return
+            endif
         IF(HST.EQ.HEF) THEN
            H1BAR=H
         ELSE
@@ -463,12 +463,12 @@ C SUMMARIZING PROCEDURES  NE1....6;
         COMMON    /BLOCK1/HMF2,XNMF2,XHMF1,F1REG         
      &          /BLOCK3/HZ,T,HST
      &        /BLOCK4/HME,XNME,HEF
-	    logical 	f1reg
-	    if(f1reg) then
-		   hmf1=xhmf1
-	    else
-		   hmf1=hmf2
-	    endif
+          logical       f1reg
+          if(f1reg) then
+               hmf1=xhmf1
+          else
+               hmf1=hmf2
+          endif
         IF(H.LT.HMF2) GOTO 100                       
         XE_1=XE1(H)     
         RETURN          
@@ -604,7 +604,7 @@ c       RDIPL=DIPL*DTOR
 c       ALFA=SIN(ABS(RDIPL))**3
 c       BETA=COS(RINVL)**3
 c       INVDP=(ALFA*SIGN(1.0,DIPL)*INVL+BETA*DIPL)/(ALFA+BETA)
-c      ELSE IF	(CRD .EQ. 0) THEN
+c      ELSE IF    (CRD .EQ. 0) THEN
 c       INVDP=INVDIP
 c      ELSE
 c       RETURN
@@ -2805,7 +2805,7 @@ C SEMENOV'S COMPILATION.
      &2.0,3.0,-11.0,0.083,0.102,0.045,0.03,0.00127,0.01,0.05,                            
      &0.09,167.0,185.0,0.015,0.18/     
       DO 10 I=1,80    
-10    	PG1O(I)=FELD(I)                              
+10          PG1O(I)=FELD(I)                              
       RETURN          
       END             
 C
@@ -2819,7 +2819,7 @@ C ABOVE THE F2-MAXIMUM (DUMBS,SPENNER:AEROS-COMPILATION)
      &2.0,-11.0,-11.0,1.0,695.0,-.000786,-.00165,3367.0,2.0, 
      &-11.0,-11.0,2.0,575.0,-.00126,-.00524,1380.0/                
       DO 10 I=1,32    
-10    	PG2O(I)=FELD(I)                              
+10          PG2O(I)=FELD(I)                              
       RETURN          
       END             
 C
@@ -2839,7 +2839,7 @@ C CHOSEN AS TO APPROACH DANILOV-SEMENOV'S COMPILATION.
      &4.0,-11.0,140.0,45.0,136.0,-9.0,181.0,-26.0,0.02994,                
      &-0.04879,-0.01396,0.00089,-0.09929,0.05589/           
       DO 10 I=1,80    
-10    	PG3O(I)=FELD(I)                              
+10          PG3O(I)=FELD(I)                              
       RETURN          
       END             
 C
@@ -2896,16 +2896,16 @@ c-------------------------------------------------------
         f107 = fs
         deci_month = ismo + id/29.0
         if (h.gt.300.) then
-        	call ionco1(h,xhi,xlati,f107,deci_month,dion)
-			dion(5)=0.0
-			dion(6)=0.0
-			dion(7)=0.0
+            call ionco1(h,xhi,xlati,f107,deci_month,dion)
+                  dion(5)=0.0
+                  dion(6)=0.0
+                  dion(7)=0.0
         else
-        	call ionco2(h,xhi,ismo,f107,rno,ro2,rcl,ro)
-        	dion(5)=rno
-        	dion(6)=ro2
-       		dion(7)=rcl
-        	dion(1)=ro
+            call ionco2(h,xhi,ismo,f107,rno,ro2,rcl,ro)
+            dion(5)=rno
+            dion(6)=ro2
+                  dion(7)=rcl
+            dion(1)=ro
         endif
 
         return
@@ -3441,7 +3441,7 @@ c-----------------------------------------------------------------
        end
 C
 C
-	SUBROUTINE CALION(INVDIP,MLT,ALT,DDD,PF107,NO,NH,NHE,NN)
+      SUBROUTINE CALION(INVDIP,MLT,ALT,DDD,PF107,NO,NH,NHE,NN)
 C----------------------------------------------------------------------
 C Version 2.5 (released 6.4.2016) (Includes a correction for PF107<87.5 
 C based on C/NOFS CINDI data)
@@ -4674,7 +4674,7 @@ C///////////////////////////solar maximum//////////////////////////////
       CALL IONHIGH(INVDIP,MLT,ALT,DDD,DNH,3,NNH)
 C     interpolation (in logarithm)
       IF (PF107 .GT. 260) PF107=260
-	IF (PF107 .LT. 65) PF107=65
+      IF (PF107 .LT. 65) PF107=65
       NO=(ALOG10(NOH)-ALOG10(NOL))/(210.0-85.0)*(PF107-85.0)+ALOG10(NOL)
       NH=(ALOG10(NHH)-ALOG10(NHL))/(210.0-85.0)*(PF107-85.0)+ALOG10(NHL)
       NHE=(ALOG10(NHEH)-ALOG10(NHEL))/(210.0-85.0)*(PF107-85.0)+
@@ -4750,9 +4750,9 @@ C---------------------------------------------------------------------------
       REAL N0A550,N0B550,N550A,N550B,N550
       REAL N0A750,N0B750,N750A,N750B,N750
       REAL N0A100,N0B100,N100A,N100B,N1000
-	REAL ANO(4),AH(4),DNO(2),ST(3)
-	COMMON/CONST/DTOR,PI
-	DATA (MIRREQ(J),J=1,49)/
+      REAL ANO(4),AH(4),DNO(2),ST(3)
+      COMMON/CONST/DTOR,PI
+      DATA (MIRREQ(J),J=1,49)/
      &            1,-1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1,-1, 1,-1, 1,-1,
      &            1,-1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1,
      &           -1, 1,-1, 1,-1, 1, 1,-1, 1, 1,-1, 1,-1, 1, 1/
@@ -4769,8 +4769,8 @@ C     coefficients for mirroring
       RCOLAT=(90.0-INVDP)*DTOR
       CALL SPHARM_IK(C1,6,6,RCOLAT,RMLT)
       do i=1,49
-      	c(i)=c1(i)
-      	enddo
+            c(i)=c1(i)
+            enddo
 C     21.3. - 20.6.
       IF ((DDD .GE. 79) .AND. (DDD .LT. 171)) THEN
        SEZA=1
@@ -4821,25 +4821,25 @@ C     400km level
         N400=(N400B-N400A)/(DDDB-DDDA)*(DDDD-DDDA)+N400A
 C     550km level
       N0A550=0.0
-	N0B550=0.0
-	DO 70 I=1,49
+      N0B550=0.0
+      DO 70 I=1,49
          N0A550=N0A550+C(I)*D(2,SEZAI,I)
 70       N0B550=N0B550+C(I)*D(2,SEZBI,I)
-	N550A=N0A550
-	N550B=N0B550
-	N550=(N550B-N550A)/(DDDB-DDDA)*(DDDD-DDDA)+N550A
+      N550A=N0A550
+      N550B=N0B550
+      N550=(N550B-N550A)/(DDDB-DDDA)*(DDDD-DDDA)+N550A
 C     750km level
       N0A750=0.0
       N0B750=0.0
-	DO 110 I=1,49
+      DO 110 I=1,49
          N0A750=N0A750+C(I)*D(3,SEZAI,I)
 110      N0B750=N0B750+C(I)*D(3,SEZBI,I)
-	N750A=N0A750
-	N750B=N0B750
-	N750=(N750B-N750A)/(DDDB-DDDA)*(DDDD-DDDA)+N750A
+      N750A=N0A750
+      N750B=N0B750
+      N750=(N750B-N750A)/(DDDB-DDDA)*(DDDD-DDDA)+N750A
 C     1000km level
       N0A100=0.0
-	N0B100=0.0
+      N0B100=0.0
        DO 150 I=1,49
         N0A100=N0A100+C(I)*D(4,SEZAI,I)
 150     N0B100=N0B100+C(I)*D(4,SEZBI,I)
@@ -4858,17 +4858,17 @@ C     n(H+) and n(He+) must not decrease above 750km
       IF (ALT .GE. 960) GOTO 240
                 
       ANO(1)=N400
-	 ANO(2)=N550
-	  ANO(3)=N750
-	   ANO(4)=N1000
+       ANO(2)=N550
+        ANO(3)=N750
+         ANO(4)=N1000
 
-C	AH(1)=400.
+C     AH(1)=400.
 C       AH(2)=550.
 C        AH(3)=750.
 C         AH(4)=1000.
 
 C     exact values
-	AH(1)=390.
+      AH(1)=390.
        AH(2)=550.
         AH(3)=740.
          AH(4)=960.
@@ -4888,8 +4888,8 @@ c      ARGMAX=88.0
       SUM=ANO(1)+ST(1)*(ALT-AH(1))                     
      
       DO 230 I=1,2
-	aa = eptr(alt  ,dno(i),ah(i+1))
-	bb = eptr(ah(1),dno(i),ah(i+1))
+      aa = eptr(alt  ,dno(i),ah(i+1))
+      bb = eptr(ah(1),dno(i),ah(i+1))
 230   SUM=SUM+(ST(I+1)-ST(I))*(AA-BB)*DNO(I)
                 
 240   NION=10**SUM       
@@ -4920,7 +4920,7 @@ C         ION - ion species (0...O+, 1...H+, 2...He+, 3...N+)
 C Output: NION - absolute density for given ion 
 C---------------------------------------------------------------------------
       REAL INVDIP,MLT,ALT,NION
-	  INTEGER DDD,ION
+        INTEGER DDD,ION
       DIMENSION  D(4,3,49),MIRREQ(49)
       REAL INVDP,DTOR
       REAL RMLT,RCOLAT
@@ -4930,9 +4930,9 @@ C---------------------------------------------------------------------------
       REAL N0A900,N0B900,N900A,N900B,N900
       REAL N0A150,N0B150,N150A,N150B,N1500
       REAL N0A250,N0B250,N250A,N250B,N2500
-	REAL ANO(4),AH(4),DNO(2),ST(3)
-	COMMON/CONST/DTOR,PI
-	DATA (MIRREQ(J),J=1,49)/
+      REAL ANO(4),AH(4),DNO(2),ST(3)
+      COMMON/CONST/DTOR,PI
+      DATA (MIRREQ(J),J=1,49)/
      &            1,-1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1,-1, 1,-1, 1,-1,
      &            1,-1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1, 1,-1, 1,-1, 1,
      &           -1, 1,-1, 1,-1, 1, 1,-1, 1, 1,-1, 1,-1, 1, 1/
@@ -4949,8 +4949,8 @@ C     coefficients for mirroring
       RCOLAT=(90.0-INVDP)*DTOR
       CALL SPHARM_IK(C1,6,6,RCOLAT,RMLT)
       do i=1,49
-      	c(i)=c1(i)
-      	enddo
+            c(i)=c1(i)
+            enddo
 C     21.3. - 20.6.
       IF ((DDD .GE. 79) .AND. (DDD .LT. 171)) THEN
        SEZA=1
@@ -5001,25 +5001,25 @@ C     550km level
         N550=(N550B-N550A)/(DDDB-DDDA)*(DDDD-DDDA)+N550A
 C     900km level
       N0A900=0.0
-	N0B900=0.0
-	DO 70 I=1,49
+      N0B900=0.0
+      DO 70 I=1,49
          N0A900=N0A900+C(I)*D(2,SEZAI,I)
 70       N0B900=N0B900+C(I)*D(2,SEZBI,I)
-	N900A=N0A900
-	N900B=N0B900
-	N900=(N900B-N900A)/(DDDB-DDDA)*(DDDD-DDDA)+N900A
+      N900A=N0A900
+      N900B=N0B900
+      N900=(N900B-N900A)/(DDDB-DDDA)*(DDDD-DDDA)+N900A
 C     1500km level
       N0A150=0.0
       N0B150=0.0
-	DO 110 I=1,49
+      DO 110 I=1,49
          N0A150=N0A150+C(I)*D(3,SEZAI,I)
 110      N0B150=N0B150+C(I)*D(3,SEZBI,I)
-	N150A=N0A150
-	N150B=N0B150
-	N1500=(N150B-N150A)/(DDDB-DDDA)*(DDDD-DDDA)+N150A
+      N150A=N0A150
+      N150B=N0B150
+      N1500=(N150B-N150A)/(DDDB-DDDA)*(DDDD-DDDA)+N150A
 C     2500km level
       N0A250=0.0
-	  N0B250=0.0
+        N0B250=0.0
        DO 150 I=1,49
         N0A250=N0A250+C(I)*D(4,SEZAI,I)
 150     N0B250=N0B250+C(I)*D(4,SEZBI,I)
@@ -5038,11 +5038,11 @@ C     H+ and He+ may not decrease above 1500km
       IF (ALT .GE. 2250.0) GOTO 240
       
       ANO(1)=N550
-	  ANO(2)=N900
-	  ANO(3)=N1500
-	  ANO(4)=N2500
+        ANO(2)=N900
+        ANO(3)=N1500
+        ANO(4)=N2500
 
-	  AH(1)=550.
+        AH(1)=550.
       AH(2)=900.
       AH(3)=1500.
       AH(4)=2250.
@@ -5062,9 +5062,9 @@ c      ARGMAX=88.0
       SUM=ANO(1)+ST(1)*(ALT-AH(1))                     
      
       DO 230 I=1,2
-		aa = eptr(alt  ,dno(i),ah(i+1))
-		bb = eptr(ah(1),dno(i),ah(i+1))
-230   	SUM=SUM+(ST(I+1)-ST(I))*(AA-BB)*DNO(I)
+            aa = eptr(alt  ,dno(i),ah(i+1))
+            bb = eptr(ah(1),dno(i),ah(i+1))
+230         SUM=SUM+(ST(I+1)-ST(I))*(AA-BB)*DNO(I)
                 
 240   NION=10**SUM       
       RETURN
@@ -5073,20 +5073,20 @@ C
 C
       REAL FUNCTION INVDPC(FL,DIMO,B0,DIPL)
 C---------------------------------------------------------------------------
-C INPUT:	FL		McIlwain L parameter, 
-C			DIMO	dipole moment in Gauss
+C INPUT:    FL          McIlwain L parameter, 
+C                 DIMO  dipole moment in Gauss
 C           B0      magnetic field strength in Gauss 
 C           parameters FL, DIMO and B0 are needed for invariant latitude
-C			computation; uses a highly accurate polynomial expansion
-C			DIPL	dip latitude in degree
-C                	positive northward, in deg, range <-90.0;90.0>
-C RESULT:   invdip 	a "mix" coordinate of the dip latitude (DIPL) and 
-C 					of the invariant latitude; INVDIP is positive northward 
-C					in degree and ranges from -90.0 to 90.0.
+C                 computation; uses a highly accurate polynomial expansion
+C                 DIPL  dip latitude in degree
+C                 positive northward, in deg, range <-90.0;90.0>
+C RESULT:   invdip      a "mix" coordinate of the dip latitude (DIPL) and 
+C                             of the invariant latitude; INVDIP is positive northward 
+C                             in degree and ranges from -90.0 to 90.0.
 C---------------------------------------------------------------------------
       REAL FL,DIMO,B0,DIPL,DTOR,ASA,INVL,RINVL,RDIPL,ALFA,BETA
-	  DOUBLE PRECISION B(8),A
-	  COMMON/CONST/DTOR,PI
+        DOUBLE PRECISION B(8),A
+        COMMON/CONST/DTOR,PI
       DATA B/1.259921D0  ,-0.1984259D0 ,-0.04686632D0,-0.01314096D0,
      &      -0.00308824D0, 0.00082777D0,-0.00105877D0, 0.00183142D0/
        A=(DIMO/B0)**(1.0D0/3.0D0)/FL
@@ -5116,7 +5116,7 @@ C---------------------------------------------------------------------------
       REAL FL,DIMO,B0,DIPL
       DOUBLE PRECISION B(8),A
       REAL DTOR,ASA,INVL,RINVL,RDIPL,ALFA,BETA
-	  COMMON/CONST/DTOR,PI
+        COMMON/CONST/DTOR,PI
       DATA B/1.259921D0  ,-0.1984259D0 ,-0.04686632D0,-0.01314096D0,
      &      -0.00308824D0, 0.00082777D0,-0.00105877D0, 0.00183142D0/
       A=(DIMO/B0)**(1.0D0/3.0D0)/FL
@@ -5208,19 +5208,19 @@ c--------------------------------------------------------------
       F4=1.0-R/150.0*EXP(-XMAGBR*XMAGBR/1600.0)
       if(x.lt.1.7) x=1.7
       DELM=F1*F4/(X-F2)+F3                
-	  XM3000HM=1490.0/(HMF2+176.0)-DELM
+        XM3000HM=1490.0/(HMF2+176.0)-DELM
       RETURN          
       END             
 C
 C
-	SUBROUTINE  SHAMDHMF2 (RLAT,FLON,T,RZ,HMF2)
+      SUBROUTINE  SHAMDHMF2 (RLAT,FLON,T,RZ,HMF2)
 C-------------------------------------------------------------------
-C	COMPUTES THE HOURLY VALUES OF hmF2 FROM A SET OF SH COEFFICIENTS
-C	IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE OF THE 
-C	EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUNSPOT NUMBER.
+C     COMPUTES THE HOURLY VALUES OF hmF2 FROM A SET OF SH COEFFICIENTS
+C     IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE OF THE 
+C     EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUNSPOT NUMBER.
 C   PARAMETERS AND COEFFICIENTS ARE GIVEN IN DATA STATEMENTS.
 C
-C INPUT:	RLAT    The geographic latitude on the FLON meridian  
+C INPUT:    RLAT    The geographic latitude on the FLON meridian  
 C                   where the modified dip latitude is equal to the 
 C                   modip value for the considered point in space.
 C           FLON    =LONGITUDE+15.*UT(hours)
@@ -5234,11 +5234,11 @@ C-------------------------------------------------------------------
       PARAMETER   (IBO=0,JBO=1,KDIM=8,LDIM=4,L=-1)
       DIMENSION   FN(0:KDIM,0:KDIM), CONST(0:KDIM,0:KDIM)
       DIMENSION   GNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-	  DIMENSION     GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                    HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+        DIMENSION     GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                    HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            GBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+     *                    HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       CHARACTER*1 IE       
@@ -5249,18 +5249,18 @@ c     ,CONST
       DATA THETA,RE,TZERO,IFIT,ICEN,IREF,IB,KINT,LINT,KEXT,LEXT
      *     /180.,6371.2,1.0,  -1,  0,   0,   2, 8,   4,   0,   -1/
 
-  	  DATA ((CONST(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+        DATA ((CONST(N,M), M=0,N), N=0,KDIM)
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693,1.,5.29150,9.72111,11.4564,9.49918,
      *      5.69951,2.42182,0.647260,1.,6.,12.5499,16.9926,16.4531,
      *      11.8645,6.40755,2.50683,0.626707/
 
-	  DATA IE /"I"/
+        DATA IE /"I"/
 
       DATA (((GANM(N,M,J),GBNM(N,M,J),HANM(N,M,J),HBNM(N,M,J),
-     *    	J=0,LDIM), M=0,N), N=0,KDIM)
+     *      J=0,LDIM), M=0,N), N=0,KDIM)
      * / 340.552,-0.376,   0.000, 0.000,
      *   -70.823, 1.150,   0.000, 0.000, -49.250, 0.591,   0.000, 0.000,
      *    24.037,-0.401,   0.000, 0.000,  -8.780, 0.282,   0.000, 0.000,
@@ -5376,13 +5376,13 @@ c     ,CONST
       KT = MAX(LINT,LEXT)
       IF (KT .GT. LDIM)  GO TO 9999
 
-	  DO 500 N=0,KMAX
-	  DO 500 M=0,N
+        DO 500 N=0,KMAX
+        DO 500 M=0,N
 
-	  DO J=0,KT
-	    GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
-	    HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
-	    ENDDO
+        DO J=0,KT
+          GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
+          HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
+          ENDDO
  
       IF (IE .EQ. 'I')  THEN
          IF (N .GT. KINT)  GO TO 500
@@ -5416,10 +5416,10 @@ c     ,CONST
 C
   500 CONTINUE
 C     **********************************************************
-C     SYNTHESIZES THE VALUE OF HMF2 FROM THE MODEL	
+C     SYNTHESIZES THE VALUE OF HMF2 FROM THE MODEL    
 C     **********************************************************
       CALL SCHNEVPDH (RZ,RLAT,FLON,dum,T,L,dum,dum,HMF2)
-	  RETURN
+        RETURN
 9999  STOP
       END
 C
@@ -5434,7 +5434,7 @@ C COMPUTES GENERAL FUNCTION BV, ITS HORIZONTAL NORTH DERIVATIVE BN,
 C AND ITS HORIZONTAL EAST DERIVATIVE BE, ON SPHERICAL CAP SURFACE.
 C NOTE THAT THESE ARE METRICAL DERIVATIVES, AND BE IS THE
 C LONGITUDINAL DERIVATIVE DIVIDED BY SIN(COLATITUDE).
-C	  INPUT:
+C       INPUT:
 C FLAT,FLON,R ARE GEOCENTRIC SPHERICAL CAP LATITUDE,LONGITUDE,RADIAL
 C DISTANCE; T IS TIME.
 C L =  0  ON FIRST CALL:  RETURNS SPHERICAL CAP POLE POSITION FLATO,FLONO
@@ -5462,15 +5462,15 @@ C------------------------------------------------------------------------
       DIMENSION   DELT(0:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-      COMMON	/CONST/UMR,PI
-     * 			/AMTB/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
+      COMMON      /CONST/UMR,PI
+     *                  /AMTB/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
      *              LEXT,KMAX,FN
 C     ,CONST
       CHARACTER*1 IE,RESP
-  	  DATA ((CONSTP(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+        DATA ((CONSTP(N,M), M=0,N), N=0,KDIM)
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693,1.,5.29150,9.72111,11.4564,9.49918,
      *      5.69951,2.42182,0.647260,1.,6.,12.5499,16.9926,16.4531,
      *      11.8645,6.40755,2.50683,0.626707/
@@ -5662,15 +5662,15 @@ c
 c Output:
 c    hmF2       (real) - F2-layer peak height in km
 c--------------------------------------------------------------------------
-	implicit none
+      implicit none
 c     .. scalar arguments ..
       integer day, month
       real UT, xmodip, long, F107_81, hmF2
 c     .. local scalars ..
       integer monthr, montha
-	real hmF2_0, hmF2_m, hmF2_p, hmF2med
+      real hmF2_0, hmF2_m, hmF2_p, hmF2med
 c     ..
-	call SDMF2(UT,month,F107_81,xmodip,long,hmF2_0)
+      call SDMF2(UT,month,F107_81,xmodip,long,hmF2_0)
 
       if (day.le.15) then
          if (day.eq.15) then
@@ -5678,16 +5678,16 @@ c     ..
          else
              monthr = month-1
              if (monthr.eq.0) monthr = 12
-	       call SDMF2(UT,monthr,F107_81,xmodip,long,hmF2_m)
+             call SDMF2(UT,monthr,F107_81,xmodip,long,hmF2_m)
              hmF2med = (hmF2_0-(day-15)*(hmF2_m-hmF2_0)/30.)
          end if
       else
          montha = mod(month,12) + 1
-	   call SDMF2(UT,montha,F107_81,xmodip,long,hmF2_p)
+         call SDMF2(UT,montha,F107_81,xmodip,long,hmF2_p)
          hmF2med  = (hmF2_0+(day-15)*(hmF2_p-hmF2_0)/30.)
       end if
 
-	hmF2 = hmF2med
+      hmF2 = hmF2med
       return
       end
 C
@@ -5734,17 +5734,17 @@ c     .. local scalars ..
       integer i
       double precision T
 c     .. local arrays ..
-	  double precision xUT(0:23)
-c	.. array in common ..
-	  double precision hmF2_UT(0:23)
-	  common/hmF2UT/hmF2_UT
+        double precision xUT(0:23)
+c     .. array in common ..
+        double precision hmF2_UT(0:23)
+        common/hmF2UT/hmF2_UT
 c     .. function references .
       real hmF2_med_SD, fun_hmF2UT
 c
       hmF2_UT = 0.0
-	  do i=0,23
+        do i=0,23
          hmF2_UT(i) = hmF2_med_SD(i,monthut,F107A,xmodip,long)
-	     xUT(i) = dble(i)
+           xUT(i) = dble(i)
          end do
 c 
       T = dble(UT)
@@ -5769,16 +5769,16 @@ c    used the following auxiliary subroutines and functions:
 c    read_data_SD, fun_hmF2_SD
 c---------------------------------------------------------------------
       implicit none
-c	..   scalar arguments ..
+c     ..   scalar arguments ..
       integer monthut, iUT
       real F107A
       real xmodip, long
-c	real xmodip, long, umr, pi
-c	..   local scalars ..
+c     real xmodip, long, umr, pi
+c     ..   local scalars ..
       real cov, cov1, cov2
       real a, b, hmF2_1, hmF2_2
       double precision teta
-c	..   local arrays ..
+c     ..   local arrays ..
       double precision coeff_month(0:148,0:47)
       double precision Kf(0:148)
       real ft1(12), ft2(12)
@@ -5788,36 +5788,36 @@ c    which were used as the margins for
 c    the low and high solar activity levels      
 c
 c               Jan   Feb   Mar   Apr   May  Jun
-	data ft1/ 73.6, 72.3, 71.8, 70.9, 73.6,73.0,
+      data ft1/ 73.6, 72.3, 71.8, 70.9, 73.6,73.0,
      *          71.1, 69.4, 69.1, 70.9, 72.3,74.6/
-	data ft2/144.2,142.9,167.2,125.3,124.4,127.9,
+      data ft2/144.2,142.9,167.2,125.3,124.4,127.9,
      *         142.0,165.9,132.6,142.0,145.6,143.0/
 c               Jul   Aug   Sep   Oct   Nov  Dec
-c	.. local in common ..
-	double precision umr
-	common/constt/umr
-c	common/const/umr,pi
+c     .. local in common ..
+      double precision umr
+      common/constt/umr
+c     common/const/umr,pi
 c     .. function references ..
-	real fun_hmF2_SD
+      real fun_hmF2_SD
 c     .. subroutine references ..
 c     read_data_SD
 c
-	umr=atan(1.0)*4./180
+      umr=atan(1.0)*4./180
       teta = 90.0-xmodip
 c
       call read_data_SD(monthut,coeff_month)
       Kf = coeff_month(0:148,iUT)
-	hmF2_1 = fun_hmF2_SD(teta,long,Kf)
+      hmF2_1 = fun_hmF2_SD(teta,long,Kf)
       Kf = coeff_month(0:148,iUT+24)
-	hmF2_2 = fun_hmF2_SD(teta,long,Kf)
+      hmF2_2 = fun_hmF2_SD(teta,long,Kf)
 c
       cov = F107A
-	cov1 = ft1(monthut) 
-	cov2 = ft2(monthut)
+      cov1 = ft1(monthut) 
+      cov2 = ft2(monthut)
 c 
- 	a = (hmF2_2 - hmF2_1)/log(cov2/cov1)
-	b =  hmF2_2 - a*log(cov2)
-	hmF2_med_SD = a*log(cov) + b
+      a = (hmF2_2 - hmF2_1)/log(cov2/cov1)
+      b =  hmF2_2 - a*log(cov2)
+      hmF2_med_SD = a*log(cov) + b
 c
       return
       end
@@ -5829,42 +5829,42 @@ c    subroutine to read arrays mcsat11.datÖ mcsat22.dat
 c    with coefficients of hmF2 spatial decomposition
 c    for for 12 month, 24 UT hour and two solar activity levels
 c------------------------------------------------------------------
-	implicit none
+      implicit none
 c     .. scalar arguments ..
-	integer month
+      integer month
 c     .. array arguments ..
-	double precision coeff_month(0:148,0:47)
+      double precision coeff_month(0:148,0:47)
 c     .. local scalars ..
-	integer coeff_month_read(1:12)
-	character(256) filedata
-	integer i, j
+      integer coeff_month_read(1:12)
+      character(256) filedata
+      integer i, j
 c     .. local arrays ..
-	double precision coeff_month_all(0:148,0:47,1:12)
-	save coeff_month_all
-	data coeff_month_read /12*0/
+      double precision coeff_month_all(0:148,0:47,1:12)
+      save coeff_month_all
+      data coeff_month_read /12*0/
 c
       if (coeff_month_read(month) .eq. 0) then
         write(filedata, 10) month+10
         open(10, File=filedata, status='old')
-	  do j=0,47
-	    read(10,20) (coeff_month_all(i,j,month),i=0,148)
+        do j=0,47
+          read(10,20) (coeff_month_all(i,j,month),i=0,148)
         end do
-	  close(10)
-	  coeff_month_read(month) = 1
-	end if
+        close(10)
+        coeff_month_read(month) = 1
+      end if
 c
-      coeff_month = coeff_month_all(0:148,0:47,month)	
+      coeff_month = coeff_month_all(0:148,0:47,month) 
 c
 c    Previous operator can be replaced by
 c
 c      do i=0,148
-c	   do j=0,47 
-c	      coeff_month(i,j) = coeff_month_all(i,j,month)
+c        do j=0,47 
+c           coeff_month(i,j) = coeff_month_all(i,j,month)
 c        end do
-c	end do	   
+c     end do         
 c
-	  return
-	
+        return
+      
  10   format('mcsat',i2,'.dat')
 c-web- special for web version
 c10     FORMAT('/var/www/omniweb/cgi/vitmo/IRI/mcsat',I2,'.dat')
@@ -5885,24 +5885,24 @@ c    used the following auxiliary subroutines and functions:
 c    fun_Gk, Legendre
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
+c     .. scalar arguments ..
       double precision teta
       real long
 c     .. array arguments ..
       double precision Kf(0:148)
-c	.. local scalars ..
+c     .. local scalars ..
       integer k
       double precision hmF2
-c	 .. local arrays ..
+c      .. local arrays ..
       double precision Gk(0:148)
 c     .. subroutine references ..
 c     fun_Gk
 c
-	call fun_Gk(teta,long,Gk)
-	hmF2 = 0.d0
-	do k=0,148
-	   hmF2 = hmF2 + Kf(k)*Gk(k) 
-	end do
+      call fun_Gk(teta,long,Gk)
+      hmF2 = 0.d0
+      do k=0,148
+         hmF2 = hmF2 + Kf(k)*Gk(k) 
+      end do
       fun_hmF2_SD = hmF2
 c
       return
@@ -5912,40 +5912,40 @@ c
       subroutine fun_Gk(teta,long,Gk)
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
+c     .. scalar arguments ..
       double precision teta
       real long
 c      real long, umr, pi
 c     .. array arguments ..
       double precision Gk(0:148)
-c	.. local scalars ..
+c     .. local scalars ..
       integer mm, nn, m, n, k
-c	.. local arrays ..
-	double precision Pl_mn(0:8,0:12)
-c	.. local in common ..
-	double precision umr
-	common/constt/umr
-c	common/const/umr,pi
+c     .. local arrays ..
+      double precision Pl_mn(0:8,0:12)
+c     .. local in common ..
+      double precision umr
+      common/constt/umr
+c     common/const/umr,pi
 c     .. subroutine references ..
 c     Legendre
 c
       Pl_mn = 0.d0
-	mm = 8
-	nn = 12
+      mm = 8
+      nn = 12
       call Legendre(mm,nn,Pl_mn,teta)
       Gk = 0.d0
       k = 0
       do m=0,mm
          if (m==0) then
-	      do n=0,nn
+            do n=0,nn
               Gk(k) = Pl_mn(m,n)
-			k = k + 1
+                  k = k + 1
             end do
          else 
-	      do n=m,nn
+            do n=m,nn
               Gk(k)   = Pl_mn(m,n)*cos(m*long*umr)
-		    Gk(k+1) = Pl_mn(m,n)*sin(m*long*umr)
-			k = k + 2
+                Gk(k+1) = Pl_mn(m,n)*sin(m*long*umr)
+                  k = k + 2
            end do
          end if
       end do
@@ -5966,7 +5966,7 @@ c
 c    subroutine to calculate associated Legendre function P(mm,nn)
 c    with Schmidt normalization
 c---------------------------------------------------------------------
-	  implicit none
+        implicit none
 c     .. scalar arguments ..
       integer mm, nn
 c      real umr, pi
@@ -5976,13 +5976,13 @@ c     .. array arguments ..
 c     .. local scalars ..
       integer j,l,m,n
       double precision z, s
-c	.. local in common ..
-	  double precision umr
-	  common/constt/umr
-c	  common/const/umr,pi
+c     .. local in common ..
+        double precision umr
+        common/constt/umr
+c       common/const/umr,pi
 c
       p = 0.0
-	  z=cos(umr*teta)
+        z=cos(umr*teta)
       p(0,0)=1.
       p(0,1)=z
       if (mm.ne.0) p(1,1)=sin(umr*teta)
@@ -5992,32 +5992,32 @@ c
       end do
 c
       do m=0,mm
-	   do n=1,nn
-		  if (m.gt.n) then
-		     p(m,n) = 0.0
-			 cycle
+         do n=1,nn
+              if (m.gt.n) then
+                 p(m,n) = 0.0
+                   cycle
             end if
             if ((n+1).gt.nn) exit
-	      if (n+1.eq.m) cycle
-		  if (m.gt.(n-1)) then
-		     p(m,n+1)= (2*n+1)*z*p(m,n)/(n+1-m)
+            if (n+1.eq.m) cycle
+              if (m.gt.(n-1)) then
+                 p(m,n+1)= (2*n+1)*z*p(m,n)/(n+1-m)
             else
-		     p(m,n+1)=((2*n+1)*z*p(m,n)-(n+m)*p(m,n-1))/(n+1-m)
+                 p(m,n+1)=((2*n+1)*z*p(m,n)-(n+m)*p(m,n-1))/(n+1-m)
             end if
          end do
       end do
 c
       do n=1,nn
          do m=1,mm
-		  if (m.gt.n) then
-		     p(m,n) = 0.0
-			 exit
+              if (m.gt.n) then
+                 p(m,n) = 0.0
+                   exit
             end if
             s=1
-	      do l=n-m+1,n+m
-   	         s=s*l
+            do l=n-m+1,n+m
+               s=s*l
             end do
-	      p(m,n)=p(m,n)*sqrt(2./s)
+            p(m,n)=p(m,n)*sqrt(2./s)
         end do
       end do
 c
@@ -6035,31 +6035,31 @@ c    used the following auxiliary subroutines:
 c    Koeff_UT, fun_Akp_UT, fun_Fk_UT, fun_Gk_UT
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
+c     .. scalar arguments ..
       double precision T
-c	.. local scalars ..
+c     .. local scalars ..
       integer k, mm, mk
 c      real dtr, dumr
       double precision hmF2
-c   .. local arrays ..	
-	  double precision Gk_UT(0:6), Kf_UT(0:6)
-c	.. local in common ..	
-	  double precision dtr
-	  common/radUT/dtr
-c	  common/const1/dtr,dumr
+c   .. local arrays ..  
+        double precision Gk_UT(0:6), Kf_UT(0:6)
+c     .. local in common ..   
+        double precision dtr
+        common/radUT/dtr
+c       common/const1/dtr,dumr
 c   .. subroutine references ..
 c     Koeff_UT, fun_Gk_UT
 c
       dtr=atan(1.0)*4.0/12.0
       mm = 3
-	  mk = 2*mm
+        mk = 2*mm
 c
-	  call Koeff_UT(mm,mk,Kf_UT)
+        call Koeff_UT(mm,mk,Kf_UT)
       call fun_Gk_UT(mm,mk,t,Gk_UT)
-	  hmF2 = 0.d0
-	  do k=0,mk
-	    hmF2 = hmF2 + Kf_UT(k)*Gk_UT(k) 
-	  end do
+        hmF2 = 0.d0
+        do k=0,mk
+          hmF2 = hmF2 + Kf_UT(k)*Gk_UT(k) 
+        end do
       fun_hmF2UT = hmF2
 c
       return
@@ -6069,16 +6069,16 @@ c
       subroutine Koeff_UT(mm,mk,Kf_UT)
 c---------------------------------------------------------------------
       implicit none
-c	..  scalar arguments ..
+c     ..  scalar arguments ..
       integer mm, mk
 c   .. array arguments ..
-	  double precision Kf_UT(0:mk)
-c	.. local scalars ..
+        double precision Kf_UT(0:mk)
+c     .. local scalars ..
       integer k, m
       double precision sum_D
 c   .. local arrays ..
-	  double precision Akp_UT(0:mk,0:mk)
-	  double precision Dk_UT(0:mk)
+        double precision Akp_UT(0:mk,0:mk)
+        double precision Dk_UT(0:mk)
 c   .. subroutine references ..
 c   fun_Akp_UT 
 c
@@ -6093,58 +6093,58 @@ c
       end do   
 
       return
-	  end
+        end
 c
 c
       subroutine fun_Akp_UT(mm,mk,Akp_UT,Dk_UT)
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
+c     .. scalar arguments ..
       integer mm, mk
 c   .. array arguments ..
       double precision Akp_UT(0:mk,0:mk), Dk_UT(0:mk)
-c	.. local scalars ..
-	  integer i, k, p
-	  double precision t
-	  double precision sum_An, sum_Dn
-	  double precision sum_Ad, sum_Dd
+c     .. local scalars ..
+        integer i, k, p
+        double precision t
+        double precision sum_An, sum_Dn
+        double precision sum_Ad, sum_Dd
 c   .. local arrays ..
-	  double precision Gk_UT(0:mk), Fk_UT(0:mk)
-c	.. array in common ..	
-	  double precision hmF2_UT(0:23)
-	  common/hmF2UT/hmF2_UT
+        double precision Gk_UT(0:mk), Fk_UT(0:mk)
+c     .. array in common ..   
+        double precision hmF2_UT(0:23)
+        common/hmF2UT/hmF2_UT
 c   .. subroutine references ..
-c	fun_Gk_UT, fun_Fk_UT
+c     fun_Gk_UT, fun_Fk_UT
 c
       Gk_UT = 0.d0
       Gk_UT(0) = 1.0
-	  Fk_UT = 0.d0
+        Fk_UT = 0.d0
       Fk_UT(0) = 1.d0
-	  Akp_UT = 0.d0
-	  Dk_UT = 0.d0
-	  do p=0,mk
+        Akp_UT = 0.d0
+        Dk_UT = 0.d0
+        do p=0,mk
          sum_Dn=0.d0
          sum_Dd=0.d0
          do k=p+1,mk
             sum_An=0.d0
-	        sum_Ad=0.d0
-	        do i=0,23
+              sum_Ad=0.d0
+              do i=0,23
                t = dble(i)
                call fun_Gk_UT(mm,mk,t,Gk_UT)
-	           call fun_Fk_UT(mk,Gk_UT,Akp_UT,Fk_UT)
-		       sum_An = sum_An + Gk_UT(k)*Fk_UT(p)
-		       sum_Ad = sum_Ad + Fk_UT(p)*Fk_UT(p)
-			   if (p.eq.(k-1)) then
-			     sum_Dn = sum_Dn + hmF2_UT(i)*Fk_UT(p)
+                 call fun_Fk_UT(mk,Gk_UT,Akp_UT,Fk_UT)
+                   sum_An = sum_An + Gk_UT(k)*Fk_UT(p)
+                   sum_Ad = sum_Ad + Fk_UT(p)*Fk_UT(p)
+                     if (p.eq.(k-1)) then
+                       sum_Dn = sum_Dn + hmF2_UT(i)*Fk_UT(p)
                  sum_Dd = sum_Dd + Fk_UT(p)*Fk_UT(p)
                  end if
             end do
             Akp_UT(k,p) = - sum_An/sum_Ad
-	     end do
+           end do
          if (p.lt.mk) then
-	        Dk_UT(p) = sum_Dn/sum_Dd
+              Dk_UT(p) = sum_Dn/sum_Dd
             end if
-	  end do
+        end do
 c
       p=mk
       sum_Dn=0.d0
@@ -6165,13 +6165,13 @@ c
       subroutine fun_Fk_UT(mk,Gk_UT,Akp_UT,Fk_UT)
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
-	  integer mk
+c     .. scalar arguments ..
+        integer mk
 c   .. array arguments ..
-	  double precision Gk_UT(0:mk)
-	  double precision Akp_UT(0:mk,0:mk)
-	  double precision Fk_UT(0:mk)
-c	.. local scalars ..
+        double precision Gk_UT(0:mk)
+        double precision Akp_UT(0:mk,0:mk)
+        double precision Fk_UT(0:mk)
+c     .. local scalars ..
       integer k, p
       double precision sum_G
 c
@@ -6189,23 +6189,23 @@ c
       end
 c
 c
-	subroutine fun_Gk_UT(mm,mk,t,Gk_UT)
+      subroutine fun_Gk_UT(mm,mk,t,Gk_UT)
 c---------------------------------------------------------------------
       implicit none
-c	.. scalar arguments ..
+c     .. scalar arguments ..
       integer mm, mk
 c      real dtr, dumr
       double precision t
 c   .. array arguments ..
-	  double precision Gk_UT(0:mk)
-c	.. local scalars ..
+        double precision Gk_UT(0:mk)
+c     .. local scalars ..
       integer m, k
-c	.. local in common ..
-	  double precision dtr
-	  common/radUT/dtr
-c	  common/const1/dtr, dumr
+c     .. local in common ..
+        double precision dtr
+        common/radUT/dtr
+c       common/const1/dtr, dumr
 c
-	  Gk_UT = 0.d0
+        Gk_UT = 0.d0
         k = 0
         do m=0,mm
           if (m.eq.0) then
@@ -6214,7 +6214,7 @@ c
           else 
             Gk_UT(k)   = cos(m*t*dtr)
             Gk_UT(k+1) = sin(m*t*dtr)
-		    k = k + 2
+                k = k + 2
           end if
        end do
 c
@@ -6226,9 +6226,9 @@ C
 c--------------------------------------------------------------
 C CALCULATES THE F1 PEAK PLASMA FREQUENCY (FOF1/MHZ)
 C INPUT:   
-C		YLATI	ABSOLUT VALUE OF DIP-LATITUDE IN DEGREE
-c       R		12-MONTH RUNNING MEAN OF SUNSPOT NUMBER 
-c       CHI		SOLAR ZENITH ANGLE IN DEGREE
+C           YLATI ABSOLUT VALUE OF DIP-LATITUDE IN DEGREE
+c       R         12-MONTH RUNNING MEAN OF SUNSPOT NUMBER 
+c       CHI       SOLAR ZENITH ANGLE IN DEGREE
 C REFERENCE: 
 c       E.D.DUCHARME ET AL., RADIO SCIENCE 6, 369-378, 1971
 C                                      AND 8, 837-839, 1973
@@ -6236,8 +6236,8 @@ c       HOWEVER WITH MAGNETIC DIP LATITUDE INSTEAD OF GEOMAGNETIC
 c       DIPOLE LATITUDE, EYFRIG, 1979                    
 C--------------------------------------------- D. BILITZA, 1988.   
         COMMON/CONST/UMR,PI
-	    fof1ed=0.0
-	    if (chi.gt.90.0) return
+          fof1ed=0.0
+          if (chi.gt.90.0) return
 
         DLA =  YLATI
         F0 = 4.35 + DLA * ( 0.0058 - 1.2E-4 * DLA ) 
@@ -6254,27 +6254,27 @@ C--------------------------------------------- D. BILITZA, 1988.
         END             
 C
 C
-	real function f1_c1(xmodip,hour,saxnon,suxnon)
+      real function f1_c1(xmodip,hour,saxnon,suxnon)
 c F1 layer shape parameter C1 after Reinisch and Huang, Advances in
 c Space Research, Volume 25, Number 1, 81-88, 2000.
 
-        common	/const/umr,pi
+        common    /const/umr,pi
         pi = umr * 180.
-	
+      
         ABSMDP=ABS(XMODIP)
-      	DELA=4.32
-      	IF(ABSMDP.GE.18.) DELA=1.0+EXP(-(ABSMDP-30.0)/10.0)
+            DELA=4.32
+            IF(ABSMDP.GE.18.) DELA=1.0+EXP(-(ABSMDP-30.0)/10.0)
 
-      	C1OLD = 0.09 + 0.11/DELA
+            C1OLD = 0.09 + 0.11/DELA
         if(suxnon.eq.saxnon) then
             c1 = 2.5 * c1old
         else
             c1 = 2.5*c1old*cos((HOUR-12.)/(suxnon-saxnon)*pi)
         endif
-      	if(c1.lt.0.0) c1=0.0
-	    f1_c1=c1
-	    return
-	    end
+            if(c1.lt.0.0) c1=0.0
+          f1_c1=c1
+          return
+          end
 c
 c
         subroutine f1_prob (sza,glat,rz12,f1prob,f1probl)
@@ -6282,39 +6282,39 @@ c--------------------------------------------------------------------------
 c Occurrence probability of F1 layer after Scotto et al., Advances in
 c Space Research, Volume 20, Number 9, 1773-1775, 1997.
 c
-c Input: 	sza		solar zenith angle in degrees 
-c 			glat	geomagnetic latitude in degrees
-C			rz12	12-month running mean of sunspot number
-c Output: 	f1prob	F1 occurrence probability without L-condition cases 
-c 			f1probl	F1 occurrence probability with L-condition cases
+c Input:    sza         solar zenith angle in degrees 
+c                 glat  geomagnetic latitude in degrees
+C                 rz12  12-month running mean of sunspot number
+c Output:   f1prob      F1 occurrence probability without L-condition cases 
+c                 f1probl     F1 occurrence probability with L-condition cases
 c--------------------------------------------------------------------------
 c
         common /const/umr,pi
 
-	    xarg = 0.5 + 0.5 * cos(sza*umr)
-		a = 2.98 + 0.0854 * rz12
-		b = 0.0107 - 0.0022 * rz12
-		c = -0.000256 + 0.0000147 * rz12
-		gamma = a + ( b + c * glat) * glat
-	    f1pr = xarg ** gamma
+          xarg = 0.5 + 0.5 * cos(sza*umr)
+            a = 2.98 + 0.0854 * rz12
+            b = 0.0107 - 0.0022 * rz12
+            c = -0.000256 + 0.0000147 * rz12
+            gamma = a + ( b + c * glat) * glat
+          f1pr = xarg ** gamma
         if(f1pr.lt.1.e-3) f1pr=0.0
         f1prob=f1pr
-	    f1prl = xarg ** 2.36
+          f1prl = xarg ** 2.36
         if(f1prl.lt.1.e-3) f1prl=0.0
         f1probl=f1prl
-	    return
-	    end
+          return
+          end
 C
 C
         REAL FUNCTION FOEEDI(COV,XHI,XHIM,XLATI)
 C-------------------------------------------------------
 C CALCULATES FOE/MHZ BY THE EDINBURGH-METHOD.      
 C INPUT: 
-C 	COV		MONTHLY MEAN 10.7CM SOLAR RADIO FLUX measured at 
+C     COV         MONTHLY MEAN 10.7CM SOLAR RADIO FLUX measured at 
 C           ground level  
-C   XHI		SOLAR ZENITH ANGLE IN DEGREE 
-C   XHIM	SOLAR ZENITH ANGLE AT NOON IN DEGREE
-C   XLATI 	ABSOLUTE VALUE OF GEOGRAPHIC LATITUDE IN DEGREE, 
+C   XHI           SOLAR ZENITH ANGLE IN DEGREE 
+C   XHIM    SOLAR ZENITH ANGLE AT NOON IN DEGREE
+C   XLATI   ABSOLUTE VALUE OF GEOGRAPHIC LATITUDE IN DEGREE, 
 C REFERENCE: 
 C       KOURIS-MUGGELETON, CCIR DOC. 6/3/07, 1973
 C       TROST, J. GEOPHYS. RES. 84, 2736, 1979 (was used
@@ -6369,9 +6369,9 @@ c
         yy = cos ( xhi * umr )
         yyy = -0.1 / ( yy**2.7 ) 
         if (yyy.lt.-40.) then 
-        	ymd=0.0
+            ymd=0.0
         else
-        	ymd = y * exp(yyy)
+            ymd = y * exp(yyy)
         endif
         if (ymd.lt.yw) ymd = yw
         xmded=ymd
@@ -6461,7 +6461,7 @@ C************************************************************
 C
 C
 
-	      SUBROUTINE TOPH05(COVI,AMLAT,TIME,HMAX,HT05,SG)
+            SUBROUTINE TOPH05(COVI,AMLAT,TIME,HMAX,HT05,SG)
 C---------------------------------------------------------------------------------
 C Gulyaeva T.L. (2003) Variations in the half-width of the topside ionosphere 
 C    according to the observations by space ionosondes ISIS 1,ISIS 2, and IK19.
@@ -6481,41 +6481,41 @@ C  (4) 4 seasonal grids: 1 equinox(SG=90deg), 2 summer (SG=180),
 C                        3 equinox (SG=270), 4 winter(SG=360)
 C   SG=season grids=90,180,270,360
 C---------------------------------------------------------------------------------
-      DIMENSION CVLEV(4)	
-	  COMMON   /BLOCK1/HMF2,XNMF2,XHMF1,F1REG         
+      DIMENSION CVLEV(4)      
+        COMMON   /BLOCK1/HMF2,XNMF2,XHMF1,F1REG         
      *         /QTOP/Y05,H05TOP,QF,XNETOP,XM3000,HHALF,TAU
-	  DATA CVLEV/60.,106.,152.,198./
-	  LOGICAL F1REG
+        DATA CVLEV/60.,106.,152.,198./
+        LOGICAL F1REG
 
-	  ABMLAT=ABS(AMLAT)
-       IR=IFIX((covi-60.)/46.)+1	
-		 M1=IFIX(ABMLAT/10.)+1
-			L1=IFIX(TIME/6.)+1
-	  M2=M1+1
-	       IF(M1.EQ.10) M2=10
+        ABMLAT=ABS(AMLAT)
+       IR=IFIX((covi-60.)/46.)+1    
+             M1=IFIX(ABMLAT/10.)+1
+                  L1=IFIX(TIME/6.)+1
+        M2=M1+1
+             IF(M1.EQ.10) M2=10
         L2=L1+1
-	       IF(L1.EQ.5) L2=5
+             IF(L1.EQ.5) L2=5
 C
 C INTERPOLATE RAT FOR GIVEN RZI
 C Call Chebishev approximation to interpolate for given ABMLAT, HRLT
 C
-	  call CHEBISH(CVLEV(IR),TIME,ABMLAT,XX,SG)
+        call CHEBISH(CVLEV(IR),TIME,ABMLAT,XX,SG)
         IF (IR.EQ.4) THEN
-	          RAT05=XX
-	          GOTO 10
-	          ENDIF
-	  call CHEBISH(CVLEV(IR+1),TIME,ABMLAT,YY,SG)
-	  RAT05=XX+(YY-XX)*(COVI-CVLEV(IR))/46.
+                RAT05=XX
+                GOTO 10
+                ENDIF
+        call CHEBISH(CVLEV(IR+1),TIME,ABMLAT,YY,SG)
+        RAT05=XX+(YY-XX)*(COVI-CVLEV(IR))/46.
 10    HT05=HMAX*(1.+RAT05)
-	  RETURN
-	  END
+        RETURN
+        END
 C
-C	  
-	SUBROUTINE CHEBISH(COVS,HOURLT,ABMLAT,RATCH,SG)
+C       
+      SUBROUTINE CHEBISH(COVS,HOURLT,ABMLAT,RATCH,SG)
 C---------------------------------------------------------------------------------
 C CHEBISHEV POLINOMIALS FOR ABMLAT(10),HOURLT(5)
 C CR((C0...C5),(LT=0,6,...24),(SG=season grids=90,180,270,360)
-C							(COV=60,106,152,198)
+C                                         (COV=60,106,152,198)
 C---------------------------------------------------------------------------------
 c      REAL UK(0:10),CR(0:5,5,3,4),YI(5),YY(5,3)
       REAL BR(6,5,3,4),YI(5),YY(5,3)
@@ -6523,17 +6523,17 @@ c      REAL UK(0:10),CR(0:5,5,3,4),YI(5),YY(5,3)
 C
       COMMON /CONST/rad,pi  
       DATA PL1/-2.,-1.,0.,1.,2./
-  	  DATA PL2/2.,-1.,-2.,-1.,2./
-  	  DATA PL3/-1.,2.,0.,-2.,1./
+        DATA PL2/2.,-1.,-2.,-1.,2./
+        DATA PL3/-1.,2.,0.,-2.,1./
       DATA BR/
 C Polinomial Coefficients B1,B2,B3,B4,B5,B6 for COV=60 (mlat/10=0,1,...,9)
-C Equinox	B0MLAT:
+C Equinox   B0MLAT:
      *  -1.5859,  3.5789, -3.7884, 2.7094,-1.2962,.6759
      *, -5.3449, 12.8379,-12.0165, 5.9746,-1.9084,.7669
      *,-12.8000, 35.3084,-38.0043,19.6004,-4.4974,.6975
      *,  5.8282,-13.3538,  9.1674,-0.9593,-0.8909,.6062
      *, -1.5859,  3.5789, -3.7884, 2.7094,-1.2962,.6759
-C Summer	B0MLAT    
+C Summer    B0MLAT    
      *, -7.1103, 21.0389,-24.5539,14.1607,-3.8537,.7266
      *,  5.5333,-10.6242,  4.8751, 1.0587,-1.0821,.7527
      *,-15.4487, 42.9269,-45.0314,21.4718,-4.2116,.6026
@@ -6546,98 +6546,98 @@ C Winter   B0MLAT
      *,  1.7692, -2.3578, -0.7945, 2.2477,-0.9691,.5719
      *, 14.9103,-35.2337, 27.3078,-6.5362,-0.6265,.7509
 C Polinomial Coefficients B1,B2,B3,B4,B5,B6 for COV=106 (mlat=0,10,...,90)
-C Equinox	B1MLAT
+C Equinox   B1MLAT
      *, -4.1218, 10.6136,-11.4922, 6.0470,-1.3620,.5563
      *,  0.9077,  2.9562, -8.9880, 6.8680,-1.9621,.7737
      *,-16.2744, 42.8047,-43.7009,20.7965,-4.0697,.6619
      *,-17.3038, 44.3336,-40.9249,15.9042,-2.1554,.4796
      *, -4.1218, 10.6136,-11.4922, 6.0470,-1.3620,.5563
-C Summer	B1MLAT  
+C Summer    B1MLAT  
      *, -4.9692, 16.5753,-21.3543,12.7061,-3.1758,.6446
      *,  1.9000, -2.8167, -0.9962, 3.0687,-1.3454,.6859
      *,  7.6769,-14.8343,  6.7030, 1.5578,-1.0626,.4291
      *,  5.4833,-10.6322,  4.7571, 1.2178,-0.8223,.4615
      *, -4.9692, 16.5753,-21.3543,12.7061,-3.1758,.6446
-C Winter	B1MLAT  
+C Winter    B1MLAT  
      *, -4.7282, 13.4491,-15.6931, 8.8388,-1.9732,.5874
      *,  5.6756,-14.8458, 11.8927,-2.2632,-0.6122,.6948
      *,-14.2872, 40.0829,-41.2716,18.1696,-2.7203,.4916
      *,-13.6128, 33.4657,-29.7231,11.0972,-1.2884,.5034
      *, -4.7282, 13.4491,-15.6931, 8.8388,-1.9732,.5874
 C Polinomial Coefficients B1,B2,B3,B4,B5,B6 for COV=152 (mlat=0,10,...,90)
-C Equinox	B2MLAT
+C Equinox   B2MLAT
      *, -3.3282, 10.4296,-12.4722, 6.7623,-1.5172,.4931
      *, -8.9744, 20.1311,-17.4552, 7.6518,-1.7371,.6702
      *, 12.0462,-27.8932, 20.6241,-4.5781, 0.0814,.3501
      *,-17.0551, 42.3258,-37.1874,13.3608,-1.4804,.4216
      *, -3.3282, 10.4296,-12.4722, 6.7623,-1.5172,.4931
-C Summer	B2MLAT  
+C Summer    B2MLAT  
      *,  7.3077,-17.1579, 11.6872,-0.7405,-1.0298,.5754
      *, 19.2641,-45.1886, 34.3297,-8.1879,-0.1875,.6562
      *,  6.0987,-11.0903,  4.3569, 1.4001,-0.7309,.3885
      *,  5.9295,-13.9205, 10.2347,-2.2818, 0.0853,.3915
      *,  7.3077,-17.1579, 11.6872,-0.7405,-1.0298,.5754
-C Winter	B2MLAT  
+C Winter    B2MLAT  
      *, -1.6821,  8.6010,-13.6570, 8.6307,-1.9846,.5635
      *,  5.4679,-12.3750,  7.5620, 0.5394,-1.4415,.6659
      *, -8.0821, 21.9288,-21.8597, 9.3455,-1.4644,.3599
      *, -8.3000, 19.3076,-16.3295, 6.1619,-0.9144,.3846
      *, -1.6821,  8.6010,-13.6570, 8.6307,-1.9846,.5635
 C Polinomial Coefficients B1,B2,B3,B4,B5,B6 for COV=198 (mlat=0,10,...,90)
-C Equinox	B3MLAT
+C Equinox   B3MLAT
      *,-16.4051, 28.2880,-16.0982, 4.6328,-1.0405,.5486
      *, 13.0846,-34.8291, 30.0074,-8.6402, 0.1529,.6165
      *, 19.7474,-42.7116, 28.9430,-6.0487, 0.1492,.3748
      *, 16.2795,-36.6982, 26.5094,-6.3492, 0.2926,.3946
      *,-16.4051, 28.2880,-16.0982, 4.6328,-1.0405,.5486
-C Summer	B3MLAT
+C Summer    B3MLAT
      *,  4.6410,-13.7931, 11.6548,-1.9248,-0.7246,.5264
      *, -2.4090,  3.1805, -2.8423, 2.8861,-0.9937,.5234
      *,  6.3410,-13.9643,  8.2461,-0.0186,-0.7009,.3582
      *,  9.0987,-20.8618, 14.7262,-2.8798,-0.0512,.3662
      *,  4.6410,-13.7931, 11.6548,-1.9248,-0.7246,.5264
-C Winter	B3MLAT
+C Winter    B3MLAT
      *, -4.6526, 12.1878,-14.4047, 8.5226,-2.0493,.5903
      *,  3.9821, -6.9477,  0.8382, 3.4898,-1.5694,.6283
      *, -7.0474, 17.3974,-17.3465, 8.3671,-1.5708,.3759
      *,  4.2782, -9.9880,  5.9834, 0.0975,-0.4900,.3842
      *, -4.6526, 12.1878,-14.4047, 8.5226,-2.0493,.5903/
 
-C	DATA UL/-2.,-1.,0.,1.,2./
+C     DATA UL/-2.,-1.,0.,1.,2./
 
-	do k=0,3
-	cl(k)=0.
-	enddo
+      do k=0,3
+      cl(k)=0.
+      enddo
 C
-	IR=IFIX((covs-60.)/46.)+1	
+      IR=IFIX((covs-60.)/46.)+1     
 C Given geomagnetic latitude parameter:
-	xi=abmlat/100.
-	DO LS=1,3
+      xi=abmlat/100.
+      DO LS=1,3
           DO LL=1,5
       B1=BR(6,LL,LS,IR)      
       B2=BR(5,LL,LS,IR)        
       B3=BR(4,LL,LS,IR)       
       B4=BR(3,LL,LS,IR)        
-	B5=BR(2,LL,LS,IR)        
-	B6=BR(1,LL,LS,IR)        
+      B5=BR(2,LL,LS,IR)        
+      B6=BR(1,LL,LS,IR)        
        HLT=(LL-1)*6.0
 
       YY(LL,LS)=B1+xi*(B2+xi*(B3+xi*(B4+xi*(B5+xi*B6))))
-	ENDDO
-	ENDDO            ! end of season/day cycle
+      ENDDO
+      ENDDO            ! end of season/day cycle
 C Apply seasonal interpolation
-	 do i=1,5
-	p0=(2.*YY(i,1)+YY(i,2)+YY(i,3))/4.
-	p1=(YY(i,3)-YY(i,2))/2.
-	p2=(YY(i,2)+YY(i,3)-2.*YY(i,1))/4.
-	YI(i)=p0+p1*cos(sg*rad)+p2*cos(2.*sg*rad)
-	 enddo
+       do i=1,5
+      p0=(2.*YY(i,1)+YY(i,2)+YY(i,3))/4.
+      p1=(YY(i,3)-YY(i,2))/2.
+      p2=(YY(i,2)+YY(i,3)-2.*YY(i,1))/4.
+      YI(i)=p0+p1*cos(sg*rad)+p2*cos(2.*sg*rad)
+       enddo
       DO K=1,5
       CL(0)=CL(0)+YI(K)
       CL(1)=CL(1)+YI(K)*PL1(K)
       CL(2)=CL(2)+YI(K)*PL2(K)
       CL(3)=CL(3)+YI(K)*PL3(K)
-	ENDDO
+      ENDDO
       CL(0)=CL(0)/5.
       CL(1)=CL(1)/10.
       CL(2)=CL(2)/14.
@@ -6646,23 +6646,23 @@ C Apply seasonal interpolation
       ZA=CL(0)-2.*CL(2)
       RATCH=ZA+ULL*(CL(1)-3.4*CL(3)+ULL*(CL(2)+ULL*CL(3)))
 
-	RETURN
-	END	
+      RETURN
+      END   
 C
 C
-	SUBROUTINE  SHAMDB0D (RLAT,FLON,T,RZ,B)
+      SUBROUTINE  SHAMDB0D (RLAT,FLON,T,RZ,B)
 C-------------------------------------------------------------------
-C	COMPUTES THE HOURLY VALUES OF B0 FROM A SET OF SH COEFFICIENTS
-C	IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE
-C	OF THE EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUSPOT NUMER
+C     COMPUTES THE HOURLY VALUES OF B0 FROM A SET OF SH COEFFICIENTS
+C     IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE
+C     OF THE EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUSPOT NUMER
 C
-C INPUT:	RLAT    The geogrphic latitude on the meridian given by 
-C					the local time (FLON), where the modified dip
+C INPUT:    RLAT    The geogrphic latitude on the meridian given by 
+C                             the local time (FLON), where the modified dip
 C                   latitude is the same as of the orginal site.
-C			FLON	=LONGITUDE+15.*UT(hours)
-C			T		Month as a REAL number (1.0 to 12.0)
-C			RZ		12-month running mean
-C OUTOUT	B		=B0
+C                 FLON  =LONGITUDE+15.*UT(hours)
+C                 T           Month as a REAL number (1.0 to 12.0)
+C                 RZ          12-month running mean
+C OUTOUT    B           =B0
 C
 C  Blanch E., D. Arrazola, D. Altadill, D. Buresova, M. Mosert, 
 C     Adv. Space Res. 39, 701-710, 2007.
@@ -6674,11 +6674,11 @@ C-------------------------------------------------------------------
       PARAMETER   (IBO=0,JBO=1,KDIM=6,LDIM=4,L=-1)
       DIMENSION   FN(0:KDIM,0:KDIM), CONST(0:KDIM,0:KDIM)
       DIMENSION   GNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-	  DIMENSION   GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                    HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+        DIMENSION   GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                    HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            GBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			  HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+     *                    HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       CHARACTER*1 IE       
@@ -6688,16 +6688,16 @@ C-------------------------------------------------------------------
       DATA THETA,RE,TZERO,IFIT,ICEN,IREF,IB,KINT,LINT,KEXT,LEXT
      *     /180.,6371.2,1.0,  -1,  0,   0,   2, 6,   4,   0,   -1/
 
-  	  DATA ((CONST(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+        DATA ((CONST(N,M), M=0,N), N=0,KDIM)
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693/
 
-	  DATA IE /"I"/
+        DATA IE /"I"/
 
       DATA (((GANM(N,M,J),GBNM(N,M,J),HANM(N,M,J),HBNM(N,M,J),
-     *    	J=0,LDIM), M=0,N), N=0,KDIM)
+     *      J=0,LDIM), M=0,N), N=0,KDIM)
      * /176.746, 0.233,   0.000, 0.000,
      * -109.413, 0.072,   0.000, 0.000, -66.000,-0.004,   0.000, 0.000,
      *   36.874,-0.018,   0.000, 0.000, -19.515, 0.040,   0.000, 0.000,
@@ -6781,13 +6781,13 @@ C-------------------------------------------------------------------
       KT = MAX(LINT,LEXT)
       IF (KT .GT. LDIM)  GO TO 9999
 
-	DO 500 N=0,KMAX
-	DO 500 M=0,N
+      DO 500 N=0,KMAX
+      DO 500 M=0,N
 
-	DO J=0,KT
-	 GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
-	 HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
-	ENDDO
+      DO J=0,KT
+       GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
+       HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
+      ENDDO
  
       IF (IE .EQ. 'I')  THEN
          IF (N .GT. KINT)  GO TO 500
@@ -6821,10 +6821,10 @@ C-------------------------------------------------------------------
 C
   500 CONTINUE
 C     **********************************************************
-C     SYNTHESIZES THE VALUE OF B0 FROM THE MODEL	
+C     SYNTHESIZES THE VALUE OF B0 FROM THE MODEL      
 C     **********************************************************
       CALL SCHNEVPD(RZ,RLAT,FLON,dum,T,L,dum,dum,B)
-	  RETURN
+        RETURN
 9999  STOP
       END
 C
@@ -6856,9 +6856,9 @@ C     NOTE:   SUBROUTINE IS INITIALIZED DURING FIRST CALL REGARDLESS OF L.
 
 C     SUBPROGRAM USED:  LEGFUN
 
-C	***** PARAMS & COEFFS TRANSFERRED FROM MAIN PROGRAM *****
+C     ***** PARAMS & COEFFS TRANSFERRED FROM MAIN PROGRAM *****
 
-C	ADAPTED FROM SUBROUTINE SCHNEV OF G.V. HAINES (COMPUTERS & GEOSCIENCES, 
+C     ADAPTED FROM SUBROUTINE SCHNEV OF G.V. HAINES (COMPUTERS & GEOSCIENCES, 
 C      14, 413-447, 1988)
 C-------------------------------------------------------------------
 
@@ -6868,15 +6868,15 @@ C-------------------------------------------------------------------
       DIMENSION   DELT(0:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-      COMMON	/CONST/dfarg,PI 
-     * 			/ATB/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
+      COMMON      /CONST/dfarg,PI 
+     *                  /ATB/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
      *              LEXT,KMAX,FN
       CHARACTER*1 IE,RESP
 C
       DATA ((CONSTP(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693/
 
 C     IBF   =  0   TO USE ORDINARY POLYNOMIALS AS BASIS FUNCTIONS
@@ -7055,46 +7055,46 @@ C
 C
       SUBROUTINE  SHAB1D (FLAT,FLON,T,RZ,B)
 C-------------------------------------------------------------------
-C	COMPUTES THE HOURLY VALUES OF B1 FROM A SET OF SH COEFFICIENTS
-C	IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE
-C	OF THE EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUSPOT NUMER
+C     COMPUTES THE HOURLY VALUES OF B1 FROM A SET OF SH COEFFICIENTS
+C     IN A POINT OF A GIVEN GEOCENTRIC LATITUDE AND LONGITUDE
+C     OF THE EARTH'S SURFACE FOR A GIVEN MONTH AND A GIVEN SUSPOT NUMER
 C
 C   PARAMETERS ARE THE SAME AS IN SHAMDB0D, EXCEPT:
-C		FLAT	Geographic latitude
-C		B		=B1
+C           FLAT  Geographic latitude
+C           B           =B1
 C
-C	***** PARAMS & COEFFS IN DATA SENTENCES *****
+C     ***** PARAMS & COEFFS IN DATA SENTENCES *****
 C-------------------------------------------------------------------
 C
       PARAMETER   (IBO=0,JBO=1,KDIM=6,LDIM=4,L=-1)
       DIMENSION   FN(0:KDIM,0:KDIM), CONST(0:KDIM,0:KDIM)
       DIMENSION   GNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-	  DIMENSION   GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                  HNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+        DIMENSION   GANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
+     *                  HANM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            GBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
-     *			HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
+     *                  HBNM(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
       CHARACTER*1 IE       
       COMMON/ATB1/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
      *              LEXT,KMAX,FN
 
-	  DATA ALT /300./
+        DATA ALT /300./
 
       DATA THETA,RE,TZERO,IFIT,ICEN,IREF,IB,KINT,LINT,KEXT,LEXT
      *     /180.,6371.2,1.0,  -1,  0,   0,   2, 6,   4,   0,   -1/
 
-  	  DATA ((CONST(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+        DATA ((CONST(N,M), M=0,N), N=0,KDIM)
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693/
 
-	  DATA IE /"I"/
+        DATA IE /"I"/
 
       DATA (((GANM(N,M,J),GBNM(N,M,J),HANM(N,M,J),HBNM(N,M,J),
-     *    	J=0,LDIM), M=0,N), N=0,KDIM)
+     *      J=0,LDIM), M=0,N), N=0,KDIM)
      *   /1.156, 0.039,  0.000, 0.000,
      *    1.725,-0.053,  0.000, 0.000,  1.097,-0.032,  0.000, 0.000,
      *   -0.579, 0.019,  0.000, 0.000,  0.265,-0.010,  0.000, 0.000,
@@ -7159,13 +7159,13 @@ C
       KT = MAX(LINT,LEXT)
       IF (KT .GT. LDIM)  GO TO 9999
 
-	DO 500 N=0,KMAX
-	DO 500 M=0,N
+      DO 500 N=0,KMAX
+      DO 500 M=0,N
 
-	DO J=0,KT
-	 GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
-	 HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
-	ENDDO
+      DO J=0,KT
+       GNM(N,M,J)=GANM(N,M,J)+GBNM(N,M,J)*rz
+       HNM(N,M,J)=HANM(N,M,J)+HBNM(N,M,J)*rz
+      ENDDO
  
       IF (IE .EQ. 'I')  THEN
          IF (N .GT. KINT)  GO TO 500
@@ -7201,7 +7201,7 @@ C
 
   500 CONTINUE
 C     **********************************************************
-C     SYNTHESIZES THE VALUE OF B1 FROM THE MODEL	
+C     SYNTHESIZES THE VALUE OF B1 FROM THE MODEL      
 C     **********************************************************
       CALL SCHNEVPDB1(RZ,FLAT,FLON,dum,T,L,dum,dum,B)
 C
@@ -7237,9 +7237,9 @@ C     NOTE:   SUBROUTINE IS INITIALIZED DURING FIRST CALL REGARDLESS OF L.
 
 C     SUBPROGRAM USED:  LEGFUN
 
-C	***** PARAMS & COEFFS TRANSFERRED FROM MAIN PROGRAM *****
+C     ***** PARAMS & COEFFS TRANSFERRED FROM MAIN PROGRAM *****
 
-C	ADAPTED FROM SUBROUTINE SCHNEV OF G.V. HAINES (COMPUTERS & GEOSCIENCES, 
+C     ADAPTED FROM SUBROUTINE SCHNEV OF G.V. HAINES (COMPUTERS & GEOSCIENCES, 
 C      14, 413-447, 1988)
 C-------------------------------------------------------------------
 
@@ -7249,15 +7249,15 @@ C-------------------------------------------------------------------
       DIMENSION   DELT(0:LDIM)
       DIMENSION   BINT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM),
      *            BEXT(0:KDIM,0:KDIM,1-IBO-JBO:LDIM)
-      COMMON	/CONST/dfarg,PI 
-     * 			/ATB1/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
+      COMMON      /CONST/dfarg,PI 
+     *                  /ATB1/BINT,BEXT,RE,TZERO,IFIT,IB,KINT,LINT,KEXT,
      *              LEXT,KMAX,FN
       CHARACTER*1 IE,RESP
 C
       DATA ((CONSTP(N,M), M=0,N), N=0,KDIM)
-     *	 /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
-     *	  3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
-     *	  4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
+     *       /4*1.,1.73205,0.866025,1.,2.44949,1.93649,0.7905691,1.,
+     *        3.16228,3.35410,2.09165,0.739510,1.,3.87298,5.12348,
+     *        4.18330,2.21853,0.701561,1.,4.58258,2*7.24569,4.96078,
      *      2.32681,0.671693/
 
 C     IBF   =  0   TO USE ORDINARY POLYNOMIALS AS BASIS FUNCTIONS
@@ -7436,7 +7436,7 @@ C
 C
       SUBROUTINE TBFIT (T1,T2,IBF,THINT,TZERO)
 C-------------------------------------------------------------------
-C	COURTESY OF G.V. HAINES
+C     COURTESY OF G.V. HAINES
 C
 C     T2    =  BEGINNING OF TIME INTERVAL.
 C     T1    =  END OF TIME INTERVAL.
@@ -7486,12 +7486,12 @@ C            2     PRINT PARAMETERS AND DP SERIES
 C            3     PRINT PARAMETERS AND BOTH P AND DP SERIES
 C           -1     PRINT PARAMETERS ONLY
 C     INPUT M,FN,CONST,COLAT,IPRT.   OUTPUT P,DP,PMS
-C	ADAPTED FROM G.V. HAINES (COMPUTERS & GEOSCIENCES, 14, 413-447, 1988).
+C     ADAPTED FROM G.V. HAINES (COMPUTERS & GEOSCIENCES, 14, 413-447, 1988).
 C-------------------------------------------------------------------
-      REAL*8  		FNN,AL,A,B,PNM,DPNM
-      DIMENSION  	AM(60), BM(60)
-      LOGICAL		mess
-	  COMMON/iounit/konsol,mess	/CONST/dfarg,PI
+      REAL*8            FNN,AL,A,B,PNM,DPNM
+      DIMENSION   AM(60), BM(60)
+      LOGICAL           mess
+        COMMON/iounit/konsol,mess   /CONST/dfarg,PI
 
       DATA   JMAX/60/
 
@@ -8024,7 +8024,7 @@ c in:   ld      local day of year
 c       t       local hour (decimal)
 c       flat    northern latitude in degrees
 c       elon    east longitude in degrees
-c		height	height in km
+c           height      height in km
 c
 c out:  declin      declination of the sun in degrees
 c       zenith      zenith angle of the sun in degrees
@@ -8062,14 +8062,14 @@ c
 c
         a = sin(fa) * sin(dc)
         b = cos(fa) * cos(dc)
-        	cosx = a + b * cos(phi)
-        	if(abs(cosx).gt.1.) cosx=sign(1.,cosx)
+            cosx = a + b * cos(phi)
+            if(abs(cosx).gt.1.) cosx=sign(1.,cosx)
         zenith = acos(cosx) / dtr
 c
 c calculate sunrise and sunset times --  at the ground...........
 c see Explanatory Supplement to the Ephemeris (1961) pg 401......
 c sunrise at height h metres is at...............................
-		h=height*1000.
+            h=height*1000.
         chih = 90.83 + 0.0347 * sqrt(h)
 c this includes corrections for horizontal refraction and........
 c semi-diameter of the solar disk................................
@@ -8087,8 +8087,8 @@ c allow for sun never rising - high latitude winter..............
         sunrse = -99.
         if(secphi.gt.0.0.and.secphi.lt.1.) return
 c
-        	cosx = cosphi
-        	if(abs(cosx).gt.1.) cosx=sign(1.,cosx)
+            cosx = cosphi
+            if(abs(cosx).gt.1.) cosx=sign(1.,cosx)
         phi = acos(cosx)
         et = et / humr
         phi = phi / humr
@@ -8098,15 +8098,15 @@ c
         if(sunset.ge.24.) sunset = sunset - 24.
 c special case sunrse > sunset
         if(sunrse.gt.sunset) then
-        	sunx=sign(99.0,flat)
-        	if(ld.gt.91.and.ld.lt.273) then
-        		sunset = sunx
-        		sunrse = sunx
-        	else
-        		sunset = -sunx
-        		sunrse = -sunx
-        	endif
-        	endif
+            sunx=sign(99.0,flat)
+            if(ld.gt.91.and.ld.lt.273) then
+                  sunset = sunx
+                  sunrse = sunx
+            else
+                  sunset = -sunx
+                  sunrse = -sunx
+            endif
+            endif
 c
         return
         end
@@ -8386,12 +8386,12 @@ c
       REAL FUNCTION BOOKER(H,N,AH,AV,D)
 c----------------------------------------------------------------
 C PROFILE BASED ON BOOKER APPROACH 
-C 	H		HEIGHT IN KM 
-C 	N		NUMBER OF PROFILE SECTIONS WITH CONSTANT GRADIENT
-C 	AH(N)	HEIGHTS MARKING BEGINNING AND END OF SECTIONS
-C 	AV(N) 	PARAMETER VALUES AT AH
-C	D(N-2)	THICKNESS OF TRANSITION REGION BETWEEN SECTIONS
-C	ST(N-1)	SECTION GRADIENTS
+C     H           HEIGHT IN KM 
+C     N           NUMBER OF PROFILE SECTIONS WITH CONSTANT GRADIENT
+C     AH(N) HEIGHTS MARKING BEGINNING AND END OF SECTIONS
+C     AV(N)       PARAMETER VALUES AT AH
+C     D(N-2)      THICKNESS OF TRANSITION REGION BETWEEN SECTIONS
+C     ST(N-1)     SECTION GRADIENTS
 c----------------------------------------------------------------
       REAL AH(N),AV(N),ST(N-1),D(N-2)
 C
@@ -8738,8 +8738,8 @@ c
 c----------------------------------------------------------------
 c Reads the Rz12 and IG12 indices file IG_RZ.DAT from I/O UNIT=12 
 c and stores the indices in COMMON:
-c		common/igrz/aig,arziyst,iyed   with aig(806),arz(806),
-c											start year (iyst)
+c           common/igrz/aig,arziyst,iyed   with aig(806),arz(806),
+c                                                                 start year (iyst)
 c                                           end year (iyed)
 c 
 c The indices file IG_RZ.DAT is structured as follows (values are 
@@ -8749,7 +8749,7 @@ c   a blank line
 c   start month, start year, end month, end year,
 c   a blank line
 c   the IG index for December of start year minus 1 (this value is 
-c		needed for interpolating from 1st to 15th of first year)
+c           needed for interpolating from 1st to 15th of first year)
 c   the 12 IG indices (13-months running mean) for start year, 
 c   the 12 IG indices for the second year 
 c       .. and so on until the last year,
@@ -8780,8 +8780,8 @@ c the file) and onward the indices are therefore based on indices
 c predictions.
 c----------------------------------------------------------------
 
-           integer	iyst,iyend,iymst,iupd,iupm,iupy,imst,imend
-           real		aig(806),arz(806)
+           integer      iyst,iyend,iymst,iupd,iupm,iupy,imst,imend
+           real         aig(806),arz(806)
            
            common /igrz/aig,arz,iymst,iymend
 
@@ -8812,9 +8812,9 @@ c read all the IG12 (ionoindx) and Rz12 (indrz) values
 c use scale factor 0.7 for new sunspot number starting from Jan 2014
 c and starting with ig_rz file for Oct 2016.
             if(iupy*100+iupm.gt.201609) then
-            	inum_chan= 3-imst+(2014-iyst)*12 
-            	do 1 jj=inum_chan,inum_vals
-                	arz(jj)=arz(jj)*0.7
+                  inum_chan= 3-imst+(2014-iyst)*12 
+                  do 1 jj=inum_chan,inum_vals
+                  arz(jj)=arz(jj)*0.7
 c                ggg=aig(jj)
 c                if(rrr.lt.0.0) then
 c                    covr=abs(rrr)
@@ -8828,8 +8828,8 @@ c                    ggg=zi
 c                    endif
 c                arz(jj)=rrr
 c                aig(jj)=ggg    
-1               	continue
-				endif
+1                 continue
+                        endif
             close(unit=12)
 
             return
@@ -8855,14 +8855,14 @@ c month. The indices for the given day are obtained by linear
 c interpolation and are stored in rz(3) and ig(3).
 c----------------------------------------------------------------
 
-           integer	yr,mm,day,iyst,iyend,iymst
-           integer	imst,iymend
-           real		ionoindx(806),indrz(806)
-           real		ig(3),rz(3)
-           logical	mess
+           integer      yr,mm,day,iyst,iyend,iymst
+           integer      imst,iymend
+           real         ionoindx(806),indrz(806)
+           real         ig(3),rz(3)
+           logical      mess
            
-           common 	/iounit/konsol,mess  
-           common	/igrz/ionoindx,indrz,iymst,iymend
+           common       /iounit/konsol,mess  
+           common /igrz/ionoindx,indrz,iymst,iymend
 
         iytmp=yr*100+mm
         if (iytmp.lt.iymst.or.iytmp.gt.iymend) then
@@ -8875,8 +8875,8 @@ c----------------------------------------------------------------
                return
                endif
 
-		iyst=iymst/100
-		imst=iymst-iyst*100
+            iyst=iymst/100
+            imst=iymst-iyst*100
 c       num=12-imst+1+(yr-iyst-1)*12+mm+1
         num=2-imst+(yr-iyst)*12+mm
 
@@ -8929,31 +8929,31 @@ c               if((yr/4*4.eq.yr).and.(yr/100*100.ne.yr)) idd2=381
             end
 C
 C
-		subroutine readapf107
+            subroutine readapf107
 C-------------------------------------------------------------------------
 c Reads APF107.DAT file (on UNIT=13) and stores contents in COMMON block:
-C 	COMMON/AAP,AF107,N/ with  AAP(23000,9) and AF107(23000,3)
-C		AAP(*,1)	3-hour Ap indices for the UT interval )0-3)
-C		AAP(*,2)	3-hour Ap indices for the UT interval )3-6)
+C     COMMON/AAP,AF107,N/ with  AAP(23000,9) and AF107(23000,3)
+C           AAP(*,1)    3-hour Ap indices for the UT interval )0-3)
+C           AAP(*,2)    3-hour Ap indices for the UT interval )3-6)
 C          ....                       ....
-C		AAP(*,8)	3-hour Ap indices for the UT interval )21-6)
-C		AAP(*,9)	daily Ap
-C		AF107(*,1)	F10.7 radio flux for the day
-C		AF107(*,2)	81-day average of F10.7 radio flux 
-C		AF107(*,3)	365-day average of F10.7
+C           AAP(*,8)    3-hour Ap indices for the UT interval )21-6)
+C           AAP(*,9)    daily Ap
+C           AF107(*,1)  F10.7 radio flux for the day
+C           AF107(*,2)  81-day average of F10.7 radio flux 
+C           AF107(*,3)  365-day average of F10.7
 C       N           total number of records
 c
 c APF107.DAT is structured as follows:
-c 		JY(I3),JMN(I3),JD(I3)	year, month, day 
-c		IIAP(8)	(8I3)			3-hour Ap indices for the UT intervals 
-c								(0-3(,(3-6(,(6-9(, .., (18-21(,(21-24(
-c		IAPD (I3)				daily Ap
-c		IR (I3)					sunspot number for the day (empty)
-c		F107 (F5.1)				F10.7 radio flux for the day
-c		F107_81 (F5.1)			81-day average of F10.7 radio flux 
+c           JY(I3),JMN(I3),JD(I3)   year, month, day 
+c           IIAP(8)     (8I3)             3-hour Ap indices for the UT intervals 
+c                                               (0-3(,(3-6(,(6-9(, .., (18-21(,(21-24(
+c           IAPD (I3)                     daily Ap
+c           IR (I3)                             sunspot number for the day (empty)
+c           F107 (F5.1)                   F10.7 radio flux for the day
+c           F107_81 (F5.1)                81-day average of F10.7 radio flux 
 c       F107_365 (F5.1)         365-day average of F10.7 centered on 
 c                               the date of interest. At start and end  
-c								of index file it takes all available  
+c                                               of index file it takes all available  
 c                               indices, e.g. for the first date the 
 c                               average is only over 40 F10.7 values  
 c                               and over 41 values on the 2nd date.  
@@ -8961,71 +8961,71 @@ c
 c If date is outside the range of the Ap indices file then IAP(1)=-5  
 C-------------------------------------------------------------------------
 C
-        INTEGER		aap(23000,9),iiap(8)
-        DIMENSION 	af107(23000,3)
-        COMMON		/apfa/aap,af107,n
+        INTEGER         aap(23000,9),iiap(8)
+        DIMENSION       af107(23000,3)
+        COMMON          /apfa/aap,af107,n
 
         Open(13,FILE='apf107.dat',FORM='FORMATTED',STATUS='OLD')
 c-web-sepcial vfor web version
 c      OPEN(13,FILE='/var/www/omniweb/cgi/vitmo/IRI/apf107.dat',
 c     *    FORM='FORMATTED',STATUS='OLD')
 
-		i=1
+            i=1
 1       READ(13,10,END=21) JY,JMN,JD,iiap,iapda,IR,F107D,F107_81,
      *        F107_365
 10      FORMAT(3I3,9I3,I3,3F5.1)
 
-c 		adate(i)=jy*10000+jmn*100+jd 
-		do j=1,8 
+c           adate(i)=jy*10000+jmn*100+jd 
+            do j=1,8 
              aap(i,j)=iiap(j)
              enddo
-		aap(i,9)=iapda
-c		irza(i)=ir
- 		if(F107_81.lt.-4.) F107_81=F107D
- 		if(F107_365.lt.-4.) F107_365=F107D
-		af107(i,1)=f107d 
+            aap(i,9)=iapda
+c           irza(i)=ir
+            if(F107_81.lt.-4.) F107_81=F107D
+            if(F107_365.lt.-4.) F107_365=F107D
+            af107(i,1)=f107d 
         af107(i,2)=f107_81 
         af107(i,3)=f107_365
-		i=i+1 
+            i=i+1 
         goto 1
 
-21		n=i-1
+21          n=i-1
  
         CLOSE(13)
-		return
-		end
+            return
+            end
 C
 C
 
         SUBROUTINE APF(ISDATE,HOUR,IAP)
 c-----------------------------------------------------------------------
 c Finds 3-hourly Ap indices for IRI-STORM model
-c    INPUTS: 	ISDATE		Array-index from APF_ONLY
-c			    HOUR		UT in decimal hours
-c    OUTPUT:    IAP(1:13)	3-hourly Ap index
-c							IAP(13) Ap index for current UT
-c							IAP(1) AP index for UT-39 hours.
+c    INPUTS:      ISDATE            Array-index from APF_ONLY
+c                     HOUR          UT in decimal hours
+c    OUTPUT:    IAP(1:13)     3-hourly Ap index
+c                                         IAP(13) Ap index for current UT
+c                                         IAP(1) AP index for UT-39 hours.
 c
 c Gets indices from COMMON/APFA/
 c
 c If date is outside the range of the Ap indices file than IAP(1)=-5  
 c-----------------------------------------------------------------------
 
-        INTEGER		aap(23000,9),iiap(8),iap(13)
-        DIMENSION 	af107(23000,3)
-        LOGICAL 	mess
-        COMMON 		/iounit/konsol,mess	/apfa/aap,af107,nf107
+        INTEGER         aap(23000,9),iiap(8),iap(13)
+        DIMENSION       af107(23000,3)
+        LOGICAL   mess
+        COMMON          /iounit/konsol,mess     /apfa/aap,af107,nf107
        
         do i=1,8
               iap(i)=-1
               enddo
 
-	   IS = ISDATE
+         IS = ISDATE
 
         ihour=int(hour/3.)+1
         if(ihour.gt.8) ihour=8
 
-        if(is*8+ihour.lt.13) goto 21   ! less then 13 indices available	
+        if(is*8+ihour.lt.13) goto 21   ! less then 13 indices available 
 
         j1=13-ihour
         do i=1,ihour
@@ -9067,14 +9067,14 @@ C
         SUBROUTINE APFMSIS(ISDATE,HOUR,IAPO)
 c-----------------------------------------------------------------------
 c Finds 3-hourly Ap indices for NRLMSIS00 model 
-c    INPUTS: 	ISDATE		Array-index from APF_ONLY
-c				HOUR		UT in decimal hours
-c    OUTPUT:   	IAPO(1:7)	3-hourly Ap index
+c    INPUTS:      ISDATE            Array-index from APF_ONLY
+c                       HOUR        UT in decimal hours
+c    OUTPUT:      IAPO(1:7)   3-hourly Ap index
 C  
 C IAPO(1) DAILY AP
-C IAPO(2) 3-HR AP INDEX FOR CURRENT TIME			   	
-C IAPO(3) 3-HR AP INDEX FOR 3 HRS BEFORE CURRENT TIME	
-C IAPO(4) 3-HR AP INDEX FOR 6 HRS BEFORE CURRENT TIME	
+C IAPO(2) 3-HR AP INDEX FOR CURRENT TIME                    
+C IAPO(3) 3-HR AP INDEX FOR 3 HRS BEFORE CURRENT TIME 
+C IAPO(4) 3-HR AP INDEX FOR 6 HRS BEFORE CURRENT TIME 
 C IAPO(5) 3-HR AP INDEX FOR 9 HRS BEFORE CURRENT TIME  
 C IAPO(6) AVERAGE OF EIGHT 3-HR AP INDICIES FROM 12 TO 33 HRS PRIOR
 C         TO CURRENT TIME
@@ -9087,22 +9087,22 @@ c
 c If date is outside the range of the Ap indices file then IAPO(2)=-5  
 c-----------------------------------------------------------------------
 c
-		REAL 		IAPO
-        INTEGER		aap(23000,9),iiap(8)
-        DIMENSION 	af107(23000,3),iap(20),lm(12),iapo(7)
-        LOGICAL  	mess
+            REAL        IAPO
+        INTEGER         aap(23000,9),iiap(8)
+        DIMENSION       af107(23000,3),iap(20),lm(12),iapo(7)
+        LOGICAL   mess
 
-        COMMON 		/iounit/konsol,mess	/apfa/aap,af107,nf107
+        COMMON          /iounit/konsol,mess     /apfa/aap,af107,nf107
 
         IS=ISDATE
 
         ihour=int(hour/3.)+1
         if(ihour.gt.8) ihour=8
 
-		iapo(1)=aap(is,9)		
+            iapo(1)=aap(is,9)       
 
 C There must be at least 20 indices available
-        if((is-1)*8+ihour.lt.20) goto 21      	
+        if((is-1)*8+ihour.lt.20) goto 21        
 
 C assemble Ap values as needed by MSIS
         j1=ihour+1
@@ -9113,7 +9113,7 @@ C assemble Ap values as needed by MSIS
         j1=ihour+9
         do i=1,8
             iap(j1-i)=aap(is-1,i)
-        	enddo
+            enddo
 
         j1=ihour+17
         j2=8-(20-ihour-8)+1
@@ -9148,9 +9148,9 @@ c        iapo(7)=int(sum2/8.+.5)
 100     format(1X,'APFMSIS: No Ap dependence because date is not',
      &       ' covered by APF107.DAT indices file')
         IAPO(2)=-5.0
-20    	continue
+20          continue
 
-	  RETURN
+        RETURN
       END
 C
 C
@@ -9159,17 +9159,17 @@ C
 c-----------------------------------------------------------------------
 c Finds daily F10.7, daily Ap, and 81-day and 365-day F10.7 index: 
 c
-c    INPUTS:   IYYYY (yyyy)	year 
-c              IMN (mm)		month 
-c	           ID (dd)		day 
-c    OUTPUT:   F107D		F10.7 index for the day (adjusted 
-c								to 1AU)
-C              F107PD  		F10.7 index for one day prior (used in MSIS)
-c              F107_81		F10.7 average over 3 solar rotations
+c    INPUTS:   IYYYY (yyyy)   year 
+c              IMN (mm)       month 
+c                ID (dd)            day 
+c    OUTPUT:   F107D          F10.7 index for the day (adjusted 
+c                                               to 1AU)
+C              F107PD         F10.7 index for one day prior (used in MSIS)
+c              F107_81        F10.7 average over 3 solar rotations
 c                               (81 days, centered on the current day) 
-c              F107_365 	F10.7 12-month running mean
-c              IAPDA		Daily Ap
-c              ISDATE		Array-index for the specified date (for
+c              F107_365       F10.7 12-month running mean
+c              IAPDA          Daily Ap
+c              ISDATE         Array-index for the specified date (for
 c                                use in APF subroutine.
 c 
 c Using COMMON/apfa/ for indices
@@ -9179,11 +9179,11 @@ c
 c If date is outside the range of indices file than F107D=F107_81=-11.1  
 c-----------------------------------------------------------------------
 
-        INTEGER		aap(23000,9),iiap(8),lm(12)
-        DIMENSION 	af107(23000,3)
-        LOGICAL 	mess
+        INTEGER         aap(23000,9),iiap(8),lm(12)
+        DIMENSION       af107(23000,3)
+        LOGICAL   mess
 
-        common 		/iounit/konsol,mess /apfa/aap,af107,nf107
+        common          /iounit/konsol,mess /apfa/aap,af107,nf107
 
         DATA LM/31,28,31,30,31,30,31,31,30,31,30,31/
 
@@ -9193,11 +9193,11 @@ c-----------------------------------------------------------------------
         is=0
         do i=IYBEG,iyyyy-1
             nyd=365
-            if(i/4*4.eq.i) nyd=366	! leap year
+            if(i/4*4.eq.i) nyd=366  ! leap year
             IS=IS+nyd
             enddo
         lm(2)=28
-        if(iyyyy/4*4.eq.iyyyy) lm(2)=29	  ! leap year
+        if(iyyyy/4*4.eq.iyyyy) lm(2)=29     ! leap year
         do i=1,IMN-1
             IS=IS+LM(i)
             ENDDO
@@ -9208,11 +9208,11 @@ c-----------------------------------------------------------------------
 
         F107D = AF107(IS,1)
         F107PD = F107D
-		if(IS.gt.1) F107PD = AF107(IS-1,1)
+            if(IS.gt.1) F107PD = AF107(IS-1,1)
         F107_81=AF107(IS,2)
- 		if(F107_81.lt.-4.) F107_81=F107D
+            if(F107_81.lt.-4.) F107_81=F107D
         F107_365=AF107(IS,3)
-  		if(F107_365.lt.-4.) F107_365=F107D
+            if(F107_365.lt.-4.) F107_365=F107D
         IAPDA=AAP(is,9)
         goto 20
                  
@@ -9240,7 +9240,7 @@ C       geographic latitude   -90. to +90.
 C       geographic longitude  0. to 360. positive east from Greenwich.
 C
 C     OUTPUT:
-C       corrected geomagnetic latitude	-90. to +90.
+C       corrected geomagnetic latitude    -90. to +90.
 
 
       DIMENSION CORMAG(20,91)      
@@ -9489,17 +9489,17 @@ C     to angle from South Pole.
       rla = rlan + 90
 
       IF (rlo .EQ. 360) THEN
-      	rlo = 0
+            rlo = 0
         END IF
 
 C     PROXIMITY
 
-C     coefficients of the latitudinal points		
+C     coefficients of the latitudinal points          
       LA1 = (INT(rla/2)+1)
       LA2 = LA1 + 1
       if(la2.gt.91) la2=91
 
-C     coefficients of the longitudinal points		
+C     coefficients of the longitudinal points         
       LO1 = (INT(rlo/18)+1)
 corr      LO2 = LO1 + 1
       LO2 = MOD(LO1,20) + 1 
@@ -9510,12 +9510,12 @@ C     Four points of Geomagnetic Coordinates
       gm3 = CORMAG(LO2,LA1)
       gm4 = CORMAG(LO2,LA2)
 
-C     latitudinal points		
+C     latitudinal points            
 C      X1 = ABS(rla - (INT(rla)))                        
 C      X2 = 2. - X1
-	  x = (rla/2.0 - (INT(rla/2.0)))
+        x = (rla/2.0 - (INT(rla/2.0)))
 
-C     longitudinal points		
+C     longitudinal points           
 C      Y1 = ABS(rlo - (INT(rlo)))                        
 C      Y2 = 18. - Y1
       y =(rlo/18.0 - (INT(rlo/18.0))) 
@@ -10161,11 +10161,11 @@ c        real*8 bspl4,bspl4_time,bspl4_long
      *  -27.09561,-22.76383,-25.41151, -0.10272, -0.02058, -0.16720/
 
         do i=1,594 
-        	coeff(i)=coeff1(i)
-        	enddo
+            coeff(i)=coeff1(i)
+            enddo
         do i=1,30 
-        	coeff(i+594)=coeff2(i)
-        	enddo
+            coeff(i+594)=coeff2(i)
+            enddo
 
         call g(param,funct,xl)
 
@@ -10190,7 +10190,7 @@ c        real*8 function bspl4_time(i,x1)
 c       *************************************************
 c        implicit REAL*8 (A-H,O-Z)
         implicit REAL (A-H,O-Z)
-		 
+             
         integer i,order,j,k
 c        real*8 t_t(0:39)
 c        real*8 x,b(20,20),x1
@@ -10218,7 +10218,7 @@ c        real*8 x,b(20,20),x1
            if(x.ge.t_t(j).and.x.lt.t_t(j+1)) then
                b(j,1)=1
            else
-	           b(j,1)=0
+                 b(j,1)=0
            end if
         end do
 
@@ -10376,16 +10376,16 @@ c       REAL*8 AE(1:366*24*4),Coff1(1:5,1:9),Coff15(1:6,1:9)
      @          -0.0193, 0.0035, 0.0117, 0.0099, 0.3002,
      @          -0.0492,-0.0201, 0.0338, 0.0099, 0.0746/
 
-	 DATA Coff15/
-     @	        0.0177, 0.0118,-0.0006,-0.0152,-0.0174,-0.0704,
-     @	        0.0051,-0.0074,-0.0096,-0.0107, 0.0152,-0.0674,
-     @	        0.0241, 0.0183, 0.0122,-0.0132, 0.0020,-0.0110,
-     @	        0.0019,-0.0010, 0.0001, 0.0095, 0.0036,-0.0206,
-     @	        0.0170, 0.0183, 0.0042, 0.0085,-0.0140, 0.0583,
+       DATA Coff15/
+     @              0.0177, 0.0118,-0.0006,-0.0152,-0.0174,-0.0704,
+     @              0.0051,-0.0074,-0.0096,-0.0107, 0.0152,-0.0674,
+     @              0.0241, 0.0183, 0.0122,-0.0132, 0.0020,-0.0110,
+     @              0.0019,-0.0010, 0.0001, 0.0095, 0.0036,-0.0206,
+     @              0.0170, 0.0183, 0.0042, 0.0085,-0.0140, 0.0583,
      @          0.0086, 0.0189, 0.0200,-0.0109,-0.0031,-0.0427,
-     @	       -0.0070,-0.0053,-0.0090, 0.0086, 0.0149, 0.2637,
-     @	       -0.0326,-0.0101, 0.0076, 0.0117, 0.0099, 0.3002,
-     @	       -0.0470,-0.0455,-0.0274, 0.0338, 0.0099, 0.0746/
+     @             -0.0070,-0.0053,-0.0090, 0.0086, 0.0149, 0.2637,
+     @             -0.0326,-0.0101, 0.0076, 0.0117, 0.0099, 0.3002,
+     @             -0.0470,-0.0455,-0.0274, 0.0338, 0.0099, 0.0746/
 
 CCCCCCCCCCCCCCCCC**Define to variables**CCCCCCCCCCCCCCCCCCCCC
 C To 1 h time resolution:
@@ -10528,15 +10528,15 @@ CC
          END DO
          AE1_12=AE1_12/45.0D0
 CC 
-	  AEd22_28=0.0D0
+        AEd22_28=0.0D0
           DO i=-88,-112,-1
              AEd22_28s=AE(iP+i)-130.
              IF (AEd22_28s.LE.0) AEd22_28s=0.0
-	     AEd22_28=AEd22_28+AEd22_28s
-	  ENDDO
+           AEd22_28=AEd22_28+AEd22_28s
+        ENDDO
           AEd22_28=AEd22_28/25.0D0
-	  AEd22_28P=AEd22_28-200.0D0
-	  IF (AEd22_28P.LE.0.0D0) AEd22_28P=0.0D0
+        AEd22_28P=AEd22_28-200.0D0
+        IF (AEd22_28P.LE.0.0D0) AEd22_28P=0.0D0
 
 c         AE1_6=0.0D0
 c         AEd1_6=0.0D0
@@ -10547,7 +10547,7 @@ c         dAEt_7P5=400.D0
 c         dAEt_30=0.D0
 c         dAEt_75=0.D0
 CC
-  	  IF (AE1_6.GT.300.0D0) THEN  
+        IF (AE1_6.GT.300.0D0) THEN  
              Alfa=1.0D0
           ELSE IF (AE1_6.GT.200.0D0) THEN
              ALfa=AE1_6/100.0D0-2.0D0
@@ -10600,15 +10600,15 @@ C
        x=x1
        if(i.ge.0) then
           if (x.lt.t_t(i-0)) then
-	       x=x+24
+             x=x+24
           end if
        end if
        do j=i,i+order-1
-	   if(x.ge.t_t(j).and.x.lt.t_t(j+1)) then
-	       b(j,1)=1
-	   else
-	       b(j,1)=0
-	   end if
+         if(x.ge.t_t(j).and.x.lt.t_t(j+1)) then
+             b(j,1)=1
+         else
+             b(j,1)=0
+         end if
        end do
 c
        do j=2,order
@@ -10774,14 +10774,14 @@ C
 *
         if(param(1).le.31.)kf=1
          if(param(1).gt.31..and.param(1).le.(59+n))kf=2
-	      if(param(1).gt.(59+n).and.param(1).le.(90+n))kf=3
+            if(param(1).gt.(59+n).and.param(1).le.(90+n))kf=3
            if(param(1).gt.(90+n).and.param(1).le.(120+n))kf=4
             if(param(1).gt.(120+n).and.param(1).le.(151+n))kf=5
-	         if(param(1).gt.(151+n).and.param(1).le.(181+n))kf=6
+               if(param(1).gt.(151+n).and.param(1).le.(181+n))kf=6
              if(param(1).gt.(181+n).and.param(1).le.(212+n))kf=7
             if(param(1).gt.(212+n).and.param(1).le.(243+n))kf=8
            if(param(1).gt.(243+n).and.param(1).le.(273+n))kf=9
-	      if(param(1).gt.(273+n).and.param(1).le.(304+n))kf=10
+            if(param(1).gt.(273+n).and.param(1).le.(304+n))kf=10
          if(param(1).gt.(304+n).and.param(1).le.(334+n))kf=11
         if(param(1).gt.(334+n).and.param(1).le.(365+n))kf=12
 *
@@ -10811,16 +10811,16 @@ C
         osft=0.
         do i=1,23
           il=i+3
-	      if(il.gt.23)il=il-23
+            if(il.gt.23)il=il-23
           do j=1,12
-	        jl=j+2
-	        if(jl.gt.12)jl=jl-12
+              jl=j+2
+              if(jl.gt.12)jl=jl-12
             do m=1,3
-	          ml=m+1
-	          if(ml.gt.3)ml=ml-3
+                ml=m+1
+                if(ml.gt.3)ml=ml-3
               do  l=1,2
                 bspl4=bspl4t(i,slt)*bspl2s(j,param(1))*
-     &	         bspl2l(l,param(3))*bspl2f(m,param(2))
+     &               bspl2l(l,param(3))*bspl2f(m,param(2))
                 osft=osft+bspl4*sosf(l,il,ml,jl)           
               enddo
             enddo
@@ -10954,15 +10954,15 @@ C
       data ifnodes2 /144,140,139,142,139,146,142,139,150,151,150,157/
       data ifnodes3 /214,211,201,208,213,220,203,209,213,215,236,221/ 
 *
-	ts(0)=ifnodes1(kf)
+      ts(0)=ifnodes1(kf)
         ts(1)=ifnodes2(kf)
-	ts(2)=ifnodes3(kf)
-	ts(3)=ts(1)+367
+      ts(2)=ifnodes3(kf)
+      ts(3)=ts(1)+367
         ts(4)=ts(2)+367
-	ts(5)=ts(3)+367
-	ts(6)=ts(4)+367
+      ts(5)=ts(3)+367
+      ts(6)=ts(4)+367
         ts(7)=ts(5)+367
-	ts(8)=ts(6)+367
+      ts(8)=ts(6)+367
         ts(9)=ts(7)+367
 *
       t=t1
@@ -10997,30 +10997,30 @@ C tables for deriving the 3-hourly ap index from the 3-hourly Kp index
 C (e.g., http://www.ngdc.noaa.gov/stp/GEOMAG/kp_ap.shtml) 
 C-----------------------------------------------------------------------
 
-        integer		ap,ap_array
-        real		kp_array,ap_log_array
-        dimension 	ap_array(28),kp_array(28),alap(28)
+        integer         ap,ap_array
+        real            kp_array,ap_log_array
+        dimension       ap_array(28),kp_array(28),alap(28)
         data ap_array /0,2,3,4,5,6,7,9,12,15,18,22,27,32,39,48,56,67,
      &                 80,94,111,132,154,179,207,236,300,400/
         
         do 1256 i=2,28
 1256       kp_array(i)=(i-1)/3.
-		
+            
         if(ap.eq.0) then
-        	ckp=0.0
-        	return
-        	endif
+            ckp=0.0
+            return
+            endif
         if(ap.eq.1) then
-        	ckp=kp_array(2)/2.
-        	return
-        	endif
+            ckp=kp_array(2)/2.
+            return
+            endif
         if(ap.lt.8.and.ap.gt.1) then
-        	ckp=kp_array(ap)
-        	return
-        	endif
+            ckp=kp_array(ap)
+            return
+            endif
 
         xl_ap=log(ap*1.0)
-                	
+                  
         i=8
 1257    alap(i)=log(ap_array(i)*1.0)
         if(xl_ap.gt.alap(i)) then
@@ -11030,13 +11030,13 @@ C-----------------------------------------------------------------------
 
         slope=(kp_array(i)-kp_array(i-1))/(alap(i)-alap(i-1))
        
-		ckp = kp_array(i) + slope * (xl_ap - alap(i))
-		
-		return
-		end
+            ckp = kp_array(i) + slope * (xl_ap - alap(i))
+            
+            return
+            end
 C                   
 C        
-		subroutine auroral_boundary(xkp,xmlt,cgmlat,ab_mlat)
+            subroutine auroral_boundary(xkp,xmlt,cgmlat,ab_mlat)
 C-----------------------------------------------------------------------
 C Computes equatorward auroral boundary values for givern kp value.
 C kp given in units of 0.1 (xkp) for the range from 0.0 to 9.0. Model 
@@ -11108,7 +11108,7 @@ C-----------------------------------------------------------------------
 
         do i=1,48 
            ab_mlat(i)=zp_mlat(i,kp1)+(xkp-xkp1)*
-     &      	(zp_mlat(i,kp2)-zp_mlat(i,kp1))
+     &            (zp_mlat(i,kp2)-zp_mlat(i,kp1))
            enddo
            
         cgmlat=-99.99
@@ -11116,8 +11116,8 @@ C-----------------------------------------------------------------------
         if(xmlt.lt.0.0) return
         
         do i=1,48 
-        	ab_mlt(i)=(i-1)*.5
-			enddo
+            ab_mlt(i)=(i-1)*.5
+                  enddo
         i1=int(xmlt/0.5)+1
         if(i1.ge.48) i1=1
         i2=i1+1
@@ -11128,7 +11128,7 @@ C-----------------------------------------------------------------------
         zmlkp2=zp_mlat(i1,kp2)+(xmlt-ab_mlt(i1))*s2
         
         cgmlat=zmlkp1+(xkp-xkp1)*(zmlkp2-zmlkp1)
-		return
-		end
+            return
+            end
 C
 C
