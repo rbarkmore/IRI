@@ -200,14 +200,14 @@ C   24    D-region: IRI-1990     FT-2001 and DRS-1995                t
 C   25    F107D from APF107.DAT  F107D user input (oarr(41))         t
 C   26    foF2 storm model       no storm updating                   t
 C   27    IG12 from file         IG12 - user                         t
-C   28    spread-F probability 	 not computed                    false
+C   28    spread-F probability       not computed                    false
 C   29    IRI01-topside          new options as def. by JF(30)   false
-C   30    IRI01-topside corr.    NeQuick topside model   	     false 
+C   30    IRI01-topside corr.    NeQuick topside model           false 
 C (29,30) = (t,t) IRIold, (f,t) IRIcor, (f,f) NeQuick, (t,f) Gulyaeva
-C   31    B0,B1 ABT-2009	     B0 Gulyaeva-1987 h0.5               t   
+C   31    B0,B1 ABT-2009           B0 Gulyaeva-1987 h0.5               t   
 C (4,31) = (t,t) Bil-00, (f,t) ABT-09, (f,f) Gul-87, (t,f) not used
 C   32    F10.7_81 from file     F10.7_81 - user input (oarr(46))    t
-C   33    Auroral boundary model on/off  true/false	             false
+C   33    Auroral boundary model on/off  true/false                false
 C   34    Messages on            Messages off                        t
 C   35    foE storm model        no foE storm updating           false
 C   36    hmF2 w/out foF2_storm  with foF2-storm                     t
@@ -355,7 +355,7 @@ c      CHARACTER FILNAM*53
      &  dnight,enight,fnight,TOPO,TOPC,fstorm_on,estorm_on
 
       COMMON /CONST/UMR  /const1/humr,dumr   /ARGEXP/ARGMAX
-     &	 /const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
+     &       /const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
      &   /BLOCK1/HMF2,NMF2,HMF1,F1REG  /BLOCK2/B0,B1,C1  
      &   /BLOCK3/HZ,T,HST              /BLOCK4/HME,NME,HEF 
      &   /BLOCK5/ENIGHT,E              /BLOCK6/HMD,NMD,HDX
@@ -396,15 +396,15 @@ C
 C PROGRAM CONSTANTS
 C
         if(icalls.lt.1) then
-        	ARGMAX=88.0
-        	pi=ATAN(1.0)*4.
-        	UMR=pi/180.
-        	humr=pi/12.
-        	dumr=pi/182.5
-        	ALOG2=ALOG(2.)
-        	ALG10=ALOG(10.)
-        	ALG100=ALOG(100.)
-        	endif
+            ARGMAX=88.0
+            pi=ATAN(1.0)*4.
+            UMR=pi/180.
+            humr=pi/12.
+            dumr=pi/182.5
+            ALOG2=ALOG(2.)
+            ALG10=ALOG(10.)
+            ALG100=ALOG(100.)
+            endif
  
         numhei=int(abs(heiend-heibeg)/abs(heistp))+1
         if(numhei.gt.nummax) numhei=nummax
@@ -412,7 +412,7 @@ C
 C NEW-GUL------------------------------
          Y05=.6931473
          QF=1.
-	     h05top=0.
+           h05top=0.
 C NEW-GUL------------------------------
 
 C
@@ -524,8 +524,8 @@ c
       FOF2IN=(.not.jf(8))
        IF(FOF2IN) THEN
           OARR1=OARR(1)
-       	  AFOF2=OARR1
-       	  ANMF2=OARR1
+              AFOF2=OARR1
+              ANMF2=OARR1
           IF(OARR1.LT.100.) ANMF2=1.24E10*AFOF2*AFOF2
           IF(OARR1.GE.100.) AFOF2=SQRT(ANMF2/1.24E10)
         else
@@ -547,8 +547,8 @@ c
       FOF1IN=(.not.jf(13))
        IF(FOF1IN) THEN
           OARR3=OARR(3)
-       	  AFOF1=OARR3
-       	  ANMF1=OARR3
+              AFOF1=OARR3
+              ANMF1=OARR3
           IF(OARR3.LT.100.) ANMF1=1.24E10*AFOF1*AFOF1
           IF(OARR3.GE.100.) AFOF1=SQRT(ANMF1/1.24E10)
         else
@@ -572,8 +572,8 @@ c
       FOEIN=(.not.jf(15))
        IF(FOEIN) THEN
           OARR5=OARR(5)
-       	  AFOE=OARR5
-       	  ANME=OARR5
+              AFOE=OARR5
+              ANME=OARR5
           IF(OARR5.LT.100.) ANME=1.24E10*AFOE*AFOE
           IF(OARR5.GE.100.) AFOE=SQRT(ANME/1.24E10)
         else
@@ -770,12 +770,12 @@ C
            LONGI=ALONG
         ENDIF
         CALL GEODIP(IYEAR,LATI,LONGI,MLAT,MLONG,JMAG)
-        	if(jf(18)) then
+            if(jf(18)) then
         call igrf_dip(lati,longi,ryear,300.0,dec,dip,magbr,modip)
-        	else
+            else
         CALL FIELDG(LATI,LONGI,300.0,XMA,YMA,ZMA,BET,DIP,DEC,MODIP)
         MAGBR=ATAN(0.5*TAN(DIP*UMR))/UMR
-        	endif
+            endif
 
         ABSLAT=ABS(LATI)
         ABSMLT=ABS(MLAT)
@@ -786,13 +786,13 @@ c
 C CALCULATION OF UT/LT and XMLT  ...............
 c
         IF(DHOUR.le.24.0) then
-        	HOUR=DHOUR					! dhour =< 24 is LT
+            HOUR=DHOUR                          ! dhour =< 24 is LT
             hourut=hour-longi/15.
             if(hourut.lt.0) hourut=hourut+24.
-		else
-        	hourut=DHOUR-25.				 ! dhour>24 is UT+25
-        	hour=hourut+longi/15.	 		 ! hour becomes LT
-        	if(hour.gt.24.) hour=hour-24.
+            else
+            hourut=DHOUR-25.                     ! dhour>24 is UT+25
+            hour=hourut+longi/15.                ! hour becomes LT
+            if(hour.gt.24.) hour=hour-24.
         endif
         
         CALL CLCMLT(IYEAR,DAYNR,HOURUT,LATI,LONGI,XMLT)
@@ -810,23 +810,23 @@ c
       
       SEASON=INT((DAYNR+45.0)/92.0)
       IF(SEASON.LT.1) SEASON=4
-      NSEASN=SEASON				! Northern hemisphere season
+      NSEASN=SEASON                       ! Northern hemisphere season
       zmonth = month + (iday-1)*1./nrdaym
 C NEW-GUL------------------------------
-      sday=daynr/idayy*360.			 
+      sday=daynr/idayy*360.                
 C NEW-GUL------------------------------
       seaday=daynr
       iseamon=month
       IF(LATI.GE.0.0) GOTO 5592
-        	SEASON=SEASON-2			
-        	IF(SEASON.LT.1) SEASON=SEASON+4
-        	iseamon=month+6
-        	if(iseamon.gt.12) iseamon=iseamon-12
-        	seaday=daynr+idayy/2.
-        	if(seaday.gt.idayy) seaday=seaday-idayy
+            SEASON=SEASON-2               
+            IF(SEASON.LT.1) SEASON=SEASON+4
+            iseamon=month+6
+            if(iseamon.gt.12) iseamon=iseamon-12
+            seaday=daynr+idayy/2.
+            if(seaday.gt.idayy) seaday=seaday-idayy
 C NEW-GUL------------------------------
-            sday=sday+180.						
-            if (sday.gt.360.) sday=sday-360.	
+            sday=sday+180.                                  
+            if (sday.gt.360.) sday=sday-360.    
 C NEW-GUL------------------------------
 
 C
@@ -846,25 +846,25 @@ C
      &                   and..not.igin.and..not.igino) goto 2910
      
         call tcon(iyear,month,iday,daynr,rzar,arig,ttt,nmonth)
-        if(nmonth.lt.0) goto 3330		! jump to end of program
+        if(nmonth.lt.0) goto 3330         ! jump to end of program
 
         if(RZIN) then
-        	rrr = arzin
-        	rzar(1) = rrr
-        	rzar(2) = rrr
-        	rzar(3) = rrr
-c       	zi=-12.349154+(1.4683266-2.67690893e-03*rrr)*rrr
-c       	if(zi.gt.174.0) zi=174.0
-c       	arig(1) = zi
-c       	arig(2) = zi
-c       	arig(3) = zi
-        	endif
+            rrr = arzin
+            rzar(1) = rrr
+            rzar(2) = rrr
+            rzar(3) = rrr
+c           zi=-12.349154+(1.4683266-2.67690893e-03*rrr)*rrr
+c           if(zi.gt.174.0) zi=174.0
+c           arig(1) = zi
+c           arig(2) = zi
+c           arig(3) = zi
+            endif
         if(IGIN) then
-        	zi = aigin
-        	arig(1) = zi
-        	arig(2) = zi
-        	arig(3) = zi
-        	endif
+            zi = aigin
+            arig(1) = zi
+            arig(2) = zi
+            arig(3) = zi
+            endif
         rssn=rzar(3)
         gind=arig(3)
         COV=63.75+RSSN*(0.728+RSSN*0.00089)
@@ -884,15 +884,15 @@ c        COVSAT=63.75+rlimit*(0.728+rlimit*0.00089)
             f107y=f107PD
             f10781=f107_81
             f107365=f107_365
-			endif
+                  endif
         if(.not.jf(25)) then
-        		f107d=f107din 		! F10.7D user input
-        		f107y=f107din 		! F10.7PD user input
-				endif
-        if(.not.jf(32)) f10781=f10781in 	! F10.7_81 user input
+                  f107d=f107din           ! F10.7D user input
+                  f107y=f107din           ! F10.7PD user input
+                        endif
+        if(.not.jf(32)) f10781=f10781in   ! F10.7_81 user input
 
-		pf107 = (f107d+f10781)/2.
-        				
+            pf107 = (f107d+f10781)/2.
+                              
 
 C
 C CALCULATION OF SOLAR ZENITH ANGLE (XHI/DEG), SUN DECLINATION ANGLE 
@@ -1079,7 +1079,7 @@ C
                 yfof2 = zfof2 + ttt * (fof2n-zfof2)
                 xm3000= zm3000+ ttt * (xm300n-zm3000)
         endif
-			
+                  
 501     IF(FOF2IN) THEN
           FOF2=AFOF2
           NMF2=ANMF2
@@ -1128,15 +1128,15 @@ c calculation of equatorward auroral boundary
 c
         if(jf(33)) then
             if(indap(1).gt.-1) then
- 	            xkp=ckp(indap(13))
+                  xkp=ckp(indap(13))
             else     
                 xkp=3.0
-	        endif   
+              endif   
 c Corrected magnetic latitude CGM of equatorward boundary, 
 c ab_mlat(48), for MLT=0.0,0.5,1.0 ... 23.5 h and kp=xkp
             call auroral_boundary(xkp,-1.0,cgmlat,ab_mlat)
-	        DAT(1,1)=lati
-	        DAT(2,1)=longi
+              DAT(1,1)=lati
+              DAT(2,1)=longi
             call GEOCGM01(1,IYEAR,height_center,DAT,PLA,PLO)
 c            cgm_lat=DAT(3,1)
 c            cgm_lon=DAT(4,1)
@@ -1148,8 +1148,8 @@ c            cgm_mlt00_ut=DAT(11,1)
             if(cgm_mlt.lt.0.) cgm_mlt=24.+hourut-cgm_mlt00_ut
 c            print*,cgm_mlt
 c            cgm_mlt_ut=DAT(11,1)
-c        	cgm_mlt=cgm_mlt_ut+cgm_lon/15.	 		
-c        	if(cgm_mlt.gt.24.) cgm_mlt=cgm_mlt-24.
+c           cgm_mlt=cgm_mlt_ut+cgm_lon/15.                  
+c           if(cgm_mlt.gt.24.) cgm_mlt=cgm_mlt-24.
 
 c CGM latitude of boundary (cgmlat) for present MLT value
 C 2012.02 12/17/12 Add magnetic declination as oarr(84) output
@@ -1164,11 +1164,11 @@ c computing hmF2. set jf(36)=false to use foF2_storm in hmF2 formula
 c  
         IF(HMF2IN) THEN
           IF(AHMF2.LT.50.0) THEN
-          	XM3000=AHMF2
-          	HMF2=HMF2ED(MAGBR,RSSN,FOF2/FOE,XM3000)
+            XM3000=AHMF2
+            HMF2=HMF2ED(MAGBR,RSSN,FOF2/FOE,XM3000)
           ELSE
-          	HMF2=AHMF2
-c          	XM3000=XM3000HM(MAGBR,RSSN,FOF2/FOE,HMF2)
+            HMF2=AHMF2
+c           XM3000=XM3000HM(MAGBR,RSSN,FOF2/FOE,HMF2)
           ENDIF
         ELSE
           ratf=fof2s/foe
@@ -1233,7 +1233,7 @@ c
           x1 = HPOL(HOUR,x1d,x1n,SAX300,SUX300,1.,1.)
           hcor1 = hmF2 + x1
           x12 = 1500. - x1
-	      tc3 = r2 / x12
+            tc3 = r2 / x12
           endif
 c NEW-GUL--------------------------------
 c
@@ -1257,7 +1257,7 @@ c
          dNdHmx=exp(dNdHmx)*0.01
          B2bot=0.04774*fo2*fo2/dNdHmx
          b2k = 3.22-0.0538*fo2-0.00664*hmF2+0.113*hmF2/B2bot
-     &   	+0.00257*rssn
+     &      +0.00257*rssn
          ee=exp(2.0*(b2k-1.0))
          b2k=(b2k*ee+1.0)/(ee+1.0)
          B2TOP=b2k*B2bot
@@ -1267,7 +1267,7 @@ c Bottomside thickness parameter B0 and shape parameters B1
 c                              
         if(jf(4)) then
           B0=B0_98(HOUR,SAX200,SUX200,NSEASN,RSSN,LONGI,MODIP)
-	      B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
+            B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
         else if (jf(31)) then
           FLON=LONGI+15.*hourut
           if(FLON.gt.360.) FLON=FLON-360.
@@ -1282,12 +1282,12 @@ c
 656     FORMAT(1X,'*NE* ABT-B0 computed with RLAT=LATI=',F6.2)
              endif
           RLAT=XRLAT
- 	      CALL SHAMDB0D (RLAT,FLON,ZMONTH,RSSN,B0)
+            CALL SHAMDB0D (RLAT,FLON,ZMONTH,RSSN,B0)
           CALL SHAB1D (LATI,FLON,ZMONTH,RSSN,B1)
         else
           CALL ROGUL(SEADAY,XHI,SEAX,GRAT)
           IF (FNIGHT) GRAT = 0.91D0 - HMF2/4000.D0
-	      B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
+            B1=HPOL(HOUR,1.9,2.6,SAX200,SUX200,1.,1.)
           BCOEF = B1*(B1*(0.0046D0*B1-0.0548D0)+0.2546D0) + 0.3606D0
           B0CNEW = HMF2*(1.D0-GRAT)
           B0 = B0CNEW/BCOEF
@@ -1312,14 +1312,14 @@ c if jf(19)=f1_ocpro=.true. or .false.
 c If .not.jf(20)=f1_l_cond=.true. then Scotto model with L-condition
 c
         if(f1_ocpro) then
-        	call f1_prob(xhi,mlat,rssn,f1pbw,f1pbl)
+            call f1_prob(xhi,mlat,rssn,f1pbw,f1pbl)
             f1pb = f1pbw
             if(f1_l_cond) f1pb = f1pbl
             f1reg=.false.
             if((fof1in).or.(f1pb.ge.0.5)) f1reg=.true.
-        else			
-        	f1pb = 0.0 
-        	if(fof1in.or.((.not.fnight).and.(fof1.gt.0.0))) f1pb=1. 
+        else                  
+            f1pb = 0.0 
+            if(fof1in.or.((.not.fnight).and.(fof1.gt.0.0))) f1pb=1. 
             f1reg=.false.
             if(f1pb.gt.0.0) f1reg=.true.
         endif
@@ -1799,14 +1799,14 @@ c
       TNH=T_MSIS(2)
       TIH=TNH
       if(HEIGHT.GT.HS) then
-      	TIH=TI(HEIGHT)
-      	if(TIH.lt.TNH) TIH=TNH
-      	endif
+            TIH=TI(HEIGHT)
+            if(TIH.lt.TNH) TIH=TNH
+            endif
       TEH=TNH
       if(HEIGHT.GT.HEQUI) then 
          TEH=ELTE(HEIGHT)
-      	 if(TEH.lt.TIH) TEH=TIH
-      	 endif
+             if(TEH.lt.TIH) TEH=TIH
+             endif
 
         OUTF(2,kk)=TNH
         OUTF(3,kk)=TIH
@@ -1828,39 +1828,39 @@ c
       if(DY) then
         if (height.gt.300.) then
 c Triskova-Truhlik-Smilauer-2003 model
-       		call igrf_sub(lati,longi,ryear,height,
-     &  	    xl,icode,dipl,babs)
-        	if(xl.gt.10.) xl=10.
-        	dimo=0.311653
-			call CALION(1,xinvdip,xl,dimo,babs,dipl,xmlt,
-     &  	   height,daynr,f107d,xic_O,xic_H,xic_He,xic_N)
-       		rox=xic_O*100.
-        	rhx=xic_H*100.
-        	rnx=xic_N*100.
-        	rhex=xic_He*100.
-        	rnox=0.
-        	ro2x=0.
+                  call igrf_sub(lati,longi,ryear,height,
+     &          xl,icode,dipl,babs)
+            if(xl.gt.10.) xl=10.
+            dimo=0.311653
+                  call CALION(1,xinvdip,xl,dimo,babs,dipl,xmlt,
+     &         height,daynr,f107d,xic_O,xic_H,xic_He,xic_N)
+                  rox=xic_O*100.
+            rhx=xic_H*100.
+            rnx=xic_N*100.
+            rhex=xic_He*100.
+            rnox=0.
+            ro2x=0.
         else
 c Richards-Bilitza-Voglozin-2010 IDC model
             CALL GTD7(IYD,SEC,height,lati,longi,HOUR,f10781,f107y,
      &        IAPO,48,D_MSIS,T_MSIS)
-			XN4S = 0.5 * D_MSIS(8)
-			EDENS=ELEDE/1.e6
-			jprint=1
-			if(jf(38)) jprint=0
+                  XN4S = 0.5 * D_MSIS(8)
+                  EDENS=ELEDE/1.e6
+                  jprint=1
+                  if(jf(38)) jprint=0
             CALL CHEMION(jprint,height,F107Y,F10781,TEH,TIH,TNH,
-     &       	D_MSIS(2),D_MSIS(4),D_MSIS(3),D_MSIS(1),-1.0,XN4S,
-     &       	EDENS,-1.0,xhi,ro,ro2,rno,rn2,rn,Den_NO,Den_N2D,INEWT)                              
+     &            D_MSIS(2),D_MSIS(4),D_MSIS(3),D_MSIS(1),-1.0,XN4S,
+     &            EDENS,-1.0,xhi,ro,ro2,rno,rn2,rn,Den_NO,Den_N2D,INEWT)                              
 
-c			if(INEWT.gt.0) then
-				sumion = edens/100.
-        		rox=ro/sumion
-        	    rhx=0.
-        	    rhex=0.
-        		rnx=rn/sumion
-        		rnox=rno/sumion
-        		ro2x=ro2/sumion
-c        		endif
+c                 if(INEWT.gt.0) then
+                        sumion = edens/100.
+                  rox=ro/sumion
+                rhx=0.
+                rhex=0.
+                  rnx=rn/sumion
+                  rnox=rno/sumion
+                  ro2x=ro2/sumion
+c                 endif
         endif
       else
 c Danilov-Smirnova-1995 model and Danilov-Yaichnikov-1985 model (upper)
@@ -1954,16 +1954,16 @@ c
       if(.not.jf(28)) goto 1937
       if(hour.gt.7.25.and.hour.lt.17.75) goto 1937
       if(abs(lati).gt.25.0) goto 1937
-			spfhour=hour
-			daynr1=daynr
-			if(hour.lt.12.0) then
-				spfhour=hour+24.0
-				daynr1=daynr-1
-				if(daynr1.lt.1) daynr1=idayy
-            	endif
+                  spfhour=hour
+                  daynr1=daynr
+                  if(hour.lt.12.0) then
+                        spfhour=hour+24.0
+                        daynr1=daynr-1
+                        if(daynr1.lt.1) daynr1=idayy
+                  endif
             call spreadf_brazil(daynr,idayy,f107d,lati,osfbr)
-			ispf=int((spfhour-17.75)/0.5)+1
- 			if(ispf.gt.0.and.ispf.lt.26) spreadf=osfbr(ispf)
+                  ispf=int((spfhour-17.75)/0.5)+1
+                  if(ispf.gt.0.and.ispf.lt.26) spreadf=osfbr(ispf)
 1937   continue
 C
 C ADDITIONAL PARAMETER FIELD OARR
@@ -1998,11 +1998,11 @@ C
       OARR(25)=DIP
       OARR(26)=MAGBR
       OARR(27)=MODIP
-      OARR(28)=LATI		
+      OARR(28)=LATI           
       OARR(29)=SAX200
       OARR(30)=SUX200
       OARR(31)=SEASON
-      OARR(32)=LONGI		
+      OARR(32)=LONGI          
       OARR(33)=rssn
       OARR(34)=COV
       OARR(35)=B1
@@ -2073,7 +2073,7 @@ c-----------------------------------------------------------------------
         dimension   xvar(8),b(100,1000)
         logical     jf(50)
 
-		nummax=1000
+            nummax=1000
         numstp=int((vend-vbeg)/vstp)+1
         if(numstp.gt.nummax) numstp=nummax
 

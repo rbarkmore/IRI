@@ -29,7 +29,7 @@ C 2012.02 04/16/18 Versioning now based on year of major releases
 c
       INTEGER           pad1(6),jdprof(77),piktab
       DIMENSION         outf(20,1000),oar(100,1000),jfi(6)
-      LOGICAL		    jf(50)
+      LOGICAL               jf(50)
       CHARACTER*2       timev(2)
       CHARACTER*3       uni(58),sopt
       CHARACTER*4       IMZ(8),MAP,xtex,coorv(2)
@@ -59,15 +59,15 @@ c
 
         data jfi/8,9,13,14,15,16/
 
-	  COMMON/const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
+        COMMON/const2/icalls,nmono,iyearo,idaynro,rzino,igino,ut0
 
-		icalls=0
-		nmono=-1
-		iyearo=-1
-		idaynro=-1
-		rzino=-1
-		igino=-1
-		ut0=-1
+            icalls=0
+            nmono=-1
+            iyearo=-1
+            idaynro=-1
+            rzino=-1
+            igino=-1
+            ut0=-1
         
         nummax=1000
         
@@ -120,16 +120,16 @@ c          jf(7)=.false.      ! t=tops f10.7<188 f=unlimited
 c          jf(21)=.false.     ! f=ion drift not computed
           jf(23)=.false.     ! t=AEROS/ISIS f=TTS Te with PF10.7
 c          jf(24)=.false.     ! t=D-reg-IRI-1990 f=FT-2001
-c          jf(26)=.false.	  ! f=STORM model turned off
-c          jf(28)=.false.	  ! f=spread-F not computed
+c          jf(26)=.false.       ! f=STORM model turned off
+c          jf(28)=.false.       ! f=spread-F not computed
           jf(29)=.false.     ! t=old  f=New Topside options
           jf(30)=.false.     ! t=corr f=NeQuick topside
 c          jf(31)=.false.     ! t=B0ABT f=Gulyaeva
-c          jf(33)=.false. 	  ! t=auroral boundary on
-c          jf(35)=.false. 	  ! t=E-storm model on
-c          jf(36)=.false. 	  ! t=hmF2 w/out foF2_storm f=with
-c          jf(37)=.false. 	  ! t=topside w/out foF2_storm f=with
-c          jf(38)=.false. 	  ! t=WRITEs off in IRIFLIP f=on 
+c          jf(33)=.false.       ! t=auroral boundary on
+c          jf(35)=.false.       ! t=E-storm model on
+c          jf(36)=.false.       ! t=hmF2 w/out foF2_storm f=with
+c          jf(37)=.false.       ! t=topside w/out foF2_storm f=with
+c          jf(38)=.false.       ! t=WRITEs off in IRIFLIP f=on 
         else
           print *,'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
           read(5,*) jf(1),jf(2),jf(3)
@@ -240,7 +240,7 @@ c        print *,'      modified dip latitude [27]'
         print *,'      Ap for current UT [51]' 
         read(5,*) (pad1(j),j=1,6)
         if(pad1(1).eq.0) then
-        	pad1(1)=48     ! spread-F probability
+            pad1(1)=48     ! spread-F probability
              jf(28)=.true.
             pad1(2)=44     ! equatorial vertical ion drift
              jf(21)=.true.
@@ -413,17 +413,17 @@ c
         write(7,3991) iy,mmdd,phour,timev(iut+1),coorv(jmag+1),xlat,
      &        xlon,hxx
         if(jf(1)) then
-       		if(jf(29)) then
-        		if(jf(30)) then
-                	write(7,3314)
-        		else 
-                	write(7,3315)
+                  if(jf(29)) then
+                  if(jf(30)) then
+                  write(7,3314)
+                  else 
+                  write(7,3315)
                 endif
             else    
-        		if(jf(30)) then
-                	write(7,3316)
-        		else 
-                	write(7,3317)
+                  if(jf(30)) then
+                  write(7,3316)
+                  else 
+                  write(7,3317)
                 endif
             endif
                 if(jf(8)) write(7,301) map
@@ -551,21 +551,21 @@ c    IRI-07    FIRI  Danilov:SW/WA=0/0  0.5/0   1/0    0/0.5    0/1
 c                    DRS-95: Stratos Warming/Winter Anomaly
 c
 
-		if(piktab.eq.4) then
+            if(piktab.eq.4) then
             do 2591 lix=1,77 
-            	jdprof(lix)=-1
-            	dichte=outf(14,lix)
+                  jdprof(lix)=-1
+                  dichte=outf(14,lix)
 2591            if(dichte.gt.0.) jdprof(lix)=int(dichte/1.e6+0.5)
-			do 2592 lix=1,11
-				ihtemp=55+lix*5
-            	WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
-     &  			jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
-     &  			jdprof(lix+55),jdprof(lix+66)
-2592		    continue			
+                  do 2592 lix=1,11
+                        ihtemp=55+lix*5
+                  WRITE(7,3810) ihtemp,jdprof(lix),jdprof(lix+11),
+     &                  jdprof(lix+22),jdprof(lix+33),jdprof(lix+44),
+     &                  jdprof(lix+55),jdprof(lix+66)
+2592            continue                  
 3810    FORMAT(I3,7I8)
-			goto 2357
-		 	endif
-		
+                  goto 2357
+                  endif
+            
         xcor=vbeg
 
         do 1234 li=1,numstp
@@ -723,6 +723,6 @@ c     &        jih,jihe,jino,jio2,jicl,tec,itopp
 2357    print *,'Enter 0 to exit or 1 to generate another profile?' 
         read(5,*) icontinue
         if (icontinue.gt.0) goto 1
-		    
+                
             stop
             end

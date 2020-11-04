@@ -119,7 +119,7 @@ c-----------------------------------------------------------------------
 
         logical         expo
         dimension       step(5),hr(6)
-        logical     	f1reg
+        logical         f1reg
         common  /block1/hmf2,xnmf2,hmf1,f1reg
      &         /QTOP/Y05,H05TOP,QF,XNETOP,XM3000,HHALF,TAU
 C NEW-GUL------------------------------

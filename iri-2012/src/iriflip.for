@@ -29,7 +29,7 @@ C turn on printout of intermediate quantities with JPRINT=1 also in PARAMS, PROB
 C PROBN2, YLDISS, and PROBO2 with ISW=1.
 C 
 C Richards, P. G., D. Bilitza, and D. Voglozin (2010), Ion density calculator (IDC): 
-C 	A new efficient model of ionospheric ion densities, Radio Sci., 45, RS5007, 
+C     A new efficient model of ionospheric ion densities, Radio Sci., 45, RS5007, 
 C   doi:10.1029/2009RS004332.
 C
 C****************************************************************************************
@@ -309,7 +309,7 @@ c      print*,ALT,OXN,N2N,O2N,HEN,SZAD*0.01745,TN,F107,F107A,N4S
       !.. chemical equilibrium solution instead
       IF(OXPLUS/SUMIONS.LT.0.1) THEN
         ALTCHEM=ALT+1  !.. forces chemical equilibrium densities
-	  GOTO 5         !.. Go back to chemical eqilibrium
+        GOTO 5         !.. Go back to chemical eqilibrium
       ENDIF
       RETURN
       END
@@ -574,7 +574,7 @@ C.......o+(2d)
       PR(2)=OP2P*NE*RTS(13)
       PR(3)=OP2P*0.171
       PR(4)=HEPLUS*O2N*RTS(76)     !..Fox
-	PR(5)=PSEC
+      PR(5)=PSEC
       LR(1)=RTS(19)*N2N
       LR(2)=7.7E-5                 !.. radiation at 3726 and 3729 A
       LR(3)=NE*RTS(12)
@@ -1232,7 +1232,7 @@ C...... how to calculate electron heating rate and 3371 excitation rate.
       REAL SIGOX,SIGN2,SIGEE  !.. Total exciation cross sections for O, N2, O2
       REAL N2APRD             !.. Production of N2A
       REAL DE(IDIM),EV(IDIM)
-	!.. various ionization and excitation rates by EUV and PE
+      !.. various ionization and excitation rates by EUV and PE
       REAL EUVION,PEXCIT,PEPION,OTHPR1,OTHPR2
       COMMON/EUVPRD/EUVION(3,12),PEXCIT(3,12),PEPION(3,12),OTHPR1(6)
      >   ,OTHPR2(6)
@@ -1363,7 +1363,7 @@ c      COMMON/SOL/UVFAC(59),EUV
 
       !-- PE energy steps
       DATA DELTE/30*1.0,14*5.0,40*10/
-	DATA EMAX/286.0/          !..  Maximum PE energy
+      DATA EMAX/286.0/          !..  Maximum PE energy
 
       SZA = SZADEG/57.29578   !.. convert solar zenith angle to radians
 
