@@ -18,7 +18,25 @@ The intention of this repository is:
 
 - Include all four versions of the software
 
-## Compiling
+# UMASS Lowell
+
+UMass Lowell made a Windows version of IRI-2001, which can be downloaded from:
+
+https://ulcar.uml.edu/digisonde.html
+
+Look for the heading of 'Other Software', and click on 'IRI-2001 WINDOWS' to download a zip file with the program and data files.
+
+# CCMC Community Coordinated Modeling Center
+
+https://ccmc.gsfc.nasa.gov/modelweb/
+
+CCMC has an archive of IRI software at:
+
+https://ccmc.gsfc.nasa.gov/pub/modelweb/ionospheric/iri/
+
+Including iri90, iri95, iri2001, iri2007, and iri2016.
+
+## Compiling of software from IRIModel.org
 
 Use CMake to generate project files.
 
