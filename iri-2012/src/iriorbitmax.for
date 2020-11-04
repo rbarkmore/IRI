@@ -29,7 +29,7 @@ c
             rzino=-1
             igino=-1
             ut0=-1
-        
+
         do 6249 i=1,50
 6249    oar(i)=-1.0
 
@@ -77,9 +77,9 @@ c
         dhour=inhh*1.0+(inmm+inss/60.)/60.+25.
         HEIBEG=hxin
         HEIEND=hxin
-        HEISTP=1.      
+        HEISTP=1.
 
-        do i=1,30 
+        do i=1,30
               jf(i)=.true.
               enddo
         jf(2)=.false.                       ! no temperatures
@@ -92,7 +92,7 @@ c        jf(23)=.false.              ! TTS Te model is standard
 c        jf(28)=.true.                    ! spread-F computed
         jf(29)=.false.              ! New Topside options
         jf(30)=.false.              ! NeQuick topside
-       
+
         call IRI_SUB(JF,JMAG,ALATI,ALONG,IYYYY,MMDD,DHOUR,
      &    HEIBEG,HEIEND,HEISTP,OUTF,OAR)
 
@@ -105,7 +105,7 @@ c        jf(28)=.true.                    ! spread-F computed
 4321    type*,'ERROR'
         type*,inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
         goto 9876
-        
+
 4322    type*,'END'
         type*,inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
 
