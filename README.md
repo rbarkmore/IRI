@@ -2,10 +2,6 @@
 
 # International Reference Ionosphere Software
 
-This is a copy of the Fortran source code from:
-
-http://irimodel.org/
-
 The intention of this repository is:
 
 - Create a copy of the software
@@ -16,7 +12,11 @@ The intention of this repository is:
 
 - Compile the software using the Mingw version of gfortran in Windows 10
 
-- Include all four versions of the software
+- Include all versions of the software
+
+This contains a copy of the Fortran source code from:
+
+http://irimodel.org/
 
 # UMASS Lowell
 
@@ -44,7 +44,7 @@ For Windows users, it is recommended to download Code::Blocks 20.03 from:
 
 http://www.codeblocks.org/
 
-In particular, select the installer that includes Mingw:
+In particular, select the installer that includes Mingw.  This mingw-setup installer will install CodeBlocks and GCC, which includes gfortran version 8.1.0:
 
 `codeblocks-20.03mingw-setup.exe`
 
