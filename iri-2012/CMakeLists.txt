@@ -13,3 +13,7 @@ add_subdirectory(src)
 add_executable(test_iri2012 src/iritest.for)
 
 target_link_libraries(test_iri2012 LINK_PUBLIC iri2012_lib)
+
+add_custom_command(TARGET test_iri2012 POST_BUILD
+ COMMAND ${CMAKE_COMMAND} -E copy_directory
+ ${CMAKE_SOURCE_DIR}/data-2012/ $<TARGET_FILE_DIR:test_iri2012>)
