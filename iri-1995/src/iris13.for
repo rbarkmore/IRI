@@ -1,11 +1,11 @@
 C IRIS13.FOR -------------------------------------------- May 1998
-C 
+C
 C includes subroutines IRIS13 to compute IRI parameters for specified
-C location, date, time, and altitude range and subroutine IRI_WEB to 
+C location, date, time, and altitude range and subroutine IRI_WEB to
 c computes IRI parameters for specified location, date, time and
-c variable range; variable can be altitude, latitude, longitude, year, 
+c variable range; variable can be altitude, latitude, longitude, year,
 c month, day of month, day of year, or hour (UT or LT).
-C 
+C
 C*****************************************************************
 C CHANGES FROM  IRIS11.FOR  TO   IRIS12.FOR:
 C    - CIRA-1986 INSTEAD OF CIRA-1972 FOR NEUTRAL TEMPERATURE
@@ -66,7 +66,7 @@ C         JMAG          =0 geographic   = 1 geomagnetic coordinates
 C         ALATI,ALONG   LATITUDE NORTH AND LONGITUDE EAST IN DEGREES
 C         IYYYY         Year as YYYY, e.g. 1985
 C         MMDD (-DDD)   DATE (OR DAY OF YEAR AS A NEGATIVE NUMBER)
-C         DHOUR         LOCAL TIME (OR UNIVERSAL TIME + 25) IN DECIMAL 
+C         DHOUR         LOCAL TIME (OR UNIVERSAL TIME + 25) IN DECIMAL
 C                          HOURS
 C         HEIBEG,       HEIGHT RANGE IN KM; maximal 100 heights, i.e.
 C          HEIEND,HEISTP        int((heiend-heibeg)/heistp)+1.le.100
@@ -106,13 +106,13 @@ C          Setting              INPUT parameter
 C       ------------------------------------------------------
 C       jf(8)=.false.      OARR(1)=user input for foF2/MHz or NmF2/m-3
 C       jf(9)=.false.      OARR(2)=user input for hmF2/km or M(3000)F2
-C       jf(10)=.false.     OARR(15),OARR(16),OARR(17)=user input for 
-C                            Ne(300km),Ne(400km),Ne(600km)/m-3; use 
+C       jf(10)=.false.     OARR(15),OARR(16),OARR(17)=user input for
+C                            Ne(300km),Ne(400km),Ne(600km)/m-3; use
 C                            OARR()=-1 if one of these values is not
 C                            available.
-C       jf(13)=.false.     OARR(3)=user input for foF1/MHz or NmF1/m-3 
+C       jf(13)=.false.     OARR(3)=user input for foF1/MHz or NmF1/m-3
 C       jf(14)=.false.     OARR(4)=user input for hmF1/km
-C       jf(15)=.false.     OARR(5)=user input for foE/MHz or NmE/m-3 
+C       jf(15)=.false.     OARR(5)=user input for foE/MHz or NmE/m-3
 C       jf(16)=.false.     OARR(6)=user input for hmE/km
 C       jf(17)=.flase.     OARR(33)=user input for Rz12
 C
@@ -130,7 +130,7 @@ C                 AND, IF JF(6)=.FALSE.:
 C               OUTF(10,*)  PERCENTAGE OF CLUSTER IONS IN %
 C               OUTF(11,*)  PERCENTAGE OF N+ IONS IN %
 C
-C            OARR(1:35)   ADDITIONAL OUTPUT PARAMETERS         
+C            OARR(1:35)   ADDITIONAL OUTPUT PARAMETERS
 C
 C              #OARR(1) = NMF2/M-3           #OARR(2) = HMF2/KM
 C              #OARR(3) = NMF1/M-3           #OARR(4) = HMF1/KM
@@ -195,7 +195,7 @@ c      CHARACTER FILNAM*12
      &          /BLOCK2/B0,B1,C1      /BLOCK3/HZ,T,HST,STR
      &          /BLOCK4/HME,NME,HEF   /BLOCK5/NIGHT,E
      &          /BLOCK6/HMD,NMD,HDX   /BLOCK7/D1,XKK,FP30,FP3U,FP1,FP2
-     &          /BLOCK8/HS,TNHS,XSM,MM,DTI,MXSM         
+     &          /BLOCK8/HS,TNHS,XSM,MM,DTI,MXSM
      &          /BLOTN/XSM1,TEXOS,TLBDH,SIGMA /BLOTE/AHH,ATE1,STTE,DTE
      &          /BLO10/BETA,ETA,DELTA,ZETA       /ARGEXP/ARGMAX
       EXTERNAL          XE1,XE2,XE3,XE4,XE5,XE6,TEDER
@@ -371,8 +371,8 @@ C
         IF(TENEOP) THEN
            DO 8154 JXNAR=1,3
               XNAR(JXNAR)=OARR(JXNAR+14)
-              TECON(JXNAR)=.FALSE. 
-8154          IF(XNAR(JXNAR).GT.0.) TECON(JXNAR)=.TRUE. 
+              TECON(JXNAR)=.FALSE.
+8154          IF(XNAR(JXNAR).GT.0.) TECON(JXNAR)=.TRUE.
         else
            oarr(3)=-1.
            oarr(4)=-1.
@@ -406,7 +406,7 @@ c
         if(HMF1IN) write(*,*) 'Ne, hmF1: prvided by user.'
         if(foein) write(*,*) 'Ne, foE/NmE: provided by user.'
         if(HMEIN) write(*,*) 'Ne, hmE: prvided by user.'
-        if((.not.NOION).and.(DY)) 
+        if((.not.NOION).and.(DY))
      &    write(*,*) 'Ion Com.: Using Danilov et al. 1985/95.'
         if((.not.NOTEM).and.(TENEOP))
      &    write(*,*) 'Te: Temperature-density correlation is used.'
@@ -586,7 +586,7 @@ C ASCII-related statements.
 c
 7797    URSIFO=URSIF2
         WRITE(FILNAM,104) MONTH+10
-104   	FORMAT('ccir',I2,'.asc')
+104         FORMAT('ccir',I2,'.asc')
 c-binary- if binary files than use:
 c-binary-104   FORMAT('ccir',I2,'.bin')
 c-web- special for web-version:
@@ -609,11 +609,11 @@ C then URSI if chosen ....................................
 C
         if(URSIF2) then
           WRITE(FILNAM,1144) MONTH+10
-1144  	  FORMAT('ursi',I2,'.asc')
+1144          FORMAT('ursi',I2,'.asc')
 c-web- special for web-version:
-c-web-1144  	  FORMAT('/usr/local/etc/httpd/cgi-bin/models/IRI/ursi',I2,'.asc')
+c-web-1144          FORMAT('/usr/local/etc/httpd/cgi-bin/models/IRI/ursi',I2,'.asc')
 c-binary- if binary files than use:
-c-binary-1144  	  FORMAT('ursi',I2,'.bin')
+c-binary-1144       FORMAT('ursi',I2,'.bin')
 
           OPEN(IUCCIR,FILE=FILNAM,STATUS='OLD',ERR=8448,
      &         FORM='FORMATTED')
@@ -628,8 +628,8 @@ c-binary-          READ(IUCCIR) F2
         endif
 
 C
-C READ CCIR AND URSI COEFFICIENT SET FOR NMONTH, i.e. previous 
-c month if day is less than 15 and following month otherwise 
+C READ CCIR AND URSI COEFFICIENT SET FOR NMONTH, i.e. previous
+c month if day is less than 15 and following month otherwise
 C
 
 4293    continue
@@ -672,7 +672,7 @@ c-binary-          READ(IUCCIR) F2N
         iyearo=iyear
         idayno=daynr
         GOTO 4291
-        
+
 8448    WRITE(MONITO,8449) FILNAM
 8449    FORMAT(1X////,
      &    ' The file ',A30,'is not in your directory.')
@@ -779,7 +779,7 @@ C!!!!!!! F1-REGION PARAMETERS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       F1REG=.FALSE.
       HMF1=0.
       PNMF1=0.
-      C1=0.  
+      C1=0.
       IF(NIGHT) GOTO 150
         IF(FOF1IN) THEN
           FOF1=AFOF1
@@ -1065,7 +1065,7 @@ C !!!!!!!!!! TN < TI < TE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         IF(TIN1.LT.TNN1) TIN1=TNN1
 
 C !!!!!!!!!! TI(430KM,LT) FROM STEP FUNCTION !!!!!!!!!!!!!!!!!!
-        TI1=TIN1  
+        TI1=TIN1
         IF(TID1.GT.TIN1) TI1=HPOL(HOUR,TID1,TIN1,SAX,SUX,1.,1.)
 
 C !!!!!!!!!! TANGENT ON TN DETERMINES HS !!!!!!!!!!!!!!!!!!!!!!
@@ -1177,7 +1177,7 @@ c
       ELSE
         YMAXX=Y
       ENDIF
-      GOTO 7102 
+      GOTO 7102
 7104  H0O=X-DELX/2.
 7101    if(y.lt.100.0) goto 7103
           rdomax=rdomax-0.01
@@ -1189,7 +1189,7 @@ c
 c calculate parameters for O2+ profile
 c
         hfixo2  = pf3o(1)
-        rdo2mx = pf3o(2) 
+        rdo2mx = pf3o(2)
       DO 7105 L=1,2
                 I = L * 2
                 HO2(L)=PF3O(1+I)+PF3O(2+I)*ZZZ1
@@ -1361,15 +1361,15 @@ c----------------------------------------------------------------
         if(numstp.gt.100) numstp=100
 
             do 6249 i=1,38
-6249            oar(i)=b(i,1) 
+6249            oar(i)=b(i,1)
 
         if(ivar.eq.1) then
             do 1249 i=1,38
-1249            oarr(i)=oar(i) 
+1249            oarr(i)=oar(i)
             xhour=dhour+iut*25.
             call IRIS13(JF,JMAG,ALATI,ALONG,IYYYY,MMDD,XHOUR,
      &                  VBEG,VEND,VSTP,a,OARR)
-            if(h_tec_max.gt.50.) then 
+            if(h_tec_max.gt.50.) then
                 call iri_tec (50.,h_tec_max,2,tec,tect,tecb)
                 oarr(37)=tec
                 oarr(38)=tect
@@ -1402,7 +1402,7 @@ c----------------------------------------------------------------
 
         do 1 i=1,numstp
                 do 1349 iii=1,38
-1349                    oarr(iii)=oar(iii) 
+1349                    oarr(iii)=oar(iii)
                 call IRIS13(JF,JMAG,ALATI,ALONG,IYYYY,MMDD,DHOUR,
      &                  height,height,1.,OUTF,OARR)
                 if(h_tec_max.gt.50.) then
