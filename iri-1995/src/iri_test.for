@@ -14,27 +14,27 @@
 
 c user input of IRI input parameters
 c
-1     type *,'jmag(=0/1,geog/geom),lati/deg,long/deg'
+1     write(*,*)'jmag(=0/1,geog/geom),lati/deg,long/deg'
       read(5,*) jm,xlat,xlon
-      type *,'year(yyyy),mmdd(or -ddd),iut(=0/1,LT/UT),hour'
+      write(*,*)'year(yyyy),mmdd(or -ddd),iut(=0/1,LT/UT),hour'
       read(5,*) iy,imd,iut,hour
-      type *,'height/km'
-      type *,'(enter 0 for list of peak heights and densities)'
-        type *,'(enter -1 for plasma frequencies and profile',
+      write(*,*)'height/km'
+      write(*,*)'(enter 0 for list of peak heights and densities)'
+        write(*,*)'(enter -1 for plasma frequencies and profile',
      &            ' parameters)'
       read(5,*) hx
-      type *,'upper height [km] for TEC integration (0 for no TEC)'
+      write(*,*)'upper height [km] for TEC integration (0 for no TEC)'
       read(5,*) htec_max
 
-      type *,'variable? (1/2/../8 for height/lat/long/year/month/',
+      write(*,*)'variable? (1/2/../8 for height/lat/long/year/month/',
      &            'day/day of year/hour)'
       read(5,*) ivar
-      type *,'begin, end, and stepsize for the selected variable'
+      write(*,*)'begin, end, and stepsize for the selected variable'
       read(5,*) vbeg,vend,vstp
 
-      type *,'Options: t(rue) or f(alse)'
-      type *,'Standard: t,t,t,t,f,f,t,t,t,t,t,t,t,t,t,t,t'
-      type *,'Enter 0 to use standard or 1 to enter your own'
+      write(*,*)'Options: t(rue) or f(alse)'
+      write(*,*)'Standard: t,t,t,t,f,f,t,t,t,t,t,t,t,t,t,t,t'
+      write(*,*)'Enter 0 to use standard or 1 to enter your own'
       read(5,*) jchoice
       if(jchoice.eq.0) then
       do i=1,20
@@ -43,37 +43,37 @@ c
       jf(5)=.false.
       jf(6)=.false.
       else
-      type *,'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
+      write(*,*)'Compute Ne, T, Ni? (enter: t,t,t  if you want all)'
       read(5,*) jf(1),jf(2),jf(3)
-      type *,'Bottomside thickness B0: t=Table-option, f=Gulyaeva {t}.'
+      write(*,*)'Bottomside thickness B0: t=Table-option,f=Gulyaeva{t}.'
       read(5,*) jf(4)
-      type *,'foF2 model: t=CCIR, f=URSI-88 {standard:f}'
+      write(*,*)'foF2 model: t=CCIR, f=URSI-88 {standard:f}'
       read(5,*) jf(5)
-      type *,'Ion comp. model: t=standard, f=Danilov-95 {f}'
+      write(*,*)'Ion comp. model: t=standard, f=Danilov-95 {f}'
       read(5,*) jf(6)
-      type *,'Ne Topside mod.: t=standard, f=IRI-79 topside {t}'
+      write(*,*)'Ne Topside mod.: t=standard, f=IRI-79 topside {t}'
       read(5,*) jf(7)
-      type *,'F2 peak density or foF2: t=model, f=user input.'
+      write(*,*)'F2 peak density or foF2: t=model, f=user input.'
       read(5,*) jf(8)
-      type *,'F2 peak height or M3000F2: t=model, f=user input.'
+      write(*,*)'F2 peak height or M3000F2: t=model, f=user input.'
       read(5,*) jf(9)
-      type *,'Te(Ne) model: t=not used, f=correlation is used. {t}'
+      write(*,*)'Te(Ne) model: t=not used, f=correlation is used. {t}'
       read(5,*) jf(10)
-      type *,'LAY version: t=standard ver., f=LAY version. {t}'
+      write(*,*)'LAY version: t=standard ver., f=LAY version. {t}'
       read(5,*) jf(11)
-      type *,'Message output unit: t=(UNIT=6), f=(UNIT=12).'
+      write(*,*)'Message output unit: t=(UNIT=6), f=(UNIT=12).'
       read(5,*) jf(12)
-      type *,'F1 peak density or foF1: t=model, f=user input.'
+      write(*,*)'F1 peak density or foF1: t=model, f=user input.'
       read(5,*) jf(13)
-      type *,'F1 peak height: t=model, f=user input.'
+      write(*,*)'F1 peak height: t=model, f=user input.'
       read(5,*) jf(14)
-      type *,'E peak density or foE: t=model, f=user input.'
+      write(*,*)'E peak density or foE: t=model, f=user input.'
       read(5,*) jf(15)
-      type *,'E peak height: t=model, f=user input.'
+      write(*,*)'E peak height: t=model, f=user input.'
       read(5,*) jf(16)
-      type *,'Sunspot index: t=from file, f=user input.'
+      write(*,*)'Sunspot index: t=from file, f=user input.'
       read(5,*) jf(17)
-      type *,'UT/LT computation: t=no date change, f=ut_lt subroutine.'
+      write(*,*)'UT/LT computation:t=no date change,f=ut_lt subroutine.'
       read(5,*) jf(18)
       endif
 
@@ -82,37 +82,37 @@ c N(300), N(400), N(600) if available; only for altitude profiles (ivar=1)
 c
       if(ivar.eq.1) then
             if(.not.jf(8)) then
-                  type*,'foF2/Mhz or NmF2/m-3'
+                  write(*,*)'foF2/Mhz or NmF2/m-3'
                   read(5,*) oar(1,1)
                       pname='plasma frequency  (foF2/MHz'
                   if(oar(1,1).gt.30.)
      &                        pname='electron density (NmF2/cm-3'
                   endif
             if(.not.jf(9)) then
-                  type*,'hmF2/km or M3000F2'
+                  write(*,*)'hmF2/km or M3000F2'
                   read(5,*) oar(2,1)
                       hname='Propag. factor (M(3000)F2'
                     if(oar(2,1).gt.50.)
      &                        hname='F2 peak height   (hmF2/km'
                   endif
             if(.not.jf(13)) then
-                  type*,'foF1/MHz or NmF1/m-3'
+                  write(*,*)'foF1/MHz or NmF1/m-3'
                   read(5,*) oar(3,1)
                   endif
             if(.not.jf(14)) then
-                  type*,'hmF1/km'
+                  write(*,*)'hmF1/km'
                   read(5,*) oar(4,1)
                   endif
             if(.not.jf(15)) then
-                  type*,'foE/MHz or NmE/m-3'
+                  write(*,*)'foE/MHz or NmE/m-3'
                   read(5,*) oar(5,1)
                   endif
             if(.not.jf(16)) then
-                  type*,'hmE/km'
+                  write(*,*)'hmE/km'
                   read(5,*) oar(6,1)
                   endif
             if(.not.jf(10)) then
-                  type*,'Ne(300km),Ne(400km),Ne(600km)/m-3',
+                  write(*,*)'Ne(300km),Ne(400km),Ne(600km)/m-3',
      &                        ' [-1 if not]'
                   read(5,*) oar(15,1),oar(16,1),oar(17,1)
                   endif
@@ -121,7 +121,7 @@ c
 c input of user-specified Rz12 if so desired
 c
       if(.not.jf(17)) then
-            type*,'Rz12'
+            write(*,*)'Rz12'
             read(5,*) oar(33,1)
             do i=2,100
                   oar(33,i)=oar(33,1)
@@ -302,7 +302,7 @@ c
 
 1234    xcor=xcor+vstp
 
-      type *,'Enter 0 to exit or 1 to generate another profile?'
+      write(*,*)'Enter 0 to exit or 1 to generate another profile?'
       read(5,*) icontinue
       if (icontinue.gt.0) goto 1
 
