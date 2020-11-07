@@ -26,7 +26,7 @@ The space-physics repository has the IRI-2016 Fortran software and includes supp
 
 # Looking for IRI-2012, IRI-2007, IRI-2001, IRI-95, or IRI-90?
 
-This is one source for the legacy versions of IRI Fortran software.
+This repository is one source for the legacy versions of IRI Fortran software.
 
 # IRI-Model
 
@@ -70,6 +70,6 @@ Then the CodeBlocks project should be in the 'build' folder, open the project an
 
 The iri test executable file will be placed in the 'build/bin' subfolder.
 
-One will need to copy data files needed by iri test into the 'build/bin' subfolder.
+As part of a successful build, the data files needed by iri test will be copied by Cmake into the 'build/bin' subfolder.
 
 
