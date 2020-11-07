@@ -463,7 +463,7 @@ C-----------------------------------------------------------------------
       DIMENSION         V(3),B(3)
       CHARACTER*13      NAME
       COMMON/IGRF2/         XI(3),H(196)
-      COMMON/MODEL/     NAME,NMAX,TIME,G(196)
+      COMMON/MODEL/     NMAX,TIME,G(196),NAME
       COMMON/IGRF1/     UMR,ERA,AQUAD,BQUAD
 
 C
@@ -569,7 +569,7 @@ C ### FILMOD, DTEMOD array-size is number of IGRF maps
         DIMENSION       GH1(196),GH2(196),GHA(196),FILMOD(15)
         DIMENSION       DTEMOD(15)
         DOUBLE PRECISION X,F0,F
-        COMMON/MODEL/   FIL1,NMAX,TIME,GH1
+        COMMON/MODEL/   NMAX,TIME,GH1,FIL1
         COMMON/IGRF1/   UMR,ERAD,AQUAD,BQUAD
 C ### updated coefficient file names and corresponding years
         DATA  FILMOD   / 'dgrf1945.dat','dgrf1950.dat','dgrf1955.dat',
