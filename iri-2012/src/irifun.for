@@ -7435,6 +7435,8 @@ c----------------------------------------------------------------
            common       /iounit/konsol,mess
            common /igrz/ionoindx,indrz,iymst,iymend
 
+           call read_ig_rz
+
         iytmp=yr*100+mm
         if (iytmp.lt.iymst.or.iytmp.gt.iymend) then
                if(mess) write(konsol,8000) iytmp,iymst,iymend

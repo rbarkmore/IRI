@@ -877,6 +877,7 @@ c        COVSAT=63.75+rlimit*(0.728+rlimit*0.00089)
         f107pd=cov
         f10781=cov
         f107365=cov
+        call readapf107
         call APF_ONLY(iyear,month,iday,F107_daily,F107PD,F107_81,
      &        F107_365,IAP_daily,isdate)
         if(F107_daily.gt.-11.1) then
