@@ -37,13 +37,13 @@ c open input and output files
 c
 
           IORB=15
-          type *,'name of file with orbit information'
+          write(*,*)'name of file with orbit information'
           read(5,*) orbit_input
         OPEN(IORB,FILE=orbit_input,STATUS='OLD',ERR=4321,
      &          FORM='FORMATTED')
 
           IORB1=16
-        type *,'name of output file'
+        write(*,*)'name of output file'
           read(5,*) orbit_output
         OPEN(IORB1,FILE=orbit_output,STATUS='NEW',ERR=4321,
      &          FORM='FORMATTED')
@@ -67,7 +67,7 @@ c read input file until EOF
 c
 1       READ(IORB,1087,ERR=4321,END=4322) inyy,indoy,inhh,inmm,inss,
      &         xlatin,xlonin
-        type*, inyy,indoy,inhh,inmm,inss,xlatin,xlonin
+        write(*,*) inyy,indoy,inhh,inmm,inss,xlatin,xlonin
 1087    Format(I5,I6,I5,I6,I6,2F11.3)
         jmag=jm
         alati=xlatin
@@ -102,12 +102,12 @@ c        jf(28)=.true.                    ! spread-F computed
 
         goto 1
 
-4321    type*,'ERROR'
-        type*,inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
+4321    write(*,*)'ERROR'
+        write(*,*)inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
         goto 9876
 
-4322    type*,'END'
-        type*,inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
+4322    write(*,*)'END'
+        write(*,*)inyy,indoy,inhh,inmm,inss,xlatin,xlonin,hxin
 
 9876  stop
           end
