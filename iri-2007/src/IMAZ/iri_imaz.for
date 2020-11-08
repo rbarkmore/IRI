@@ -3,7 +3,7 @@
 c
 c imaz, Ionospheric Model for the Auroral Zone, version 2.0, May 2006
 c
-c this model was developed using a combination of ionospheric data 
+c this model was developed using a combination of ionospheric data
 c from the European Incoherent Scatter Radar (EISCAT) in Tromso.
 c measurements obtained from Rocket Bourne Experiments
 c the technique of neural networks was employed in the development
@@ -11,7 +11,7 @@ c of this empirical model
 c the model is designed to predict electron densities in the auroral
 c zone between the altitudes of about 50 and 150 km.
 c
-c developed by L.A.McKinnell and M.Friedrich, 
+c developed by L.A.McKinnell and M.Friedrich,
 c 1st version in 2003/2004
 c 2nd version in 2005/2006
 c released for IRI, version 2, 2006
@@ -54,11 +54,11 @@ c      REAL altitude, newpres, ne(2), kt
 c      INTEGER i, j, nolv
       INTEGER i, nolv
       DATA pressure/
-     & 8.20E-04, 1.00E-03, 1.20E-03, 1.50E-03, 1.80E-03, 2.20E-03, 
+     & 8.20E-04, 1.00E-03, 1.20E-03, 1.50E-03, 1.80E-03, 2.20E-03,
      & 2.70E-03, 3.30E-03, 3.90E-03, 4.70E-03, 5.60E-03, 6.80E-03,
-     & 8.20E-03, 1.00E-02, 1.20E-02, 1.50E-02, 1.80E-02, 2.20E-02, 
+     & 8.20E-03, 1.00E-02, 1.20E-02, 1.50E-02, 1.80E-02, 2.20E-02,
      & 2.70E-02, 3.30E-02, 3.90E-02, 4.70E-02, 5.60E-02, 6.80E-02,
-     & 8.20E-02, 1.00E-01, 1.20E-01, 1.50E-01, 1.80E-01, 2.20E-01, 
+     & 8.20E-02, 1.00E-01, 1.20E-01, 1.50E-01, 1.80E-01, 2.20E-01,
      & 2.70E-01, 3.30E-01, 3.90E-01, 4.70E-01, 5.60E-01, 6.80E-01,
      & 8.20E-01, 1.00E+00, 1.20E+00, 1.50E+00, 1.80E+00, 2.20E+00,
      & 2.70E+00, 3.30E+00, 3.90E+00, 4.70E+00, 5.60E+00, 6.80E+00,
@@ -111,7 +111,7 @@ cc model inputs are read into the inf array
         ninf(2)=iriinput(7)
         ninf(3)=za
         ninf(4)=iriinput(8)
-      else 
+      else
         inf(2)=Li
         inf(3)=iriinput(7)
         inf(4)=za
@@ -126,13 +126,13 @@ c for that altitude
         if(nolv.gt.0) then
           ninf(5)=log10(newpres)
           call nolvcase(ninf,of)
-        else  
+        else
           inf(6)=log10(newpres)
           call iri_imaz(inf,of)
           imazoutput(4,2)=sqrt(abs(of(1)))
         endif
 c this is the predicted electron density
-c        ne(1)=10**of(0) 
+c        ne(1)=10**of(0)
         ne(1)=of(0)
         imazoutput(1,1)=1.0
         imazoutput(2,2)=altitude
@@ -144,7 +144,7 @@ c level from approx. 50 km to 150 km.
           if(nolv.gt.0) then
             ninf(5)=log10(pressure(i))
             call nolvcase(ninf,of)
-          else  
+          else
             inf(6)=log10(pressure(i))
             call iri_imaz(inf,of)
             imazoutput(4,i+1)=sqrt(abs(of(1)))
@@ -165,12 +165,12 @@ c end of imaz subroutine
 
       subroutine iri_imaz(inputs, output)
 c
-c this subroutine normalises the given inputs and presents them to the 
+c this subroutine normalises the given inputs and presents them to the
 c network file. The output from the network is then converted back to the
 c range of the given target values.
 c The min and max data structures provide the parameters between which the
 c given input space falls
-c these data structures need to be changed if the database that the 
+c these data structures need to be changed if the database that the
 c neural network was trained with changes.
 c
 c Last modified on 22 May 2006, by LAM
@@ -193,12 +193,12 @@ c
 
 c make the prediction
       call imaz_network(innet,outnet)
-      outnet(0) = ((outnet(0) - .005)*(MAX(7) - MIN(7))/.99) + MIN(7)  
+      outnet(0) = ((outnet(0) - .005)*(MAX(7) - MIN(7))/.99) + MIN(7)
       output(0)=outnet(0)
 
 c predict the error on the prediction
       call imaz_errnetwork(innet,outnet)
-      outnet(0) = ((outnet(0) - .005)*(MAX(8) - MIN(8))/.99) + MIN(8)  
+      outnet(0) = ((outnet(0) - .005)*(MAX(8) - MIN(8))/.99) + MIN(8)
       output(1)=outnet(0)
 
       RETURN
@@ -207,12 +207,12 @@ c end of imaz_main
 
       subroutine nolvcase(nolinps, nolout)
 c
-c this subroutine normalises the given inputs and presents them to the 
+c this subroutine normalises the given inputs and presents them to the
 c network file. The output from the network is then converted back to the
 c range of the given target values.
 c The min and max data structures provide the parameters between which the
 c given input space falls
-c these data structures need to be changed if the database that the 
+c these data structures need to be changed if the database that the
 c neural network was trained with changes.
 c this is the subroutine that deals with the case where no Lv parameter
 c was available
@@ -237,7 +237,7 @@ c
 
 c make the prediction
       call imaz_nolv_network(innet,outnet)
-      outnet(0) = ((outnet(0) - .005)*(MAX(6) - MIN(6))/.99) + MIN(6)  
+      outnet(0) = ((outnet(0) - .005)*(MAX(6) - MIN(6))/.99) + MIN(6)
       nolout(0)=outnet(0)
 
       RETURN
@@ -257,11 +257,11 @@ c Lee-Anne McKinnell, Hermanus Magnetic Observatory, South Africa May 2006
 c
       integer N, M, inpnodes, hidnodes, outnodes
       integer member, source, unit
-      PARAMETER ( 
-     &  inpnodes = 7, 
-     &  hidnodes = 40, 
+      PARAMETER (
+     &  inpnodes = 7,
+     &  hidnodes = 40,
      &  outnodes = 1 )
-      
+
       PARAMETER (
      &  N = (inpnodes*hidnodes+(outnodes*hidnodes)),
      &  M = (inpnodes+hidnodes+outnodes) )
@@ -329,13 +329,13 @@ c
       data biases/
      & 1.000000, 0.998030, 0.916740, 0.646710, 0.270800, 0.817340,
      & 0.815400, 1.316990, -8.335410, -0.424360, -5.549710, -5.571970,
-     & 3.087960, -0.183890, -10.389000, -1.371900, -2.343540, 
+     & 3.087960, -0.183890, -10.389000, -1.371900, -2.343540,
      & -38.701450,
      & -4.895420, -11.445310, -8.381840, 2.087660, 0.075450, 0.368070,
      & 1.336170, 17.137079, -1.737150, 58.512260, 0.874180, 3.531080,
      & 3.491330, -1.300910, 0.320340, -15.543630, 8.062280, -1.904190,
      & 3.360630, -4.841030, -8.483840, -2.210050, 42.191399, 4.970690,
-     & -3.511160, -6.771350, -11.545940, 3.613440, -0.731090, 
+     & -3.511160, -6.771350, -11.545940, 3.613440, -0.731090,
      & -12.939760/
 
       do member=0,(M-1)
@@ -376,7 +376,7 @@ C output layer
          endif
       enddo
 
-C the result       
+C the result
       do member=0,(outnodes-1)
          unit=member+inpnodes+hidnodes
          out(member)=act(unit)
@@ -400,11 +400,11 @@ c Lee-Anne McKinnell, Hermanus Magnetic Observatory, South Africa May 2006
 c
       integer N, M, inpnodes, hidnodes, outnodes
       integer member, source, unit
-      PARAMETER ( 
-     &  inpnodes = 7, 
-     &  hidnodes = 40, 
+      PARAMETER (
+     &  inpnodes = 7,
+     &  hidnodes = 40,
      &  outnodes = 1 )
-      
+
       PARAMETER (
      &  N = (inpnodes*hidnodes+(outnodes*hidnodes)),
      &  M = (inpnodes+hidnodes+outnodes) )
@@ -473,12 +473,12 @@ c
      & 1.000000, 0.998030, 0.916740, 0.646710, 0.270800, 0.817340,
      & 0.815400, -1.612240, -1.289640, 0.392060, 1.705290, 0.369720,
      & -0.561920, -4.445460, -6.266580, 0.655770, -0.339970, -0.923520,
-     & -0.235640, -1.877280, -1.708540, -13.760660, -0.568650, 
+     & -0.235640, -1.877280, -1.708540, -13.760660, -0.568650,
      & 1.575980,
      & -1.143810, 2.232160, 1.077230, 0.157130, -2.537520, -0.022530,
      & 0.459510, -2.074870, -0.851790, -1.600360, 0.527730, 0.066810,
      & -3.757770, 1.011850, -0.042270, -1.960260, 2.299020, 7.068130,
-     & -1.950690, -3.009230, -9.800740, -3.752540, -0.901030, 
+     & -1.950690, -3.009230, -9.800740, -3.752540, -0.901030,
      & -1.425210/
 
       do member=0,(M-1)
@@ -519,7 +519,7 @@ C output layer
          endif
       enddo
 
-C the result       
+C the result
       do member=0,(outnodes-1)
          unit=member+inpnodes+hidnodes
          out(member)=act(unit)
@@ -544,12 +544,12 @@ c Lee-Anne McKinnell, Hermanus Magnetic Observatory, South Africa May 2006
 c
       integer N, M, inpnodes, hidnodes1, hidnodes2, outnodes
       integer member, source, unit
-      PARAMETER ( 
-     &  inpnodes = 6, 
-     &  hidnodes1 = 70, 
-     &  hidnodes2 = 70, 
+      PARAMETER (
+     &  inpnodes = 6,
+     &  hidnodes1 = 70,
+     &  hidnodes2 = 70,
      &  outnodes = 1 )
-      
+
       PARAMETER (
      &  N = (inpnodes*hidnodes1)+(hidnodes1*hidnodes2)+
      &        (outnodes*hidnodes2),
@@ -596,7 +596,7 @@ c
      & 5.293450, -3.983170, 3.949120, -3.209960, -11.408340, 1.156280,
      & -3.740700, 3.759920, 6.791800, 9.255950, -1.351520, 0.302070,
      & 3.381510, 3.304340, 1.757090, -3.659250, -4.553250, -4.739890,
-     & -11.201900, -2.752550, -3.743120, -8.669670, -1.472410, 
+     & -11.201900, -2.752550, -3.743120, -8.669670, -1.472410,
      & -0.323220,
      & -0.093270, 0.650630, -1.156040, -0.205310, 11.719210, 1.760150,
      & 5.153510, 0.419730, 9.423800, -1.932790, -3.834230, 1.624340,
@@ -1544,7 +1544,7 @@ C output layer
          endif
       enddo
 
-C the result       
+C the result
       do member=0,(outnodes-1)
          unit=member+inpnodes+hidnodes1+hidnodes2
          out(member)=act(unit)
@@ -1574,14 +1574,14 @@ c
          Y=6.717
       endif
       almt=Y+(ah-24.0)
-      if(almt.lt.0.0) THEN 
+      if(almt.lt.0.0) THEN
          almt=almt+24.0
       endif
 
       return
       end
 c end of detlmt
- 
+
       subroutine csza(ld, t, flat, flon, z)
 c
 c this subroutine is designed to determine the solar zenith angle
@@ -1609,7 +1609,7 @@ c
       UMR=pi/180.0
       humr=pi/12.0
       dumr = pi / 182.5
-	
+
 c s/r is formulated in terms of WEST longitude.......................
       wlon = 360.0 - Elon
 
@@ -1632,7 +1632,7 @@ c the equation of time................................................
       eqt = -7.38*sin(p(1)*(tf-4.0)) - 9.87*sin(p(2)*(tf+9.0)) +
      & 0.27*sin(p(3)*(tf-53.0)) - 0.2*cos(p(4)*(tf-17.0))
       et = eqt * UMR / 4.0
-	
+
       fa = flat * UMR
       phi = humr * ( t - 12.0) + et
 
@@ -1640,11 +1640,11 @@ c the equation of time................................................
       b = cos(fa) * cos(dc)
       cosx = a + b * cos(phi)
       if(abs(cosx).GT.1.0) THEN
- 	if(cosx.GE.0.0) THEN cosx=1.0
-	if(cosx.LT.0.0) cosx=-1.0
+      if(cosx.GE.0.0) THEN cosx=1.0
+      if(cosx.LT.0.0) cosx=-1.0
       endif
       z = acos(cosx) / UMR
-      
+
       return
       end
 c end of csza
@@ -1682,12 +1682,12 @@ c// getting chapman values
 
 c using chi calculate chapman function
       do j=2,361
-	if((z.gt.values(2,j-1)).AND.(z.lt.values(2,j))) then
+      if((z.gt.values(2,j-1)).AND.(z.lt.values(2,j))) then
            m=(values(3,j)-values(3,j-1))/(values(2,j)-values(2,j-1))
-	   c=values(3,j)-(m*values(2,j))
-	   ch = (m*z)+c
+         c=values(3,j)-(m*values(2,j))
+         ch = (m*z)+c
            goto 50
-	endif
+      endif
       enddo
 
 20    print *,'cannot open chapman.prn file'
@@ -1720,11 +1720,11 @@ c
 
 
 c getting nighttime true quiet values
-	do j=1,365
-	  nttqvalues(1,j)=0.0
+      do j=1,365
+        nttqvalues(1,j)=0.0
           nttqvalues(2,j)=0.0
-	enddo
-	blra=0.0
+      enddo
+      blra=0.0
 
       open(12,file='nighttruequiet.txt',status='old',err=20)
 
@@ -1736,31 +1736,31 @@ c getting nighttime true quiet values
 
 c calculating rest absorption
       do j=1,365
-	if(int(bd).eq.j) then
-	  Ln=nttqvalues(2,j)
-	  goto 50
+      if(int(bd).eq.j) then
+        Ln=nttqvalues(2,j)
+        goto 50
         endif
       enddo
 
 20    print *,'cannot open nighttruequiet,txt file'
 
-50	Lo1=0.1395
-	Lo2=0.1909
-	n1=0.5708
-	n2=0.546
-	F1=67.0
-	F2=200.0
-	
-	m=(Lo2-Lo1)/(F2-F1)
+50    Lo1=0.1395
+      Lo2=0.1909
+      n1=0.5708
+      n2=0.546
+      F1=67.0
+      F2=200.0
+
+      m=(Lo2-Lo1)/(F2-F1)
         c=Lo2-(m*F2)
-	Lo=(m*bSF)+c
+      Lo=(m*bSF)+c
 
-	m=(n2-n1)/(F2-F1)
+      m=(n2-n1)/(F2-F1)
         c=n2-(m*F2)
-	n=(m*bsf)+c
+      n=(m*bsf)+c
 
-	blra=Ln+(Lo*(bch**-n))
-             
+      blra=Ln+(Lo*(bch**-n))
+
       return
       end
 c end of calcresab
@@ -1779,7 +1779,9 @@ c Lee-Anne McKinnell, Hermanus Magnetic Observatory, South Africa, May 2006
 c
       real dyr, dd, md(2)
 
-      if(mod(dyr,4).ne.0) then
+      idyr = dyr
+
+      if(mod(idyr,4).ne.0) then
         if(dd.le.31.0) then
           md(1)=1.0
           md(2)=dd
@@ -1819,7 +1821,7 @@ c
         else
           goto 100
         endif
-      else 
+      else
         if(dd.le.31.0) then
           md(1)=1.0
           md(2)=dd
@@ -1860,7 +1862,7 @@ c
           goto 100
         endif
       endif
-    
+
 100   return
       end
 c end of dntodm
@@ -1887,7 +1889,7 @@ c
         integer mm, i, W
         mndd(1)=0.0
         mndd(2)=0.0
-	    call dntodm(cyr, cd, mndd)
+          call dntodm(cyr, cd, mndd)
 
         if(cgl.lt.67.0) then
           open(12,file='press_60deg.txt',status='old',err=20)
@@ -1903,16 +1905,16 @@ c
               goto 100
            endif
 
-	   do i=2,111
+         do i=2,111
              if((cpr.le.pres60(i-1,mm)).AND.(cpr.gt.pres60(i,mm))) then
-	       goto 50
+             goto 50
              endif
-	   enddo
+         enddo
 50         m=(pres60(i,1)-pres60(i-1,1))/(log10(pres60(i,mm))-
      &       log10(pres60(i-1,mm)))
-	   c=pres60(i-1,1)-(m*log10(pres60(i-1,mm)))
-	   calt=(m*log10(cpr))+c
-	else 
+         c=pres60(i-1,1)-(m*log10(pres60(i-1,mm)))
+         calt=(m*log10(cpr))+c
+      else
           open(12,file='press_70deg.txt',status='old',err=20)
           do 10 N=1,111
              read(12,*) (pres70(N,M),M=1,49)
@@ -1924,7 +1926,7 @@ c
 
 70         d=7.75
            if(mndd(1).eq.2.0) then d=7.0
-	   if((mndd(1).eq.4.0).or.(mndd(1).eq.6.0).or.(mndd(1).eq.9.0)
+         if((mndd(1).eq.4.0).or.(mndd(1).eq.6.0).or.(mndd(1).eq.9.0)
      &        .or.(mndd(1).eq.11)) then d=7.5
            t=mndd(2)/d
            WN = ((mndd(1)-1.0)*4.0)+(int(t)+1)
@@ -1934,18 +1936,18 @@ c
            if((cpr.gt.pres70(1,W)).or.(cpr.lt.pres70(111,W))) then
               calt=160.0
               goto 100
-	   endif
+         endif
 
-	   do i=2,111 
+         do i=2,111
              if((cpr.le.pres70(i-1,W)).and.(cpr.gt.pres70(i,W))) then
-	       goto 60
+             goto 60
              endif
-	   enddo
-60	   m=(pres70(i,1)-pres70(i-1,1))/(log10(pres70(i,W))-
+         enddo
+60       m=(pres70(i,1)-pres70(i-1,1))/(log10(pres70(i,W))-
      &        log10(pres70(i-1,W)))
-	   c=pres70(i-1,1)-(m*log10(pres70(i-1,W)))
-	   calt=(m*log10(cpr))+c
-       endif	
+         c=pres70(i-1,1)-(m*log10(pres70(i-1,W)))
+         calt=(m*log10(cpr))+c
+       endif
 
 100     return
         end
@@ -1975,9 +1977,9 @@ c
 
         mndd(1)=0.0
         mndd(2)=0.0
-	    call dntodm(eyr, ed, mndd)
+          call dntodm(eyr, ed, mndd)
 
-        a=int(ealt)-50        
+        a=int(ealt)-50
         if(egl.lt.67.0) then
           open(12,file='press_60deg.txt',status='old',err=20)
           do 15 N=1,111
@@ -1989,7 +1991,7 @@ c
 75         mm=int(mndd(1))+1
            epr=pres60(a,mm)
 
-	else 
+      else
           open(12,file='press_70deg.txt',status='old',err=20)
           do 10 N=1,111
              read(12,*) (pres70(N,M),M=1,49)
@@ -2001,7 +2003,7 @@ c
 
 70         d=7.75
            if(mndd(1).eq.2.0) then d=7.0
-	   if((mndd(1).eq.4.0).or.(mndd(1).eq.6.0).or.(mndd(1).eq.9.0)
+         if((mndd(1).eq.4.0).or.(mndd(1).eq.6.0).or.(mndd(1).eq.9.0)
      &        .or.(mndd(1).eq.11)) then d=7.5
            t=mndd(2)/d
            WN = ((mndd(1)-1.0)*4.0)+(int(t)+1)

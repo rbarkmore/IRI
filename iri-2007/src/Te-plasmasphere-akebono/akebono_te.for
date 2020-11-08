@@ -3,18 +3,18 @@ C-----------------------------------------------------------------------
 C
 C   Model for the plasmaspheric electron temperature based on Akebono
 C   TED data:
-C     I. Kutiev, K. Oyama, T. Abe, and P. Marinov, Plasamsphere 
-C         electron temperature model based on Akebono data, Advances in 
+C     I. Kutiev, K. Oyama, T. Abe, and P. Marinov, Plasamsphere
+C         electron temperature model based on Akebono data, Advances in
 C         Space Research 33, 975-979, 2004
 C
 C   This file includes the model subroutine TE3ARG and a short driver
-C   program 
+C   program
 C
 C-----------------------------------------------------------------------
 C   Subroutine TE3ARG and main program
-C    
+C
 C   Examples:
-C      IN: TLOC, GMLAT, HEIGHT     OUT: TLOC, GMLAT, Height, Te 
+C      IN: TLOC, GMLAT, HEIGHT     OUT: TLOC, GMLAT, Height, Te
 C               14,-50,1000        14.00   -50.00  1000.00   5283.16
 C               14,-70,5000        14.00   -70.00  5000.00   3935.66
 C               14,-71,5000        14.00   -71.00  5000.00    3935.7 warning 1
@@ -27,10 +27,10 @@ C
 C     2007/01/10
 C     2005/07/17
 C     2002/04/28
-C   		Pencho G. Marinov                                                    
-C   		Institute for Parallel Processing                           
-C   		Bulgarian Academy of Science                                         
-C   		E-mail: pencho@bas.bg                                           
+C           Pencho G. Marinov
+C           Institute for Parallel Processing
+C           Bulgarian Academy of Science
+C           E-mail: pencho@bas.bg
 C
 C     1) The Polynomial Approximation
 C
@@ -95,13 +95,13 @@ C
 C
        SUBROUTINE TE3ARG(TLOC,GMLAT,HEIGHT,TE,ierr)
 C--------------------------------------------------------------------------
-C      Input parameters are: 
-C          TLOC solar local time in hours (0-24) 
-C          GMLAT magnetic latitude in degrees (-70 - +70) 
+C      Input parameters are:
+C          TLOC solar local time in hours (0-24)
+C          GMLAT magnetic latitude in degrees (-70 - +70)
 C          HEIGHT altitude in km (1000 - 10,000)
 C          If input parameters is outside valid range it will be set to the
 C          nearest range boundary, e.g., +80 to +70
-C      Output parameters are: 
+C      Output parameters are:
 C          TE  electron temperature in K
 C          ierr  # of cases of input parameter ouside valid range
 C--------------------------------------------------------------------------
@@ -182,7 +182,7 @@ C
   202 CONTINUE
          A   (4)=BUFF(4)
          A  (14)=   A(4)*FLOAT(MBAS(1))
-         TE = A(14) 
+         TE = A(14)
 C
 C
       RETURN
@@ -354,10 +354,10 @@ C
      *         -0.719833E+00,-0.372147E+00,22*0.0,
      *          0.323231E+00, 0.683911E+00, 4*0.0,
      *         -0.797365E+00,-0.605986E+00, 4*0.0,
-     *         -0.100220E+00, 0.527238E+00,22*0.0, 
+     *         -0.100220E+00, 0.527238E+00,22*0.0,
      *         -0.127842E+00,-0.321196E+00, 4*0.0,
      *         -0.676206E-01, 0.212179E+00, 4*0.0,
-     *          0.136602E+00, 0.126485E+00,22*0.0, 
+     *          0.136602E+00, 0.126485E+00,22*0.0,
      *          0.149113E+00, 0.217611E+00, 4*0.0,
      *          0.166502E+00, 0.223654E+00, 4*0.0,
      *          0.834719E-01,-0.402023E-01,22*0.0,72*0.0/
