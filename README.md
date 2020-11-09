@@ -68,8 +68,8 @@ When generating project files with CMake, select 'CodeBlocks - MinGW Makefiles',
 
 Then the CodeBlocks project should be in the 'build' folder, open the project and rebuild.
 
-The iri test executable file will be placed in the 'build/bin' subfolder.
+The executable file will be placed in the 'build/bin' subfolder.
 
-As part of a successful build, the data files needed by iri test will be copied by Cmake into the 'build/bin' subfolder.
+As part of a successful build, the input data files needed by the executable file will be copied by Cmake into the 'build/bin' subfolder.
 
 
